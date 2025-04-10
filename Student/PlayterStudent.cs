@@ -86,7 +86,11 @@ public partial class PlayterSim : Simulator
         yG      = xx[15];
         zG      = xx[16];
 
-
+        ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
+        ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
+        ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
+        ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
+        
 
         // COMMENT THESE OUT OR REMOVE WHEN READY
         ff[0] = ff[1] = ff[2] = 0.0;   // derivs of body angular velocities set to zero
