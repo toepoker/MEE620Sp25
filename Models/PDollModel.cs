@@ -17,6 +17,10 @@ public partial class PDollModel : Node3D
 	Node3D afL;            // left arm frame
 	Node3D afR;            // right arm frame
 
+	Vector3 armRotL;
+	Vector3 armRotR;
+	Vector3 rG;
+
 	Vector3 eulerAngles;
 
 	//------------------------------------------------------------------------
@@ -36,6 +40,9 @@ public partial class PDollModel : Node3D
 		afR = shoulderFrame.GetNode<Node3D>("ArmFrameR");
 
 		eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+		rG = new Vector3();
+		armRotL = new Vector3();
+		armRotR = new Vector3();
 	}
 
 	//------------------------------------------------------------------------
@@ -46,6 +53,15 @@ public partial class PDollModel : Node3D
 		float thetaL, float thetaR, float xG, float yG, float zG)
 	{
 		this.Quaternion = new Quaternion(q1, q2, q3, q0);
+
+		rG.X = xG;   rG.Y = yG;  rG.Z = zG;
+		rootNode.Position = rG;
+
+		armRotL.Z = thetaL;
+		afL.Rotation = armRotL;
+
+		armRotR.Z = thetaR;
+		afR.Rotation = armRotR;
 	}
 
 	//------------------------------------------------------------------------

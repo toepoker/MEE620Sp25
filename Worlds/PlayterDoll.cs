@@ -300,7 +300,7 @@ public partial class PlayterDoll : Node3D
 		mcTR.AddChild(vboxTest);
 		
 		testButton = new CheckButton();
-		testButton.Text = "Not Testing";
+		testButton.Text = "Test Data";
 		testButton.Toggled += OnTestingToggle;
 		vboxTest.AddChild(testButton);
 		vboxTest.AddChild(new HSeparator());
@@ -345,10 +345,12 @@ public partial class PlayterDoll : Node3D
 		if(freeSelected){
 			//GD.Print("Free");
 			cButtonArmMode.Text = "Arm Free";
+			sim.SetArmFree();
 		}
 		else{
 			//GD.Print("Prescribed");
 			cButtonArmMode.Text = "Arm Prescribed";
+			sim.SetArmPrescribed();
 		}
 	}
 
@@ -359,12 +361,12 @@ public partial class PlayterDoll : Node3D
 	{
 		if(testingSelected){
 			//GD.Print("Testing");
-			testButton.Text = "Testing";
+			//testButton.Text = "Testing";
 			testGrid.Show();
 		}
 		else{
 			//GD.Print("Not Testing");
-			testButton.Text = "Not Testing";
+			//testButton.Text = "Not Testing";
 			testGrid.Hide();
 		}
 	}

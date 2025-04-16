@@ -25,8 +25,8 @@ public partial class PlayterSim : Simulator
     // double omegaX;
     // double omegaY;
     // double omegaZ;
-    // double omegaFL;
-    // double omegaFR;
+    // double omegaFL;  // time derivative of thetaL
+    // double omegaFR;  // time derivative of thetaR
     // double vx;
     // double vy;
     // double vz;
@@ -50,8 +50,8 @@ public partial class PlayterSim : Simulator
 
 
     //------------------------------------------------------------------------
-    // StudentInit: Student might want to initialize things before simulation
-    //              begins
+    // StudentInit: Student might want to allocate arrays and the like 
+    //              before simulation begins
     //------------------------------------------------------------------------
     private void StudentInit()
     {
