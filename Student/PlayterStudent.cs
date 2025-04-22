@@ -90,7 +90,7 @@ public partial class PlayterSim : Simulator
 
         Vex AngVel = new Vex(omegaX, omegaY,omegaZ);
         Vex AngMo = new Vex(rho2*omegaX, rho2*gammaY*omegaY, rho2*gammaZ*omegaZ);
-        Vex AngVelCrossAngMo = Vex.cross(angVel, AngMo);
+        Vex AngVelCrossAngMo = Vex.cross(AngVel, AngMo);
         ff[0] = -AngVelCrossAngMo.x/rho2;
         ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
         ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
