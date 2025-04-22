@@ -63,6 +63,10 @@ public partial class PlayterSim : Simulator
         ff[10] = 0.5 * ( q3 * omegaX + q0 * omegaY - q1 * omegaZ);
         ff[11] = 0.5 * (-q2 * omegaX + q1 * omegaY + q0 * omegaZ);
 
+        // ---- Quaternion‑norm check (debug) ---------------------------
+        double qNorm = Math.Sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+        SetDebugVal(3, qNorm);        // qNorm should stay ≈ 1.00000
+
         /* =================== 4. SHOULDER TORQUES (eq. 39) ===================*/
         double TL   = -mA * L * L * (k * thetaL + c * omegaFL);
         double TR   = -mA * L * L * (k * thetaR + c * omegaFR);
