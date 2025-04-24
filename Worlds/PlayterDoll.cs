@@ -29,6 +29,7 @@ public partial class PlayterDoll : Node3D
 	// simulation
 	PlayterSim sim;
 	double time;
+	int nSimSubsteps;
 
 	// model
 	PDollModel model;
@@ -47,6 +48,10 @@ public partial class PlayterDoll : Node3D
 	CheckButton cButtonArmMode;
 	LineEdit[] icOmega;
 	SpinBox[] sbIcOmega;
+	SpinBox spinBoxK;
+	SpinBox spinBoxC;
+	SpinBox spinBoxTheta;
+
 	Button simButton;
 	Button resetButton;
 
@@ -72,6 +77,7 @@ public partial class PlayterDoll : Node3D
 		cgHeight = 6.0f;
 		sim = new PlayterSim();
 		time = 0.0;
+		nSimSubsteps = 8;
 		SetParamsDoll();
 
 		// set up doll model
@@ -136,6 +142,13 @@ public partial class PlayterDoll : Node3D
 		float yG = (float)sim.YG;
 		float zG = (float)sim.ZG;
 
+		float sig1 = Input.GetAxis("ui_down1", "ui_up1");
+		float sig2 = Input.GetAxis("ui_down2", "ui_up2");
+		sim.ISig1 = (double)sig1;
+		sim.ISig2 = (double)sig2;
+		//sim.SetDebugVal(14, sig1);
+		//sim.SetDebugVal(15, sig2);
+
 		model.Update(q0, q1, q2, q3, thL, thR, xG, yG, zG);
 
 		timeLabel.Text = time.ToString("0.0");
@@ -148,6 +161,16 @@ public partial class PlayterDoll : Node3D
 		}
 		else{
 			++dispCtr;
+		}
+
+		// switch mode
+		if(Input.IsActionJustPressed("ui_Dup")){
+			//GD.Print("Dup");
+			cButtonArmMode.ButtonPressed = true;
+		}
+		if(Input.IsActionJustPressed("ui_Ddown")){
+			//GD.Print("Ddown");
+			cButtonArmMode.ButtonPressed = false;
 		}
 	}
 
@@ -205,7 +228,11 @@ public partial class PlayterDoll : Node3D
         base._PhysicsProcess(delta);
 
 		if(runMode == RunMode.Sim){
-			sim.Step(time, delta);
+			double subDt = delta/nSimSubsteps;
+			for (int i=0;i<nSimSubsteps;++i){
+				sim.Step(time + i*subDt, subDt);
+			}
+			
 			time += delta;
 		}
     }
@@ -223,7 +250,7 @@ public partial class PlayterDoll : Node3D
 		mcTL.AddChild(vbox);
 
 		Label titleLabel = new Label();
-		titleLabel.Text = "Playter Doll Simulator";
+		titleLabel.Text = "Playter Doll Simulator v1.2";
 		vbox.AddChild(titleLabel);
 		vbox.AddChild(new HSeparator());
 
@@ -269,6 +296,38 @@ public partial class PlayterDoll : Node3D
 		// icOmega[0].Text = "1.0";
 		// icOmega[1].Text = "0.0";
 		// icOmega[2].Text = "0.0";
+
+		grid.AddChild(new HSeparator());
+		grid.AddChild(new HSeparator());
+
+		Label labelK = new Label();
+		labelK.Text = "Spring K:";
+		spinBoxK = new SpinBox();
+		spinBoxK.Value = 6.0f;
+		spinBoxK.Step = 0.01f;
+		spinBoxK.ValueChanged += OnSpringKValueChanged;
+		grid.AddChild(labelK);
+		grid.AddChild(spinBoxK);
+
+		Label labelC = new Label();
+		labelC.Text = "Damper c:";
+		spinBoxC = new SpinBox();
+		spinBoxC.Step = 0.01f;
+		spinBoxC.Value = 0.25f;
+		spinBoxC.ValueChanged += OnDamperCValueChanged;
+		grid.AddChild(labelC);
+		grid.AddChild(spinBoxC);
+
+		Label labelNat = new Label();
+		labelNat.Text = "Arm Angl deg:";
+		spinBoxTheta = new SpinBox();
+		spinBoxTheta.Step = 2.0f;
+		spinBoxTheta.Value = 0.0f;
+		spinBoxTheta.MinValue = -80.0f;
+		spinBoxTheta.MaxValue = 80.0f;
+		spinBoxTheta.ValueChanged += OnArmAngleNatValueChanged;
+		grid.AddChild(labelNat);
+		grid.AddChild(spinBoxTheta);
 
 		grid.AddChild(new HSeparator());
 		grid.AddChild(new HSeparator());
@@ -321,6 +380,12 @@ public partial class PlayterDoll : Node3D
 		} 
 		
 		testGrid.Hide();
+
+		// Joystick dead zones
+		InputMap.ActionSetDeadzone("ui_up1", 0.1f);
+		InputMap.ActionSetDeadzone("ui_down1", 0.1f);
+		InputMap.ActionSetDeadzone("ui_up2", 0.1f);
+		InputMap.ActionSetDeadzone("ui_down2", 0.1f);
 	}
 
 	//------------------------------------------------------------------------
@@ -332,9 +397,36 @@ public partial class PlayterDoll : Node3D
 		double omY = sbIcOmega[1].Value;
 		double omZ = sbIcOmega[2].Value;
 		
-		//######### Hmmmmm. Do I need to do anything here???
+	}
 
-		//GD.Print("Omega = " + omX + ", " + omY + ", " + omZ);
+	//------------------------------------------------------------------------
+	// OnSpringKValueChanged:
+	//------------------------------------------------------------------------
+	private void OnSpringKValueChanged(double val)
+	{
+		//GD.Print("Spring K: " + val);
+		sim.ShoulderStiffness = val;
+	}
+
+	//------------------------------------------------------------------------
+	// OnDamperCValueChanged:
+	//------------------------------------------------------------------------
+	private void OnDamperCValueChanged(double val)
+	{
+		//GD.Print("DamperC: " + val);
+		sim.ShoulderDamping = val;
+	}
+
+	//------------------------------------------------------------------------
+	// OnArmAngleNatValueChanged
+	//------------------------------------------------------------------------
+	private void OnArmAngleNatValueChanged(double val)
+	{
+		//  GD.Print("ThetaNat: " + val);
+		double vv = val*Math.PI/180.0;
+		sim.ThetaNatural = vv;
+		sim.ThetaL = vv;
+		sim.ThetaR = -vv;
 	}
 
 	//------------------------------------------------------------------------
@@ -383,11 +475,18 @@ public partial class PlayterDoll : Node3D
 			sbIcOmega[1].Editable = false;
 			sbIcOmega[2].Editable = false;
 
+			spinBoxK.Editable = false;
+			spinBoxC.Editable = false;
+			spinBoxTheta.Editable = false;
+
 			// send IC to sim
 			double omX = sbIcOmega[0].Value;
 			double omY = sbIcOmega[1].Value;
 			double omZ = sbIcOmega[2].Value;
 			sim.SetSpinIC(omX, omY, omZ);
+
+			sim.ShoulderStiffness = spinBoxK.Value;
+			sim.ShoulderDamping = spinBoxC.Value;
 
 			runMode = RunMode.Sim;
 		}
@@ -413,6 +512,10 @@ public partial class PlayterDoll : Node3D
 		sbIcOmega[0].Editable = true;
 		sbIcOmega[1].Editable = true;
 		sbIcOmega[2].Editable = true;
+
+		spinBoxK.Editable = true;
+		spinBoxC.Editable = true;
+		spinBoxTheta.Editable = true;
 
 		timeLabel.Text = "0.0";
 		time = 0.0;

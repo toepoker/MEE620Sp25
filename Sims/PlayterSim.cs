@@ -38,6 +38,7 @@ public partial class PlayterSim : Simulator
     double q3;
     double thetaL;  // left arm angle
     double thetaR;  // right arm angle
+    double theta0;  // natural angle of left arm... semetric for right
     double xG;      // coordinates of body's center of mass
     double yG;
     double zG;
@@ -51,6 +52,10 @@ public partial class PlayterSim : Simulator
     double shKp = 100.0;   // proportional gain for shoulder PD controller
     double shKd = 20.0;    // derivative gain for shoulder PD controller
 
+    double iSig1;     // input signal 1
+    double iSig2;     // input signal 2
+
+    bool toRunGenTest;  // general test if true, other wise test with spec IC
     int ndbg;
     double[] dbgVal;
 
@@ -66,6 +71,10 @@ public partial class PlayterSim : Simulator
         gammaZ = 1.05;
         h = 1.56;
         L = 1.65;
+        theta0 = 0.0;
+
+        iSig1 = 0.0;   // default zero input signal
+        iSig2 = 0.0;
 
         phi = 0.0;
         cosPhi = Math.Cos(phi);
@@ -78,9 +87,13 @@ public partial class PlayterSim : Simulator
 
         SetRHSFunc(RHSFuncPlayter);
 
+        toRunGenTest = true;
         StudentInit();
-        RunTest();
+        if(toRunGenTest)
+            RunTest();
         Reinitialize();
+        if(!toRunGenTest)
+            RunTestIC();
         //StudentInit();
     }
 
@@ -134,13 +147,50 @@ public partial class PlayterSim : Simulator
         x[13] = thR;
         x[14] = x[15] = x[16] = 0.0;
 
+        // work on finding velocity of the body center of mass
+        // start with arm positions
+        Vex rSLG = new Vex( 1.0, h, 0.0);   // position of left shoulder rel G
+        Vex rSRG = new Vex(-1.0, h, 0.0);   // pos of right shoulder rel G
+        Vex rFLS = new Vex( L*Math.Cos(thL),  L*Math.Sin(thL)*cosPhi, 
+            L*Math.Sin(thL)*sinPhi);     // pos of left arm rel to shoulder
+        Vex rFRS = new Vex(-L*Math.Cos(thL), -L*Math.Sin(thL)*cosPhi, 
+            -L*Math.Sin(thL)*sinPhi);    // pos of right arm rel to shoulder
+        Vex rFLG = rFLS + rSLG;   // pos left arm rel to body center of mass
+        Vex rFRG = rFRS + rSRG;   // pos right arm rel to body center of mass
+
+        // angular velocities
+        Vex omegaNB = new Vex(omX, omY, omZ);  // angular vel body frame rel N
+        Vex basisSz = new Vex(0.0, -sinPhi, cosPhi);   // basis vector S.z
+        Vex omegaFLB = omFL*basisSz;
+        Vex omegaFRB = omFR*basisSz;
+
+        // arm velocities relative to G
+        Vex vArmLrG = Vex.Cross(omegaNB, rFLG) + Vex.Cross(omegaFLB, rFLS);
+        Vex vArmRrG = Vex.Cross(omegaNB, rFRG) + Vex.Cross(omegaFRB, rFRS);
+
+        // compensatory vG
+        Vex vGComp = (-mA/(1.0 + 2*mA))*(vArmLrG + vArmRrG);
+        x[5] = vGComp.x;
+        x[6] = vGComp.y;
+        x[7] = vGComp.z;
+
         // need to fix these ####################
-        x[5] = x[6] = x[7] = 0.0;
+        //x[5] = x[6] = x[7] = 0.0;
 
         // reset the debug data
         // for(int i=0; i<ndbg; ++i){
         //     dbgVal[i] = 0.0;
         // }
+    }
+
+    //------------------------------------------------------------------------
+    // RunTestIC: Run test with actual initial conditions
+    //------------------------------------------------------------------------
+    private void RunTestIC()
+    {
+        double[] dumf = new double[17];
+
+        RHSFuncPlayter(x, 0.0, dumf);
     }
 
     //------------------------------------------------------------------------
@@ -180,7 +230,7 @@ public partial class PlayterSim : Simulator
 
         RHSFuncPlayter(xt, 2.6, dumf);
 
-        phi=1.0;
+        phi=0.0;
         cosPhi = Math.Cos(phi);
         sinPhi = Math.Sin(phi);
     }
@@ -288,6 +338,14 @@ public partial class PlayterSim : Simulator
         set{ x[13] = value; }
     }
 
+    // ThetaNatural -----------------------------
+    public double ThetaNatural
+    {
+        get{ return theta0; }
+
+        set{ theta0 = value; }
+    }
+
     // XG -----------------------------------
     public double XG
     {
@@ -351,6 +409,18 @@ public partial class PlayterSim : Simulator
         }
     }
 
+    // ShoulderStiffness ----------------
+    public double ShoulderStiffness
+    {
+        set{k = value;}
+    }
+
+    // ShoulderDamping ------------------
+    public double ShoulderDamping
+    {
+        set{c = value;}
+    }
+
     // ShoulderHeight -------------------
     public double ShoulderHeight
     {
@@ -379,6 +449,22 @@ public partial class PlayterSim : Simulator
             phi = value;
             cosPhi = Math.Cos(phi);
             sinPhi = Math.Sin(phi);
+        }
+    }
+
+    // ISig1 -----------------------
+    public double ISig1
+    {
+        set{
+            iSig1 = value;
+        }
+    }
+
+    // ISig2 -----------------------
+    public double ISig2
+    {
+        set{
+            iSig2 = value;
         }
     }
 
