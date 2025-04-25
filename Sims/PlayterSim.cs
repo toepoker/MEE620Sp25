@@ -1,85 +1,108 @@
 //============================================================================
-// PlayterSim.cs  –  full file with selectable startup test modes
-//-----------------------------------------------------------------------------
+// PlayterSim.cs
+// Simulation of a Playter Doll.
+//
+// STUDENTS SHOULD NOT CHANGE ANYTHING IN THIS FILE
+//============================================================================
 using System;
 
 public partial class PlayterSim : Simulator
 {
-    /* ────────────────────────────────────────────────────────────────────────
-       Fields (unchanged from professor’s template)                          */
-    double mA;  double rho; double gammaY; double gammaZ; double h; double L;
-    double k;   double c;   double phi;    double cosPhi;  double sinPhi;
+    // Parameters
+    double mA;     // dimensionless arm mass
+    double rho;    // dimless radius if gyration for moment of inertia, I_Gx
+    double gammaY; // ratio I_Gy/I_Gx
+    double gammaZ; // ratio I_Gz/I_Gx
+    double h;      // dimless vertical (b_y) distance of shoulder from body CG
+    double L;      // dimless distance of arm mass from shoulder
+    double k;      // dimless torsional stiffness of shoulder spring
+    double c;      // dimless torsional damping coeff in shoulder damper
+    double phi;    // angle of arm swing plane relative to vertical
+    double cosPhi;
+    double sinPhi;
 
     // generalized speeds
-    double omegaX, omegaY, omegaZ, omegaFL, omegaFR, vx, vy, vz;
+    double omegaX;
+    double omegaY;
+    double omegaZ;
+    double omegaFL;
+    double omegaFR;
+    double vx;
+    double vy;
+    double vz;
 
     // generalized coordinates
-    double q0, q1, q2, q3, thetaL, thetaR, theta0;
-    double xG, yG, zG;
+    double q0;      // quaternion coords
+    double q1;
+    double q2;
+    double q3;
+    double thetaL;  // left arm angle
+    double thetaR;  // right arm angle
+    double theta0;  // natural angle of left arm... semetric for right
+    double xG;      // coordinates of body's center of mass
+    double yG;
+    double zG;
 
-    enum ShoulderDynamics { Free, Prescribed }
+    enum ShoulderDynamics{
+        Free,        // Free to respond to the dynamics of the doll
+        Prescribed,  // Prescribed by user input
+    }
     ShoulderDynamics shoulderDyn;
 
-    double shKp = 100.0, shKd = 20.0;
-    double iSig1, iSig2;
+    double shKp = 100.0;   // proportional gain for shoulder PD controller
+    double shKd = 20.0;    // derivative gain for shoulder PD controller
 
-    /* dbgVal array feeds on‑screen HUD */
-    int ndbg;          // = 16
+    double iSig1;     // input signal 1
+    double iSig2;     // input signal 2
+
+    bool toRunGenTest;  // general test if true, other wise test with spec IC
+    int ndbg;
     double[] dbgVal;
 
-    /* ────────────────────────────────────────────────────────────────────────
-       Constructor                                                           */
+    //------------------------------------------------------------------------
+    // Constructor 
+    //------------------------------------------------------------------------
     public PlayterSim() : base(17)
     {
-        //--------------------------------------------------------------
-        //  Flip this flag to choose the startup scenario
-        //--------------------------------------------------------------
-        bool runGenTest = false;   // true ⇒ RunTest(); false ⇒ spin‑only IC
-        //--------------------------------------------------------------
+        // parameter values for doll in Playter's thesis
+        mA = 0.107;
+        rho = 2.21;
+        gammaY = 0.091;
+        gammaZ = 1.05;
+        h = 1.56;
+        L = 1.65;
+        theta0 = 0.0;
 
-        // parameter values for Playter’s doll
-        mA = 0.107;   rho = 2.21;   gammaY = 0.091;   gammaZ = 1.05;
-        h = 1.56;     L   = 1.65;   theta0  = 0.0;
+        iSig1 = 0.0;   // default zero input signal
+        iSig2 = 0.0;
 
-        iSig1 = iSig2 = 0.0;
-        phi = 0.0;    cosPhi = Math.Cos(phi);  sinPhi = Math.Sin(phi);
+        phi = 0.0;
+        cosPhi = Math.Cos(phi);
+        sinPhi = Math.Sin(phi);
+
         shoulderDyn = ShoulderDynamics.Free;
 
-        ndbg = 16;    dbgVal = new double[ndbg];
+        ndbg = 16;
+        dbgVal = new double[ndbg];
 
-        /* hook the RHS written in PlayterStudent.cs */
         SetRHSFunc(RHSFuncPlayter);
 
-        /* one‑time allocation in student file */
-        StudentInit();
+     StudentInit();
 
-        if (runGenTest)
-        {
-            // Arbitrary stress‑test pose (good for math debugging)
-            RunTest();
-        }
-        else
-        {
-            // Clean spin‑only initial condition (zero net linear momentum)
-            Reinitialize();
-            // optional: evaluate RHS once so dbgVal shows the IC values
-            RunTestIC();
-        }
-    }
+/* Flip this flag to choose the startup scenario */
+bool runGenTest = false;     // true ⇒ RunTest();   false ⇒ spin-only IC
 
-    /* ────────────────────────────────────────────────────────────────────────
-       Rest of the file is **unchanged** – Reinitialize, SetSpinIC, RunTest,  
-       getters/setters, etc.                                                 */
-
-    // (Insert the entire original body of PlayterSim.cs from your template
-    //  here, starting with the Reinitialize() method and ending with the
-    //  final closing brace of the class.)
-
-    // For brevity in this snippet we assume all those methods remain exactly
-    // as supplied in your 400‑line original file – only the constructor above
-    // has been modified.
+if (runGenTest)
+{
+    RunTest();            // one-off stress-test pose
 }
-
+else
+{
+    Reinitialize();       // pure spin initial condition
+    RunTestIC();          // optional: RHS once on spin IC
+}
+        //StudentInit();
+    }
 
     //------------------------------------------------------------------------
     // Reinitialize: reset initial condition when simulation get restarted.
