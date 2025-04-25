@@ -80,10 +80,26 @@ public partial class PlayterSim : Simulator
         Array.Clear(A,0,A.Length);
         Array.Clear(B,0,B.Length);
 
-        /* 7. rotational rows 0‑2 */
-        A[0,0]=rho2;           B[0]=-wCrossH.x;
-        A[1,1]=rho2*gammaY;    B[1]=-wCrossH.y;
-        A[2,2]=rho2*gammaZ;    B[2]=-wCrossH.z;
+        /* 7. ---------- rotational rows 0-2 (include arm inertia) ---------- */
+double cosT = Math.Cos(thetaL);          // θL = θR when arms symmetric
+double sinT = Math.Sin(thetaL);
+double Ix   = rho2      + 2.0 * mA * L*L * cosT * cosT;
+double Iy   = rho2*gammaY + 2.0 * mA * L*L * sinT * sinT;
+double Ixy  =             2.0 * mA * L*L * cosT * sinT;   // product
+
+// Row for ω̇x
+A[0,0] = Ix;
+A[0,1] = -Ixy;           // minus sign from body-fixed basis
+B[0]   = -wCrossH.x;
+
+// Row for ω̇y
+A[1,0] = -Ixy;
+A[1,1] = Iy;
+B[1]   = -wCrossH.y;
+
+// Row for ω̇z (unchanged: z-axis arms add nothing)
+A[2,2] = rho2 * gammaZ;
+B[2]   = -wCrossH.z;
 
         /* 8. hinge rows 3‑4 */
         A[3,3]=Iarm;  B[3]=TL;
