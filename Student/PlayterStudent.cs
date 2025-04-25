@@ -47,8 +47,11 @@ public partial class PlayterSim : Simulator
         f[1]+=-(TL+TR)*sinPhi/(rho2*gammaY);
 
         /* 5. kinematic derivs */
-        f[12]=omegaFL; f[13]=omegaFR;
-        f[14]=vx; f[15]=vy; f[16]=vz;
+        f[12]=omegaFL;
+        f[13]=omegaFR;
+        f[14]=vx; 
+        f[15]=vy; 
+        f[16]=vz;
 
         /* 6. COM translational dynamics (analytic) */
         // geometry
