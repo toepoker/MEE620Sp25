@@ -110,7 +110,7 @@ else
     //------------------------------------------------------------------------
     private void Reinitialize()
     {
-        SetSpinIC(1.0);
+        SetSpinIC(0);
         // // Generalized Speeds
         // x[0] = 0.0;      // omegaX
         // x[1] = 0.0;      // omegaY
