@@ -143,5 +143,8 @@ public partial class PlayterSim : Simulator
         SetDebugVal(3,Math.Sqrt(q0*q0+q1*q1+q2*q2+q3*q3)-1.0);
         SetDebugVal(4,f[5]); SetDebugVal(5,f[6]); SetDebugVal(6,f[7]);
         SetDebugVal(7,Math.Sqrt(vx*vx+vy*vy+vz*vz));
+        SetDebugVal(8, omegaFL);   // TestVal_9 in UI (indices start at 0)
+        SetDebugVal(9, omegaFR);   // TestVal_10
+
     }
 }
