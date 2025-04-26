@@ -43,6 +43,12 @@ public partial class PlayterSim : Simulator
     double yG;
     double zG;
 
+        /* ─── new: visual-model hookup ──────────────────────────────── */
+    [Export] private NodePath PDollModelPath;   // drag PDollModel in Inspector
+    private PDollModel model;                   // cached pointer
+    /* ───────────────────────────────────────────────────────────── */
+
+
     enum ShoulderDynamics{
         Free,        // Free to respond to the dynamics of the doll
         Prescribed,  // Prescribed by user input
@@ -103,6 +109,16 @@ else
 }
         //StudentInit();
     }
+
+
+        /* ─── new: grab the PDollModel node once ────────────────────── */
+    public override void _Ready()
+    {
+        base._Ready();                               // keep Simulator init
+        model = GetNode<PDollModel>(PDollModelPath); // may be null if path not set
+    }
+    /* ───────────────────────────────────────────────────────────── */
+
 
     //------------------------------------------------------------------------
     // Reinitialize: reset initial condition when simulation get restarted.
@@ -241,6 +257,21 @@ else
         cosPhi = Math.Cos(phi);
         sinPhi = Math.Sin(phi);
     }
+
+        /* ─── new: forward state to visual model every tick ─────────── */
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);   // let Simulator integrate one step
+
+        if (model != null)             // only if path wired in Inspector
+        {
+            model.Update( (float)Q0, (float)Q1, (float)Q2, (float)Q3,
+                          (float)ThetaL, (float)ThetaR,
+                          (float)XG,     (float)YG,     (float)ZG );
+        }
+    }
+    /* ───────────────────────────────────────────────────────────── */
+
 
 
     //------------------------------------------------------------------------
