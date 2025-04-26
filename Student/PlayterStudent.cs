@@ -93,10 +93,25 @@ Vex rFL  = rSL + rFLS;
 Vex rFR  = rSR + rFRS;
 
 // point‑mass inertia tensors:  I_pt = m (r·r I − r rᵀ)  – we only need xx,yy,xy, yz,xz
-// Helper inline function
-Func<Vex, (double xx,double yy,double zz,double xy,double xz,double yz)> Ipt = (r) =>
+// ----- Arm point-mass inertia components (in B) --------------------
+Func<Vex, (double Ixx,double Iyy,double Izz,double Ixy)> Ipt = (r) =>
 {
     double rsq = Vex.Dot(r,r);
+    double Ixx = mA*(rsq - r.x*r.x);
+    double Iyy = mA*(rsq - r.y*r.y);
+    double Izz = mA*(rsq - r.z*r.z);
+    double Ixy = -mA*r.x*r.y;      // only product needed for symmetric doll
+    return (Ixx,Iyy,Izz,Ixy);
+};
+var IL = Ipt(rFL);
+var IR = Ipt(rFR);
+
+// Diagonals and product
+double Ix  = rho2         + IL.Ixx + IR.Ixx;
+double Iy  = rho2*gammaY  + IL.Iyy + IR.Iyy;
+double Iz  = rho2*gammaZ  + IL.Izz + IR.Izz;
+double Ixy = IL.Ixy + IR.Ixy;
+
     return (mA*(rsq - r.x*r.x), mA*(rsq - r.y*r.y), mA*(rsq - r.z*r.z),
             -mA*r.x*r.y, -mA*r.x*r.z, -mA*r.y*r.z);
 };
