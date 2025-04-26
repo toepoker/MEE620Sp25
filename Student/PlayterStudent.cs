@@ -80,12 +80,50 @@ public partial class PlayterSim : Simulator
         Array.Clear(A,0,A.Length);
         Array.Clear(B,0,B.Length);
 
-        /* 7. rotational rows 0‑2 */
-        A[0,0]=rho2;           B[0]=-wCrossH.x;
-        A[1,1]=rho2*gammaY;    B[1]=-wCrossH.y;
-        A[2,2]=rho2*gammaZ;    B[2]=-wCrossH.z;
+        /* 7. rotational rows 0‑2  (body + arm angular momentum) ---------- */
+// Build full inertia tensor including both arm point masses and their hinge‑coupling columns
+Vex Sz = new Vex(0.0, -sinPhi,  cosPhi);   // shoulder‑z from notes Eq. (8)
 
-        /* 8. hinge rows 3‑4 */
+// Geometry in B‑frame
+Vex rSL = new Vex( 1.0, h, 0.0);
+Vex rSR = new Vex(-1.0, h, 0.0);
+Vex rFLS = new Vex( L*Math.Cos(thetaL),  L*Math.Sin(thetaL)*cosPhi,  L*Math.Sin(thetaL)*sinPhi);
+Vex rFRS = new Vex(-L*Math.Cos(thetaR), -L*Math.Sin(thetaR)*cosPhi, -L*Math.Sin(thetaR)*sinPhi);
+Vex rFL  = rSL + rFLS;
+Vex rFR  = rSR + rFRS;
+
+// point‑mass inertia tensors:  I_pt = m (r·r I − r rᵀ)  – we only need xx,yy,xy, yz,xz
+// Helper inline function
+Func<Vex, (double xx,double yy,double zz,double xy,double xz,double yz)> Ipt = (r) =>
+{
+    double rsq = Vex.Dot(r,r);
+    return (mA*(rsq - r.x*r.x), mA*(rsq - r.y*r.y), mA*(rsq - r.z*r.z),
+            -mA*r.x*r.y, -mA*r.x*r.z, -mA*r.y*r.z);
+};
+var IL = Ipt(rFL);
+var IR = Ipt(rFR);
+
+// Diagonals and product Ixy (others ~0 for symmetric doll)
+double Ix  = rho2       + IL.xx + IR.xx;
+double Iy  = rho2*gammaY+ IL.yy + IR.yy;
+double Iz  = rho2*gammaZ+ IL.zz + IR.zz;
+double Ixy = IL.xy + IR.xy;
+
+// Coupling columns ∂H/∂ωFL, ∂H/∂ωFR (arm gyros)
+Vex coupL = Vex.Cross(rFL, Vex.Cross(Sz, rFLS))*mA;   // vector column
+Vex coupR = Vex.Cross(rFR, Vex.Cross(Sz, rFRS))*mA;
+
+// Fill A matrix rotational rows
+A[0,0]=Ix;   A[0,1]=-Ixy; A[0,3]=coupL.x; A[0,4]=coupR.x;
+A[1,0]=-Ixy; A[1,1]=Iy;   A[1,3]=coupL.y; A[1,4]=coupR.y;
+A[2,2]=Iz;                 A[2,3]=coupL.z; A[2,4]=coupR.z;
+
+// RHS rotational parts (unchanged except for reaction couples below)
+B[0]=-wCrossH.x;
+B[1]=-wCrossH.y;
+B[2]=-wCrossH.z;
+
+/* 8. hinge rows 3‑4 */ hinge rows 3‑4 */
         A[3,3]=Iarm;  B[3]=TL;
         A[4,4]=Iarm;  B[4]=TR;
 
