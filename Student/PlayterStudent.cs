@@ -58,6 +58,11 @@
          sys = new LinSysEq(8);
          Amat = new double[8,8];  // an 8 by 8 array of doubles
          Bmat = new double[8];    // an 8 by 1 array of doubles
+
+           // Set phi and precompute trigonometric values once:
+         phi = Math.PI / 4;   // example: ϕ = 45 degrees, adjust as necessary
+        sinPhi = Math.Sin(phi);
+        cosPhi = Math.Cos(phi);
  
      }
  
@@ -118,6 +123,8 @@
          SetDebugVal(0,omegaX); // use these for debugging,  displays on screen.
          SetDebugVal(1,omegaY);
          SetDebugVal(2,omegaZ); 
+         SetDebugVal(3, ff[3]);
+         SetDebugVal(4, ff[4]);
  
          ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
          ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
