@@ -130,12 +130,32 @@
          ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
          ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
          ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
+
+             Vex vG_vx = new Vex(
+            q0*q0 + q1*q1 - q2*q2 - q3*q3,
+           -2*q0*q3   + 2*q1*q2,
+            2*q0*q2   + 2*q1*q3
+        );
+        Vex vG_vy = new Vex(
+            2*q0*q3   + 2*q1*q2,
+            q0*q0 - q1*q1 + q2*q2 - q3*q3,
+           -2*q0*q1   + 2*q2*q3
+        );
+        Vex vG_vz = new Vex(
+           -2*q0*q2   + 2*q1*q3,
+            2*q0*q1   + 2*q2*q3,
+            q0*q0 - q1*q1 - q2*q2 + q3*q3
+        );
+        Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
+        SetDebugVal(5, vG_B.x);
+        SetDebugVal(6, vG_B.y);
+        SetDebugVal(7, vG_B.z);
  
  
          // COMMENT THESE OUT OR REMOVE WHEN READY
          //ff[0] = ff[1] = ff[2] = 0.0;   // derivs of body angular velocities set to zero
          //ff[3] = ff[4] = 0.0;           // derivs of arm angular velocities
-         ff[5] = ff[6] = ff[7] = 0.0;   // derivs of cener of mass velocities
+         //ff[5] = ff[6] = ff[7] = 0.0;   // derivs of cener of mass velocities
          //ff[8] = ff[9] = ff[10] = ff[11] = 0.0;  // derivs of quaternion coords
          ff[12] = ff[13] = 0.0;         // derivs of arm angles
          ff[14] = ff[15] = ff[16] = 0.0;  // derivs of CG coordinates
