@@ -101,6 +101,9 @@
          ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
          ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
 
+         
+
+
         Vex bX = new Vex(1,0,0);
         Vex bY = new Vex(0,1,0);
         Vex bZ = new Vex(0,0,1);
@@ -179,22 +182,7 @@
          ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
          ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
 
-        Vex vG_vx = new Vex(
-            q0*q0 + q1*q1 - q2*q2 - q3*q3,
-           -2*q0*q3   + 2*q1*q2,
-            2*q0*q2   + 2*q1*q3
-        );
-        Vex vG_vy = new Vex(
-            2*q0*q3   + 2*q1*q2,
-            q0*q0 - q1*q1 + q2*q2 - q3*q3,
-           -2*q0*q1   + 2*q2*q3
-        );
-        Vex vG_vz = new Vex(
-           -2*q0*q2   + 2*q1*q3,
-            2*q0*q1   + 2*q2*q3,
-            q0*q0 - q1*q1 - q2*q2 + q3*q3
-        );
-        Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
+       
 
         ff[5] = vG_B.x;   // ẋG = vx
         ff[6] = vG_B.y;   // ẏG = vy
