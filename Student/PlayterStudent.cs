@@ -147,10 +147,16 @@
             q0*q0 - q1*q1 - q2*q2 + q3*q3
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
-        SetDebugVal(5, vG_B.x);
-        SetDebugVal(6, vG_B.y);
-        SetDebugVal(7, vG_B.z);
- 
+     SetDebugVal(5,  vG_vx.x);   // TestVal_5
+     SetDebugVal(6,  vG_vx.y);   // TestVal_6
+     SetDebugVal(7,  vG_vx.z);   // TestVal_7
+    SetDebugVal(8,  vG_vy.x);   // TestVal_8
+    SetDebugVal(9,  vG_vy.y);   // TestVal_9
+    SetDebugVal(10, vG_vy.z);   // TestVal_10
+    SetDebugVal(11, vG_vz.x);   // TestVal_11
+    SetDebugVal(12, vG_vz.y);   // TestVal_12
+    SetDebugVal(13, vG_vz.z);   // TestVal_13
+
  
          // COMMENT THESE OUT OR REMOVE WHEN READY
          //ff[0] = ff[1] = ff[2] = 0.0;   // derivs of body angular velocities set to zero
