@@ -258,7 +258,111 @@
         ff[16] = 0;   // żG = vz
 
 
+// --- 1) Build the A‐matrix ------------------------------------------------
+// Rows 0–2: body‐spin inertia
+sys.SetA(0,0, rho2        ); // Axx = rho²
+sys.SetA(0,1,      0     ); // Axy = 0 etc...
+sys.SetA(0,2,      0     );
+sys.SetA(0,3,      0     );
+sys.SetA(0,4,      0     );
+sys.SetA(0,5,      0     );
+sys.SetA(0,6,      0     );
+sys.SetA(0,7,      0     );
 
+sys.SetA(1,0, 0);
+sys.SetA(1,1, rho2*gammaY);
+sys.SetA(1,2, 0);
+sys.SetA(1,3, 0);
+sys.SetA(1,4, 0);
+sys.SetA(1,5, 0);
+sys.SetA(1,6, 0);
+sys.SetA(1,7, 0);
+
+sys.SetA(2,0, 0);
+sys.SetA(2,1, 0);
+sys.SetA(2,2, rho2*gammaZ);
+sys.SetA(2,3, 0);
+sys.SetA(2,4, 0);
+sys.SetA(2,5, 0);
+sys.SetA(2,6, 0);
+sys.SetA(2,7, 0);
+
+// Rows 3–4: arm hinge inertias 
+//   I_FL = mA*L^2, I_FR similarly
+sys.SetA(3,0, 0);
+sys.SetA(3,1, 0);
+sys.SetA(3,2, 0);
+sys.SetA(3,3, mA*L*L);
+sys.SetA(3,4, 0);
+sys.SetA(3,5, 0);
+sys.SetA(3,6, 0);
+sys.SetA(3,7, 0);
+
+sys.SetA(4,0, 0);
+sys.SetA(4,1, 0);
+sys.SetA(4,2, 0);
+sys.SetA(4,3, 0);
+sys.SetA(4,4, mA*L*L);
+sys.SetA(4,5, 0);
+sys.SetA(4,6, 0);
+sys.SetA(4,7, 0);
+
+// Rows 5–7: CG mass = (1 + 2*mA)
+double massTotal = 1.0 + 2.0*mA;
+sys.SetA(5,0, 0);
+sys.SetA(5,1, 0);
+sys.SetA(5,2, 0);
+sys.SetA(5,3, 0);
+sys.SetA(5,4, 0);
+sys.SetA(5,5, massTotal);
+sys.SetA(5,6, 0);
+sys.SetA(5,7, 0);
+
+sys.SetA(6,0, 0);
+sys.SetA(6,1, 0);
+sys.SetA(6,2, 0);
+sys.SetA(6,3, 0);
+sys.SetA(6,4, 0);
+sys.SetA(6,5, 0);
+sys.SetA(6,6, massTotal);
+sys.SetA(6,7, 0);
+
+sys.SetA(7,0, 0);
+sys.SetA(7,1, 0);
+sys.SetA(7,2, 0);
+sys.SetA(7,3, 0);
+sys.SetA(7,4, 0);
+sys.SetA(7,5, 0);
+sys.SetA(7,6, 0);
+sys.SetA(7,7, massTotal);
+
+// --- 2) Build the B‐vector ------------------------------------------------
+// Body‐spin “forces” are the –ω×H terms you already computed:
+sys.SetB(0, -AngVelCrossAngMo.x);
+sys.SetB(1, -AngVelCrossAngMo.y);
+sys.SetB(2, -AngVelCrossAngMo.z);
+
+// Arm hinge “forces” are the spring‐damper torques TtildeL, TtildeR:
+sys.SetB(3, TtildeL);
+sys.SetB(4, TtildeR);
+
+// CG translation “forces”—none right now (zero)
+sys.SetB(5, 0.0);
+sys.SetB(6, 0.0);
+sys.SetB(7, 0.0);
+
+// --- 3) Solve via Gauss elimination -------------------------------------
+sys.SolveGauss();
+
+// --- 4) Unpack back into ff[] --------------------------------------------
+ff[0] = sys.GetX(0);  // ω̇x
+ff[1] = sys.GetX(1);  // ω̇y
+ff[2] = sys.GetX(2);  // ω̇z
+ff[3] = sys.GetX(3);  // ω̇FL
+ff[4] = sys.GetX(4);  // ω̇FR
+ff[5] = sys.GetX(5);  // v̇x
+ff[6] = sys.GetX(6);  // v̇y
+ff[7] = sys.GetX(7);  // v̇z
 
      //SetDebugVal(5,  vG_vx.x);   // TestVal_5
     // SetDebugVal(6,  vG_vx.y);   // TestVal_6
