@@ -201,13 +201,13 @@
         aFR += omegaFR * vFR_wR;
 
         // 4) Transport/coriolis terms for right arm
-        Vex omegaB = new Vex(omegaX, omegaY, omegaZ);
+        Vex omegaBR = new Vex(omegaX, omegaY, omegaZ);
 
         // (a) NωB × (NωB × rSR/G)
-        Vex termA = Vex.Cross(omegaB, Vex.Cross(omegaB, rSR_G));
+        Vex termA = Vex.Cross(omegaBR, Vex.Cross(omegaBR, rSR_G));
 
         // (b) (NωB × BωFR) × rFR/SR
-        Vex omegaB_BwFR = Vex.Cross(omegaB, sZ * omegaFR);
+        Vex omegaB_BwFR = Vex.Cross(omegaBR, sZ * omegaFR);
         Vex termB       = Vex.Cross(omegaB_BwFR, rFR_SR);
 
         // (c) NωFR × (NωFR × rFR/SR)
