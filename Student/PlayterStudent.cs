@@ -101,24 +101,72 @@
          ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
          ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
 
-         // Precompute common vectors and constants
-        Vex s_z = new Vex(0.0, -sinPhi, cosPhi);
+        Vex bX = new Vex(1,0,0);
+        Vex bY = new Vex(0,1,0);
+        Vex bZ = new Vex(0,0,1);
+        // hinge axis in the shoulder frame
+        Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
 
-        // Left arm vector from shoulder to arm mass
-        Vex rFL_SL = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL) * cosPhi, Math.Sin(thetaL) * sinPhi);
-        // Partial velocity cross-product for left arm
-        Vex vFL_omegaL = Vex.Cross(s_z, rFL_SL);
+        // 2) Position vectors (you may already have these)
+        Vex rSL_G  = new Vex( 1.0, h, 0.0 );                           // left shoulder → CG
+        Vex rFL_SL = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
+        Vex rFL_G  = rSL_G + rFL_SL;                                   // CG → left arm mass
 
-        // Assign left arm partial velocity component to ff[3]
-        ff[3] = vFL_omegaL.z; // Confirm correct component based on professor's specific instructions
+        Vex rSR_G  = new Vex(-1.0, h, 0.0 );                           // right shoulder → CG
+        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR), Math.Sin(thetaR)*cosPhi, Math.Sin(thetaR)*sinPhi);
+        Vex rFR_G  = rSR_G + rFR_SR;                                   // CG → right arm mass
 
-        // Right arm vector from shoulder to arm mass (note negative sign)
-        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR), Math.Sin(thetaR) * cosPhi, Math.Sin(thetaR) * sinPhi);
-        // Partial velocity cross-product for right arm
-        Vex vFR_omegaR = Vex.Cross(s_z, rFR_SR);
+        // 3) Left‐arm partial velocities (Eq.27)
+        //    ωx‐partial
+        Vex vFL_wx = Vex.Cross(bX, rFL_G);
+        //    ωy‐partial
+        Vex vFL_wy = Vex.Cross(bY, rFL_G);
+        //    ωz‐partial
+        Vex vFL_wz = Vex.Cross(bZ, rFL_G);
+        //    ωL‐partial (hinge speed)
+        Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
 
-        // Assign right arm partial velocity component to ff[4]
-        ff[4] = vFR_omegaR.z; // Confirm correct component based on professor's specific instructions
+        // 4) Right‐arm partial velocities
+        Vex vFR_wx = Vex.Cross(bX, rFR_G);
+        Vex vFR_wy = Vex.Cross(bY, rFR_G);
+        Vex vFR_wz = Vex.Cross(bZ, rFR_G);
+        Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
+        // 1) First‐term: translational partials
+        Vex aFL = vx * vG_vx
+                + vy * vG_vy
+                + vz * vG_vz;
+
+        // 2) Rotational partials from body‐spin
+        aFL += omegaX * vFL_wx
+            + omegaY * vFL_wy
+             + omegaZ * vFL_wz;
+
+        // 3) Rotational partial from hinge speed
+        aFL += omegaFL * vFL_wL;
+
+        // 4) Transport/coriolis terms:
+        //    NωB × (NωB × rSL/G)
+        Vex omegaB   = new Vex(omegaX, omegaY, omegaZ);
+        Vex term4a   = Vex.Cross(omegaB, Vex.Cross(omegaB, rSL_G));
+
+        //    (NωB × BωFL) × rFL/SL
+        Vex omegaB_BwFL = Vex.Cross(omegaB, sZ * omegaFL);
+        Vex term4b      = Vex.Cross(omegaB_BwFL, rFL_SL);
+
+        //    NωFL × (NωFL × rFL/SL)
+        Vex omegaFL_vec = sZ * omegaFL; 
+        Vex term4c      = Vex.Cross(omegaFL_vec, Vex.Cross(omegaFL_vec, rFL_SL));
+
+        // sum transport terms
+        aFL += term4a + term4b + term4c;
+
+        // 5) Dump into debug slots so you can watch the vector
+        SetDebugVal(5, aFL.x);
+        SetDebugVal(6, aFL.y);
+        SetDebugVal(7, aFL.z);
+
+// 6) If you want to actually set ff for testing, you can do:
+// ff[?] = aFL.x;  // but typically ff[3]–ff[7] reserved for speeds & CG
  
          SetDebugVal(0,omegaX); // use these for debugging,  displays on screen.
          SetDebugVal(1,omegaY);
@@ -163,9 +211,9 @@
 
 
 
-     SetDebugVal(5,  vG_vx.x);   // TestVal_5
-     SetDebugVal(6,  vG_vx.y);   // TestVal_6
-     SetDebugVal(7,  vG_vx.z);   // TestVal_7
+     //SetDebugVal(5,  vG_vx.x);   // TestVal_5
+    // SetDebugVal(6,  vG_vx.y);   // TestVal_6
+    // SetDebugVal(7,  vG_vx.z);   // TestVal_7
     SetDebugVal(8,  vG_vy.x);   // TestVal_8
     SetDebugVal(9,  vG_vy.y);   // TestVal_9
     SetDebugVal(10, vG_vy.z);   // TestVal_10
