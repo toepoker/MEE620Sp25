@@ -177,7 +177,7 @@
 
         // sum transport terms
         aFL += term4a + term4b + term4c;
-        //f[3]= aFL;
+        
 
         // 5) Dump into debug slots so you can watch the vector
         SetDebugVal(5, aFL.x);
@@ -217,7 +217,7 @@
         // Sum them
         aFR += termA + termB + termC;
 
-        //f[4]= aFR;
+      
 
         // 5) Debug so you can watch the right‐arm acceleration vector
         SetDebugVal(8, aFR.x);
