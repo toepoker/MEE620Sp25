@@ -177,14 +177,52 @@
 
         // sum transport terms
         aFL += term4a + term4b + term4c;
+        f[3]= aFL;
 
         // 5) Dump into debug slots so you can watch the vector
         SetDebugVal(5, aFL.x);
         SetDebugVal(6, aFL.y);
         SetDebugVal(7, aFL.z);
 
-// 6) If you want to actually set ff for testing, you can do:
-// ff[?] = aFL.x;  // but typically ff[3]–ff[7] reserved for speeds & CG
+        // 6) If you want to actually set ff for testing, you can do:
+        // ff[?] = aFL.x;  // but typically ff[3]–ff[7] reserved for speeds & CG
+
+        // 1) Translational partials (same CG terms)
+        Vex aFR = vx * vG_vx
+        + vy * vG_vy
+        + vz * vG_vz;
+
+        // 2) Body‐spin partials for right arm
+        aFR += omegaX * vFR_wx
+            + omegaY * vFR_wy
+            + omegaZ * vFR_wz;
+
+        // 3) Hinge partial for right arm
+        aFR += omegaFR * vFR_wR;
+
+        // 4) Transport/coriolis terms for right arm
+        Vex omegaB = new Vex(omegaX, omegaY, omegaZ);
+
+        // (a) NωB × (NωB × rSR/G)
+        Vex termA = Vex.Cross(omegaB, Vex.Cross(omegaB, rSR_G));
+
+        // (b) (NωB × BωFR) × rFR/SR
+        Vex omegaB_BwFR = Vex.Cross(omegaB, sZ * omegaFR);
+        Vex termB       = Vex.Cross(omegaB_BwFR, rFR_SR);
+
+        // (c) NωFR × (NωFR × rFR/SR)
+        Vex omegaFR_vec = sZ * omegaFR;
+        Vex termC       = Vex.Cross(omegaFR_vec, Vex.Cross(omegaFR_vec, rFR_SR));
+
+        // Sum them
+        aFR += termA + termB + termC;
+
+        f[4]= aFR;
+
+        // 5) Debug so you can watch the right‐arm acceleration vector
+        SetDebugVal(8, aFR.x);
+        SetDebugVal(9, aFR.y);
+        SetDebugVal(10, aFR.z);
  
          SetDebugVal(0,omegaX); // use these for debugging,  displays on screen.
          SetDebugVal(1,omegaY);
@@ -198,7 +236,6 @@
          ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
 
        
-
         ff[5] = vG_B.x;   // ẋG = vx
         ff[6] = vG_B.y;   // ẏG = vy
         ff[7] = vG_B.z;   // żG = vz
@@ -217,9 +254,9 @@
      //SetDebugVal(5,  vG_vx.x);   // TestVal_5
     // SetDebugVal(6,  vG_vx.y);   // TestVal_6
     // SetDebugVal(7,  vG_vx.z);   // TestVal_7
-    SetDebugVal(8,  vG_vy.x);   // TestVal_8
-    SetDebugVal(9,  vG_vy.y);   // TestVal_9
-    SetDebugVal(10, vG_vy.z);   // TestVal_10
+    //SetDebugVal(8,  vG_vy.x);   // TestVal_8
+    //SetDebugVal(9,  vG_vy.y);   // TestVal_9
+    //SetDebugVal(10, vG_vy.z);   // TestVal_10
     SetDebugVal(11, vG_vz.x);   // TestVal_11
     SetDebugVal(12, vG_vz.y);   // TestVal_12
     SetDebugVal(13, vG_vz.z);   // TestVal_13
