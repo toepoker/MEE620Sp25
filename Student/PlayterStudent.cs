@@ -216,6 +216,15 @@
 
         // Sum them
         aFR += termA + termB + termC;
+        
+        
+        //torque
+        double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
+        double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
+
+        // debug so you can confirm you’ve got the sign & magnitude right:
+        SetDebugVal(11, TtildeL);
+        SetDebugVal(12, TtildeR);
 
       
 
@@ -257,8 +266,8 @@
     //SetDebugVal(8,  vG_vy.x);   // TestVal_8
     //SetDebugVal(9,  vG_vy.y);   // TestVal_9
     //SetDebugVal(10, vG_vy.z);   // TestVal_10
-    SetDebugVal(11, vG_vz.x);   // TestVal_11
-    SetDebugVal(12, vG_vz.y);   // TestVal_12
+    //SetDebugVal(11, vG_vz.x);   // TestVal_11
+    //SetDebugVal(12, vG_vz.y);   // TestVal_12
     SetDebugVal(13, vG_vz.z);   // TestVal_13
     SetDebugVal(12, vG_B.x);
     SetDebugVal(13, vG_B.y);
