@@ -70,9 +70,8 @@ public partial class PlayterSim : Simulator
         /* ---------------- Arm torques ---------------- */
   
         double Iarm = mA * L * L;                 // nondimensional Iarm
-        double TL   = -Iarm * (k*thetaL + c*omegaFL);
-        double TR   = -Iarm * (k*thetaR + c*omegaFR);
-
+        double TL   = -Iarm * (k * thetaL + c * omegaFL);
+        double TR   = -Iarm * (k * thetaR + c * omegaFR);
 
         /* ---------------- Clear A, B ----------------- */
         Array.Clear(A,0,A.Length); Array.Clear(B,0,B.Length);
