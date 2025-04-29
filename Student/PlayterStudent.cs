@@ -95,6 +95,25 @@
          ff[0] = -AngVelCrossAngMo.x/rho2;
          ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
          ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
+
+         // Precompute common vectors and constants
+        Vex s_z = new Vex(0.0, -sinPhi, cosPhi);
+
+        // Left arm vector from shoulder to arm mass
+        Vex rFL_SL = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL) * cosPhi, Math.Sin(thetaL) * sinPhi);
+        // Partial velocity cross-product for left arm
+        Vex vFL_omegaL = Vex.Cross(s_z, rFL_SL);
+
+        // Assign left arm partial velocity component to ff[3]
+        ff[3] = vFL_omegaL.z; // Confirm correct component based on professor's specific instructions
+
+        // Right arm vector from shoulder to arm mass (note negative sign)
+        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR), Math.Sin(thetaR) * cosPhi, Math.Sin(thetaR) * sinPhi);
+        // Partial velocity cross-product for right arm
+        Vex vFR_omegaR = Vex.Cross(s_z, rFR_SR);
+
+        // Assign right arm partial velocity component to ff[4]
+        ff[4] = vFR_omegaR.z; // Confirm correct component based on professor's specific instructions
  
          SetDebugVal(0,omegaX); // use these for debugging,  displays on screen.
          SetDebugVal(1,omegaY);
