@@ -131,7 +131,7 @@
          ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
          ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
 
-             Vex vG_vx = new Vex(
+        Vex vG_vx = new Vex(
             q0*q0 + q1*q1 - q2*q2 - q3*q3,
            -2*q0*q3   + 2*q1*q2,
             2*q0*q2   + 2*q1*q3
@@ -156,9 +156,9 @@
         ff[12] = omegaFL;   // θ̇L = ωFL
         ff[13] = omegaFR;   // θ̇R = ωFR
 
-        ff[14] = vx;   // ẋG = vx
-        ff[15] = vy;   // ẏG = vy
-        ff[16] = vz;   // żG = vz
+        ff[14] = 0;   // ẋG = vx
+        ff[15] = 0;   // ẏG = vy
+        ff[16] = 0;   // żG = vz
 
 
 
