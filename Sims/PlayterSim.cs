@@ -43,7 +43,6 @@ public partial class PlayterSim : Simulator
     double yG;
     double zG;
 
-
     enum ShoulderDynamics{
         Free,        // Free to respond to the dynamics of the doll
         Prescribed,  // Prescribed by user input
@@ -88,26 +87,15 @@ public partial class PlayterSim : Simulator
 
         SetRHSFunc(RHSFuncPlayter);
 
-     StudentInit();
-
-/* Flip this flag to choose the startup scenario */
-bool runGenTest = false;     // true ⇒ RunTest();   false ⇒ spin-only IC
-
-if (runGenTest)
-{
-    RunTest();            // one-off stress-test pose
-}
-else
-{
-    Reinitialize();       // pure spin initial condition
-    RunTestIC();          // optional: RHS once on spin IC
-}
+        toRunGenTest = true;
+        StudentInit();
+        if(toRunGenTest)
+            RunTest();
+        Reinitialize();
+        if(!toRunGenTest)
+            RunTestIC();
         //StudentInit();
     }
-
-
-
-
 
     //------------------------------------------------------------------------
     // Reinitialize: reset initial condition when simulation get restarted.
@@ -115,7 +103,7 @@ else
     //------------------------------------------------------------------------
     private void Reinitialize()
     {
-        SetSpinIC(0);
+        SetSpinIC(1.0);
         // // Generalized Speeds
         // x[0] = 0.0;      // omegaX
         // x[1] = 0.0;      // omegaY
@@ -246,9 +234,6 @@ else
         cosPhi = Math.Cos(phi);
         sinPhi = Math.Sin(phi);
     }
-
-     
-
 
 
     //------------------------------------------------------------------------
