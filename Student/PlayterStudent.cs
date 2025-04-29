@@ -355,14 +355,8 @@ sys.SetB(7, 0.0);
 sys.SolveGauss();
 
 // --- 4) Unpack back into ff[] --------------------------------------------
-ff[0] = sys.GetX(0);  // ω̇x
-ff[1] = sys.GetX(1);  // ω̇y
-ff[2] = sys.GetX(2);  // ω̇z
-ff[3] = sys.GetX(3);  // ω̇FL
-ff[4] = sys.GetX(4);  // ω̇FR
-ff[5] = sys.GetX(5);  // v̇x
-ff[6] = sys.GetX(6);  // v̇y
-ff[7] = sys.GetX(7);  // v̇z
+for(int i = 0; i < 8; i++)
+    ff[i] = Bmat[i];  
 
      //SetDebugVal(5,  vG_vx.x);   // TestVal_5
     // SetDebugVal(6,  vG_vx.y);   // TestVal_6
