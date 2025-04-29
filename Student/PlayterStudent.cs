@@ -180,9 +180,9 @@
         
 
         // 5) Dump into debug slots so you can watch the vector
-        SetDebugVal(5, aFL.x);
-        SetDebugVal(6, aFL.y);
-        SetDebugVal(7, aFL.z);
+       // SetDebugVal(5, aFL.x);
+       // SetDebugVal(6, aFL.y);
+       // SetDebugVal(7, aFL.z);
 
         // 6) If you want to actually set ff for testing, you can do:
         // ff[?] = aFL.x;  // but typically ff[3]–ff[7] reserved for speeds & CG
@@ -358,6 +358,15 @@ sys.SolveGauss();
 for(int i = 0; i < 8; i++)
     ff[i] = Bmat[i];  
 
+SetDebugVal(0, ff[0]);
+SetDebugVal(1, ff[1]);
+SetDebugVal(2, ff[2]);
+SetDebugVal(3, ff[3]);
+SetDebugVal(4, ff[4]);
+SetDebugVal(5, ff[5]);
+SetDebugVal(6, ff[6]);
+SetDebugVal(7, ff[7]);
+
      //SetDebugVal(5,  vG_vx.x);   // TestVal_5
     // SetDebugVal(6,  vG_vx.y);   // TestVal_6
     // SetDebugVal(7,  vG_vx.z);   // TestVal_7
@@ -366,12 +375,12 @@ for(int i = 0; i < 8; i++)
     //SetDebugVal(10, vG_vy.z);   // TestVal_10
     //SetDebugVal(11, vG_vz.x);   // TestVal_11
     //SetDebugVal(12, vG_vz.y);   // TestVal_12
-    SetDebugVal(13, vG_vz.z);   // TestVal_13
-    SetDebugVal(12, vG_B.x);
-    SetDebugVal(13, vG_B.y);
-    SetDebugVal(14, vG_B.z);
-    SetDebugVal(15, ff[15]);
-    SetDebugVal(16, ff[16]);
+    //SetDebugVal(13, vG_vz.z);   // TestVal_13
+    //SetDebugVal(12, vG_B.x);
+    //SetDebugVal(13, vG_B.y);
+   // SetDebugVal(14, vG_B.z);
+   // SetDebugVal(15, ff[15]);
+   // SetDebugVal(16, ff[16]);
 
  
          // COMMENT THESE OUT OR REMOVE WHEN READY
