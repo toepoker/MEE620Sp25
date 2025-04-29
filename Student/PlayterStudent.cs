@@ -148,9 +148,9 @@
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
 
-        ff[5] = vG_vx;   // ẋG = vx
-        ff[6] = vG_vy;   // ẏG = vy
-        ff[7] = vG_vz;   // żG = vz
+        ff[5] = vG_B.x;   // ẋG = vx
+        ff[6] = vG_B.y;   // ẏG = vy
+        ff[7] = vG_B.z;   // żG = vz
 
 
         ff[12] = omegaFL;   // θ̇L = ωFL
@@ -172,9 +172,9 @@
     SetDebugVal(11, vG_vz.x);   // TestVal_11
     SetDebugVal(12, vG_vz.y);   // TestVal_12
     SetDebugVal(13, vG_vz.z);   // TestVal_13
-    SetDebugVal(12, ff[12]);
-    SetDebugVal(13, ff[13]);
-    SetDebugVal(14, ff[14]);
+    SetDebugVal(12, vG_B.x);
+    SetDebugVal(13, vG_B.y);
+    SetDebugVal(14, vG_B.z);
     SetDebugVal(15, ff[15]);
     SetDebugVal(16, ff[16]);
 
