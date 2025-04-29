@@ -148,6 +148,10 @@
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
 
+        ff[5] = vG_vx;   // ẋG = vx
+        ff[6] = vG_vy;   // ẏG = vy
+        ff[7] = vG_vz;   // żG = vz
+
 
         ff[12] = omegaFL;   // θ̇L = ωFL
         ff[13] = omegaFR;   // θ̇R = ωFR
