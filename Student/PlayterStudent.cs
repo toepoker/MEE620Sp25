@@ -147,6 +147,18 @@
             q0*q0 - q1*q1 - q2*q2 + q3*q3
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
+
+
+        ff[12] = omegaFL;   // θ̇L = ωFL
+        ff[13] = omegaFR;   // θ̇R = ωFR
+
+        ff[14] = vx;   // ẋG = vx
+        ff[15] = vy;   // ẏG = vy
+        ff[16] = vz;   // żG = vz
+
+
+
+
      SetDebugVal(5,  vG_vx.x);   // TestVal_5
      SetDebugVal(6,  vG_vx.y);   // TestVal_6
      SetDebugVal(7,  vG_vx.z);   // TestVal_7
@@ -156,6 +168,11 @@
     SetDebugVal(11, vG_vz.x);   // TestVal_11
     SetDebugVal(12, vG_vz.y);   // TestVal_12
     SetDebugVal(13, vG_vz.z);   // TestVal_13
+    SetDebugVal(12, ff[12]);
+    SetDebugVal(13, ff[13]);
+    SetDebugVal(14, ff[14]);
+    SetDebugVal(15, ff[15]);
+    SetDebugVal(16, ff[16]);
 
  
          // COMMENT THESE OUT OR REMOVE WHEN READY
