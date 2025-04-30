@@ -273,9 +273,9 @@ ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
 
       //  ff[3] = vFL_wL.x
        // ff[4] = vFL_wR.x
-        ff[5] = vG_vx.x
-        ff[6] = vG_vy.y
-        ff[7] = vG_vz.z
+     //   ff[5] = vG_vx.x
+       // ff[6] = vG_vy.y
+        //ff[7] = vG_vz.z
 
         ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
         ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
@@ -292,9 +292,9 @@ ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
         SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
         SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
         SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
-        SetDebugVal(5,  ff[5]);  // ff[5] = v̇x
-        SetDebugVal(6, ff[6]);  // ff[6] = v̇y
-        SetDebugVal(7,  ff[7]);  // ff[7] = v̇z
+        SetDebugVal(5,  vG_vx.x);  // ff[5] = v̇x
+        SetDebugVal(6, vG_vy.y;  // ff[6] = v̇y
+        SetDebugVal(7,  vG_vz.z);  // ff[7] = v̇z
         SetDebugVal(8,  vG_B.x);  // ff[8] = q̇0
         SetDebugVal(9,  vG_B.y);  // ff[9] = q̇1
         SetDebugVal(10, vG_B.z); // ff[10] = q̇2
