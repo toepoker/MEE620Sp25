@@ -125,7 +125,7 @@
             2*q0*q1   + 2*q2*q3,
             q0*q0 - q1*q1 - q2*q2 + q3*q3
         );
-        Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
+        Vex vG_B = vG_vx + vG_vy + vG_vz;
 
        // 1) Unit basis vectors
 Vex bX = new Vex(1, 0, 0);
@@ -197,16 +197,19 @@ for(int i = 0; i < 8; i++){
 
 // 2) Fill A (inertia/mass matrix)
 
-// -- Body‐spin inertia (rows 0–2) --
+// -- Body‐spin inertia (EQUATION 1)
+
+Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
+                              new Vex(rho2*omegaX,
+                                      rho2*gammaY*omegaY,
+                                      rho2*gammaZ*omegaZ) );
 sys.SetA(0, 0,   rho2*ff[0]            ); // I_Gx * ω̇x
-sys.SetA(0, 1,   rho2*(gammaZ-gammaY)      );
-sys.SetA(0, 2,   rho2*(gammaZ-gammaY)       );
-sys.SetA(1, 1,   rho2 * gammaY *ff[1]   );// I_Gy * ω̇y
-sys.SetA(1, 0,   rho2 * (1-gammaZ)   );
-sys.SetA(1, 2,   rho2 * (1-gammaZ)   ); 
+sys.SetA(1, 1,   rho2 * gammaY *ff[1]   );// I_Gy * ω̇y 
 sys.SetA(2, 2,   rho2 * gammaZ *ff[2]  );// I_Gz * ω̇z
-sys.SetA(2, 0,   rho2 * (gammaY-1)  );
-sys.SetA(2, 1,   rho2 * (gammaY-1)  ); 
+sys.SetB(0, -omegaCrossH.x);  // Q_x = −(ω×H)_x
+sys.SetB(1, -omegaCrossH.y);  // Q_y = −(ω×H)_y
+sys.SetB(2, -omegaCrossH.z);  // Q_z = −(ω×H)_z
+
 
 
 
@@ -232,9 +235,11 @@ sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
 sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
-sys.SetA(5, 5,   vG_B.x      ); // m_total * v̇x
-sys.SetA(6, 6,   vG_B.y     ); // m_total * v̇y
-sys.SetA(7, 7,   vG_B.z     ); // m_total * v̇z
+double mTotal = 1.0 + 2.0*mA;
+
+sys.SetA(5, 5,   vG_B.x * mTotal     ); // m_total * v̇x
+sys.SetA(6, 6,   vG_B.y * mTotal    ); // m_total * v̇y
+sys.SetA(7, 7,   vG_B.z * mTotal    ); // m_total * v̇z
 
 // 3) Fill B (generalized forces)
 
@@ -253,15 +258,6 @@ double P_LL = Vex.Dot( Vex.Cross(sZ,   rFL_SL),sZ );    // row ω̇FL (will be z
 double P_Ry = Vex.Dot( Vex.Cross(bY,   rFR_G), sZ );    // row ω̇y
 double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
 double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
-// row 1 (ω̇y):
-sys.SetB(1, -AngVelCrossAngMo.y  // Q_y from body‐spin
-            + P_Ly * TtildeL      // plus left‐torque projection
-            + P_Ry * TtildeR );   // plus right‐torque projection
-
-// row 2 (ω̇z):
-sys.SetB(2, -AngVelCrossAngMo.z
-            + P_Lz * TtildeL
-            + P_Rz * TtildeR );
 
 sys.SetB(3,  Q_L + TtildeL + P_LL*TtildeL);        // Q_L = spring/damper + transport projection
 sys.SetB(4, Q_R + TtildeR + P_RR*TtildeR);        // Q_R
