@@ -151,7 +151,7 @@
         // Sum them
         Vex transportSum = term1 + term2 + term3;
         // Project onto the hinge‐partial velocity vFL_wL to get the scalar generalized force Q_L
-        //double Q_L = Vex.Dot( transportSum, vFL_wL );
+        double Q_L = Vex.Dot( transportSum, vFL_wL );
 
         // --- Right‐arm transport/Coriolis terms -------------------------------
 
@@ -180,7 +180,7 @@
         // Sum them
         Vex transportSum_R = term1_R + term2_R + term3_R;
         // (Later) project onto the right‐hinge partial velocity vFR_wR:
-        // double Q_R = Vex.Dot( transportSum_R, vFR_wR );
+         double Q_R = Vex.Dot( transportSum_R, vFR_wR );
 
 // (Later) project onto the right‐hinge partial velocity vFR_wR:
 // double Q_R = Vex.Dot( transportSum_R, vFR_wR );
@@ -255,9 +255,9 @@ sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
 sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
-sys.SetA(5, 5,   vG_vx      ); // m_total * v̇x
-sys.SetA(6, 6,   vG_vy     ); // m_total * v̇y
-sys.SetA(7, 7,   vG_vz     ); // m_total * v̇z
+sys.SetA(5, 5,   vG_B.x      ); // m_total * v̇x
+sys.SetA(6, 6,   vG_B.y     ); // m_total * v̇y
+sys.SetA(7, 7,   vG_B.z     ); // m_total * v̇z
 
 // 3) Fill B (generalized forces)
 
