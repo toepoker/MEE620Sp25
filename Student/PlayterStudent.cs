@@ -275,14 +275,7 @@ sys.SetB(7, 0.0);  // Q_vz
 sys.SolveGauss();
 
 
-    //ff[0] = sys.Sol(0);
-   // ff[1] = sys.Sol(1);
-   // ff[2] = sys.Sol(2);
-   // ff[3] = sys.Sol(3);
-   // ff[4] = sys.Sol(4);
-   // ff[5] = sys.Sol(5);
-   // ff[6] = sys.Sol(6);
-   // ff[7] = sys.Sol(7);
+    
   
 
 
@@ -298,14 +291,14 @@ sys.SolveGauss();
         ff[15] = vy;   // ẏG = vy
         ff[16] = vz;   // żG = vz
 
-        SetDebugVal(0,  ff[0]);  // ff[0] = ω̇x
-        SetDebugVal(1,  ff[1]);  // ff[1] = ω̇y
-        SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
-        SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
-        SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
-        SetDebugVal(5,  ff[5]);  // ff[5] = v̇x
-        SetDebugVal(6,  ff[6]);  // ff[6] = v̇y
-        SetDebugVal(7,  ff[7]);  // ff[7] = v̇z
+        SetDebugVal(0,  sys.Sol(0));  // ff[0] = ω̇x
+        SetDebugVal(1,  sys.Sol(1));  // ff[1] = ω̇y
+        SetDebugVal(2,  sys.Sol(2));  // ff[2] = ω̇z
+        SetDebugVal(3,  sys.Sol(3));  // ff[3] = ω̇FL
+        SetDebugVal(4,  sys.Sol(4));  // ff[4] = ω̇FR
+        SetDebugVal(5,  sys.Sol(5));  // ff[5] = v̇x
+        SetDebugVal(6,  sys.Sol(6));  // ff[6] = v̇y
+        SetDebugVal(7,  sys.Sol(7));  // ff[7] = v̇z
         SetDebugVal(8,  ff[8]);  // ff[8] = q̇0
         SetDebugVal(9,  ff[9]);  // ff[9] = q̇1
         SetDebugVal(10, ff[10]); // ff[10] = q̇2
