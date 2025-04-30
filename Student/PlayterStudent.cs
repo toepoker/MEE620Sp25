@@ -271,11 +271,11 @@ sys.SolveGauss();
 ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
        
 
-        ff[3] = vFL_wL
-        ff[4] = vFL_wR
-        ff[5] = vG_vx
-        ff[6] = vG_vy
-        ff[7] = vG_vy
+        ff[3] = vFL_wL.x
+        ff[4] = vFL_wR.x
+        ff[5] = vG_vx.x
+        ff[6] = vG_vy.x
+        ff[7] = vG_vy.x
 
         ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
         ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
