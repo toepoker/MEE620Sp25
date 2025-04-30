@@ -119,64 +119,97 @@
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
 
-        Vex bX = new Vex(1,0,0);
-        Vex bY = new Vex(0,1,0);
-        Vex bZ = new Vex(0,0,1);
-        // hinge axis in the shoulder frame
+       
+        Vex bX = new Vex(1,0,0), bY = new Vex(0,1,0), bZ = new Vex(0,0,1);
+        Vex sZ = new Vex(0, -sinPhi, cosPhi);  // ŝz
+
+//LEFT ARM
+// Shoulder‐to‐arm mass vectors (in B‐frame)
+Vex rFL_G  = rSL_G + rFL_SL;  // if you prefer, else compute directly
+// rFL_SL must already be L * [cos(θL), sin(θL)·cosΦ, sin(θL)·sinΦ]
+
+// Left‐arm partials:
+Vex vFL_wx = Vex.Cross(bX,  rFL_G);   // ∂vFL/∂ωx
+Vex vFL_wy = Vex.Cross(bY,  rFL_G);   // ∂vFL/∂ωy
+Vex vFL_wz = Vex.Cross(bZ,  rFL_G);   // ∂vFL/∂ωz
+Vex vFL_wL = Vex.Cross(sZ,  rFL_SL);  // ∂vFL/∂ωFL
+
+//RIGHT ARM
+// Shoulder‐to‐arm mass vectors (in B‐frame)
+Vex rFR_G  = rSR_G + rFR_SR;  // similarly computed
+// rFR_SR must be –L * [cos(θR), sin(θR)·cosΦ, sin(θR)·sinΦ]
+
+// Right‐arm partials:
+Vex vFR_wx = Vex.Cross(bX,  rFR_G);   // ∂vFR/∂ωx
+Vex vFR_wy = Vex.Cross(bY,  rFR_G);   // ∂vFR/∂ωy
+Vex vFR_wz = Vex.Cross(bZ,  rFR_G);   // ∂vFR/∂ωz
+Vex vFR_wR = Vex.Cross(sZ,  rFR_SR);  // ∂vFR/∂ωFR
+        
+        // hinge‐axis unit in B‐frame:
         Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
 
-        // 2) Position vectors (you may already have these)
-        Vex rSL_G  = new Vex( 1.0, h, 0.0 );                           // left shoulder → CG
-        Vex rFL_SL = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
-        Vex rFL_G  = rSL_G + rFL_SL;                                   // CG → left arm mass
+        // body and hinge angular speeds:
+        Vex omegaB    = new Vex(omegaX, omegaY, omegaZ);
+        Vex omegaFL_vec = sZ * omegaFL;
 
-        Vex rSR_G  = new Vex(-1.0, h, 0.0 );                           // right shoulder → CG
-        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR), Math.Sin(thetaR)*cosPhi, Math.Sin(thetaR)*sinPhi);
-        Vex rFR_G  = rSR_G + rFR_SR;                                   // CG → right arm mass
+        // shoulder & arm position vectors:
+        Vex rSL_G   = new Vex( 1.0, h, 0.0 );
+        Vex rFL_SL  = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
 
-        // 3) Left‐arm partial velocities (Eq.27)
-        //    ωx‐partial
-        Vex vFL_wx = Vex.Cross(bX, rFL_G);
-        //    ωy‐partial
-        Vex vFL_wy = Vex.Cross(bY, rFL_G);
-        //    ωz‐partial
-        Vex vFL_wz = Vex.Cross(bZ, rFL_G);
-        //    ωL‐partial (hinge speed)
-        Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
+        // 1) NωB × (NωB × rSL/G)
+        Vex term1 = Vex.Cross( omegaB,
+                Vex.Cross(omegaB, rSL_G) );
 
-        // 4) Right‐arm partial velocities
-        Vex vFR_wx = Vex.Cross(bX, rFR_G);
-        Vex vFR_wy = Vex.Cross(bY, rFR_G);
-        Vex vFR_wz = Vex.Cross(bZ, rFR_G);
-        Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
-        // 1) First‐term: translational partials
-        Vex aFL = vx * vG_vx
-                + vy * vG_vy
-                + vz * vG_vz;
+        // 2) (NωB × BωFL) × rFL/SL
+        Vex term2 = Vex.Cross(
+                Vex.Cross(omegaB, omegaFL_vec),
+                rFL_SL );
 
-        // 2) Rotational partials from body‐spin
-        aFL += omegaX * vFL_wx
-            + omegaY * vFL_wy
-             + omegaZ * vFL_wz;
+        // 3) NωFL × (NωFL × rFL/SL)
+        Vex term3 = Vex.Cross( omegaFL_vec,
+                Vex.Cross(omegaFL_vec, rFL_SL) );
 
-        // 3) Rotational partial from hinge speed
-        aFL += omegaFL * vFL_wL;
+        // Sum them
+        Vex transportSum = term1 + term2 + term3;
+        // Project onto the hinge‐partial velocity vFL_wL to get the scalar generalized force Q_L
+        //double Q_L = Vex.Dot( transportSum, vFL_wL );
 
-        // 4) Transport/coriolis terms:
-        //    NωB × (NωB × rSL/G)
-        Vex omegaB   = new Vex(omegaX, omegaY, omegaZ);
-        Vex term4a   = Vex.Cross(omegaB, Vex.Cross(omegaB, rSL_G));
+        // --- Right‐arm transport/Coriolis terms -------------------------------
 
-        //    (NωB × BωFL) × rFL/SL
-        Vex omegaB_BwFL = Vex.Cross(omegaB, sZ * omegaFL);
-        Vex term4b      = Vex.Cross(omegaB_BwFL, rFL_SL);
+        // hinge‐axis unit (same sZ)
+        Vex omegaFR_vec = sZ * omegaFR;
 
-        //    NωFL × (NωFL × rFL/SL)
-        Vex omegaFL_vec = sZ * omegaFL; 
-        Vex term4c      = Vex.Cross(omegaFL_vec, Vex.Cross(omegaFL_vec, rFL_SL));
+        // shoulder & arm position vectors for right arm
+        Vex rSR_G  = new Vex(-1.0, h, 0.0);
+        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR),
+                         Math.Sin(thetaR)*cosPhi,
+                         Math.Sin(thetaR)*sinPhi);
 
-        // sum transport terms
-        aFL += term4a + term4b + term4c;
+        // 1) NωB × (NωB × rSR/G)
+        Vex term1_R = Vex.Cross( omegaB,
+                 Vex.Cross(omegaB, rSR_G) );
+
+        // 2) (NωB × BωFR) × rFR/SR
+        Vex term2_R = Vex.Cross(
+                 Vex.Cross(omegaB, omegaFR_vec),
+                 rFR_SR );
+
+        // 3) NωFR × (NωFR × rFR/SR)
+        Vex term3_R = Vex.Cross( omegaFR_vec,
+                 Vex.Cross(omegaFR_vec, rFR_SR) );
+
+        // Sum them
+        Vex transportSum_R = term1_R + term2_R + term3_R;
+        // (Later) project onto the right‐hinge partial velocity vFR_wR:
+        // double Q_R = Vex.Dot( transportSum_R, vFR_wR );
+
+// (Later) project onto the right‐hinge partial velocity vFR_wR:
+// double Q_R = Vex.Dot( transportSum_R, vFR_wR );
+
+
+// Project onto the hinge‐partial velocity vFL_wL to get the scalar generalized force Q_L
+double Q_L = Vex.Dot( transportSum, vFL_wL );
+
         
 
         // 5) Dump into debug slots so you can watch the vector
@@ -222,57 +255,127 @@
         double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
         double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
-        // debug so you can confirm you’ve got the sign & magnitude right:
-        SetDebugVal(11, TtildeL);
-        SetDebugVal(12, TtildeR);
+        // 1) Zero out A and B so we start fresh
+        for(int i = 0; i < 8; i++){
+         for(int j = 0; j < 8; j++){
+        sys.SetA(i, j, 0.0);
+            }
+             sys.SetB(i, 0.0);
+            }
 
-      
+// 2) Fill A (inertia/mass matrix)
 
-        // 5) Debug so you can watch the right‐arm acceleration vector
-        SetDebugVal(8, aFR.x);
-        SetDebugVal(9, aFR.y);
-        SetDebugVal(10, aFR.z);
+// -- Body‐spin inertia (rows 0–2) --
+sys.SetA(0, 0,   rho2            ); // I_Gx * ω̇x
+sys.SetA(1, 1,   rho2 * gammaY   ); // I_Gy * ω̇y
+sys.SetA(2, 2,   rho2 * gammaZ   ); // I_Gz * ω̇z
+
+// -- Left hinge inertia (row 3) --
+sys.SetA(3, 0, vFL_wx             ); /
+sys.SetA(3, 1, vFL_wy             ); /
+sys.SetA(3, 2, vFL_wz             ); /
+sys.SetA(3, 3, vFL_wL             ); /
+sys.SetA(3, 4,   0          ); /
+sys.SetA(3, 5,  vG_vx            ); /
+sys.SetA(3, 6,  vG_vy            ); /
+sys.SetA(3, 7,  vG_vz            ); /
+
+// -- Right hinge inertia (row 4) --
+sys.SetA(4, 0,  vFR_wx            ); /
+sys.SetA(4, 1,  vFR_wy            ); /
+sys.SetA(4, 2,  vFR_wz            ); /
+sys.SetA(4, 3,  0            ); /
+sys.SetA(4, 4,  vFR_wR            ); /
+sys.SetA(4, 5,  vG_vx            ); /
+sys.SetA(4, 6,  vG_vy            ); /
+sys.SetA(4, 7,  vG_vz            ); /
+
+// -- CG (rows 5–7) --
+sys.SetA(5, 5,   vG_vx      ); // m_total * v̇x
+sys.SetA(6, 6,   vG_vy     ); // m_total * v̇y
+sys.SetA(7, 7,   vG_vz     ); // m_total * v̇z
+
+// 3) Fill B (generalized forces)
+
+// -- Body‐spin RHS (rows 0–2) --
+sys.SetB(0, -AngVelCrossAngMo.x);  // Q_x = -(ω×H)_x
+sys.SetB(1, -AngVelCrossAngMo.y);  // Q_y
+sys.SetB(2, -AngVelCrossAngMo.z);  // Q_z
+
+// -- Shoulder torques + transport terms (rows 3–4) --
+
+// Left‐arm P’s:
+double P_Ly = Vex.Dot( Vex.Cross(bY,   rFL_G), sZ );    // row ω̇y
+double P_Lz = Vex.Dot( Vex.Cross(bZ,   rFL_G), sZ );    // row ω̇z
+double P_LL = Vex.Dot( Vex.Cross(sZ,   rFL_SL),sZ );    // row ω̇FL (will be zero)
+// Right‐arm P’s:
+double P_Ry = Vex.Dot( Vex.Cross(bY,   rFR_G), sZ );    // row ω̇y
+double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
+double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
+// row 1 (ω̇y):
+sys.SetB(1, -AngVelCrossAngMo.y  // Q_y from body‐spin
+            + P_Ly * TtildeL      // plus left‐torque projection
+            + P_Ry * TtildeR );   // plus right‐torque projection
+
+// row 2 (ω̇z):
+sys.SetB(2, -AngVelCrossAngMo.z
+            + P_Lz * TtildeL
+            + P_Rz * TtildeR );
+
+sys.SetB(3,  Q_L + TtildeL + P_LL*TtildeL);        // Q_L = spring/damper + transport projection
+sys.SetB(4, Q_R + TtildeR + P_RR*TtildeR);        // Q_R
+
+// -- No external CG force (rows 5–7) --
+sys.SetB(5, 0.0);  // Q_vx
+sys.SetB(6, 0.0);  // Q_vy
+sys.SetB(7, 0.0);  // Q_vz
+
+// 4) Solve the 8×8 system
+sys.SolveGauss();
+
+// 5) Unpack the solution back into ff[0..7]
+for(int i = 0; i < 8; i++){
+    ff[i] = Bmat[i];
+    SetDebugVal(i, ff[i]);
+}
+
+        
  
-         SetDebugVal(0,omegaX); // use these for debugging,  displays on screen.
-         SetDebugVal(1,omegaY);
-         SetDebugVal(2,omegaZ); 
-         SetDebugVal(3, ff[3]);
-         SetDebugVal(4, ff[4]);
- 
-         ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
-         ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
-         ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
-         ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
-
-       
-        ff[5] = vG_B.x;   // ẋG = vx
-        ff[6] = vG_B.y;   // ẏG = vy
-        ff[7] = vG_B.z;   // żG = vz
-
-
+        ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
+        ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
+        ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
+        ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
         ff[12] = omegaFL;   // θ̇L = ωFL
         ff[13] = omegaFR;   // θ̇R = ωFR
+        ff[14] = vx;   // ẋG = vx
+        ff[15] = vy;   // ẏG = vy
+        ff[16] = vz;   // żG = vz
 
-        ff[14] = 0;   // ẋG = vx
-        ff[15] = 0;   // ẏG = vy
-        ff[16] = 0;   // żG = vz
+        SetDebugVal(0,  ff[0]);  // ff[0] = ω̇x
+        SetDebugVal(1,  ff[1]);  // ff[1] = ω̇y
+        SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
+        SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
+        SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
+        SetDebugVal(5,  ff[5]);  // ff[5] = v̇x
+        SetDebugVal(6,  ff[6]);  // ff[6] = v̇y
+        SetDebugVal(7,  ff[7]);  // ff[7] = v̇z
+        SetDebugVal(8,  ff[8]);  // ff[8] = q̇0
+        SetDebugVal(9,  ff[9]);  // ff[9] = q̇1
+        SetDebugVal(10, ff[10]); // ff[10] = q̇2
+        SetDebugVal(11, ff[11]); // ff[11] = q̇3
+        SetDebugVal(12, ff[12]); // ff[12] = θ̇L
+        SetDebugVal(13, ff[13]); // ff[13] = θ̇R
+        SetDebugVal(14, ff[14]); // ff[14] = ẋG
+        SetDebugVal(15, ff[15]); // ff[15] = ẏG
+        SetDebugVal(16, ff[16]); // ff[16] = żG
 
 
-     //SetDebugVal(5,  vG_vx.x);   // TestVal_5
-    // SetDebugVal(6,  vG_vx.y);   // TestVal_6
-    // SetDebugVal(7,  vG_vx.z);   // TestVal_7
-    //SetDebugVal(8,  vG_vy.x);   // TestVal_8
-    //SetDebugVal(9,  vG_vy.y);   // TestVal_9
-    //SetDebugVal(10, vG_vy.z);   // TestVal_10
-    //SetDebugVal(11, vG_vz.x);   // TestVal_11
-    //SetDebugVal(12, vG_vz.y);   // TestVal_12
-    //SetDebugVal(13, vG_vz.z);   // TestVal_13
-    //SetDebugVal(12, vG_B.x);
-    //SetDebugVal(13, vG_B.y);
-   // SetDebugVal(14, vG_B.z);
-   // SetDebugVal(15, ff[15]);
-   // SetDebugVal(16, ff[16]);
 
+
+
+
+
+   
  
          // COMMENT THESE OUT OR REMOVE WHEN READY
          //ff[0] = ff[1] = ff[2] = 0.0;   // derivs of body angular velocities set to zero
