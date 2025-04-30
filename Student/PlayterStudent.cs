@@ -232,24 +232,24 @@ sys.SetA(1, 1,   rho2 * gammaY   ); // I_Gy * ω̇y
 sys.SetA(2, 2,   rho2 * gammaZ   ); // I_Gz * ω̇z
 
 // -- Left hinge inertia (row 3) --
-sys.SetA(3, 0, vFL_wx             ); 
-sys.SetA(3, 1, vFL_wy             ); 
-sys.SetA(3, 2, vFL_wz             ); 
-sys.SetA(3, 3, vFL_wL             ); 
-sys.SetA(3, 4,   0          ); 
-sys.SetA(3, 5,  vG_vx            ); 
-sys.SetA(3, 6,  vG_vy            ); 
-sys.SetA(3, 7,  vG_vz            ); 
+sys.SetA(3, 0,  mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
+sys.SetA(3, 1,  mArm * Vex.Dot(vFL_wy, vFL_wL));   // coupling ωy → ω̇FL
+sys.SetA(3, 2,  mArm * Vex.Dot(vFL_wz, vFL_wL));   // coupling ωz → ω̇FL
+sys.SetA(3, 3,  mArm * Vex.Dot(vFL_wL, vFL_wL));   // hinge inertia term
+sys.SetA(3, 4,  0.0);
+sys.SetA(3, 5,  mArm * Vex.Dot(vG_vx,  vFL_wL));   // coupling vx → ω̇FL
+sys.SetA(3, 6,  mArm * Vex.Dot(vG_vy,  vFL_wL));   // coupling vy → ω̇FL
+sys.SetA(3, 7,  mArm * Vex.Dot(vG_vz,  vFL_wL));   // coupling vz → ω̇FL
 
-// -- Right hinge inertia (row 4) --
-sys.SetA(4, 0,  vFR_wx            ); 
-sys.SetA(4, 1,  vFR_wy            ); 
-sys.SetA(4, 2,  vFR_wz            ); 
-sys.SetA(4, 3,  0            ); 
-sys.SetA(4, 4,  vFR_wR            ); 
-sys.SetA(4, 5,  vG_vx            ); 
-sys.SetA(4, 6,  vG_vy            ); 
-sys.SetA(4, 7,  vG_vz            ); 
+// row 4: ω̇FR equation
+sys.SetA(4, 0,  mArm * Vex.Dot(vFR_wx, vFR_wR));
+sys.SetA(4, 1,  mArm * Vex.Dot(vFR_wy, vFR_wR));
+sys.SetA(4, 2,  mArm * Vex.Dot(vFR_wz, vFR_wR));
+sys.SetA(4, 3,  0.0);
+sys.SetA(4, 4,  mArm * Vex.Dot(vFR_wR, vFR_wR));
+sys.SetA(4, 5,  mArm * Vex.Dot(vG_vx,  vFR_wR));
+sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
+sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
 sys.SetA(5, 5,   vG_vx      ); // m_total * v̇x
