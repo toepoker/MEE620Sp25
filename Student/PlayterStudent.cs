@@ -121,6 +121,15 @@
 
        
         Vex bX = new Vex(1,0,0), bY = new Vex(0,1,0), bZ = new Vex(0,0,1);
+
+             // shoulder & arm position vectors:
+        Vex rSL_G   = new Vex( 1.0, h, 0.0 );
+        Vex rFL_SL  = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
+           // shoulder & arm position vectors for right arm
+        Vex rSR_G  = new Vex(-1.0, h, 0.0);
+        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR),
+                         Math.Sin(thetaR)*cosPhi,
+                         Math.Sin(thetaR)*sinPhi);
        // Left‐arm partials:
         Vex vFL_wx = Vex.Cross(bX,  rFL_G);   // ∂vFL/∂ωx
         Vex vFL_wy = Vex.Cross(bY,  rFL_G);   // ∂vFL/∂ωy
@@ -139,9 +148,7 @@
         Vex omegaB    = new Vex(omegaX, omegaY, omegaZ);
         Vex omegaFL_vec = sZ * omegaFL;
 
-        // shoulder & arm position vectors:
-        Vex rSL_G   = new Vex( 1.0, h, 0.0 );
-        Vex rFL_SL  = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
+   
 
         // 1) NωB × (NωB × rSL/G)
         Vex term1 = Vex.Cross( omegaB,
@@ -166,11 +173,7 @@
         // hinge‐axis unit (same sZ)
         Vex omegaFR_vec = sZ * omegaFR;
 
-        // shoulder & arm position vectors for right arm
-        Vex rSR_G  = new Vex(-1.0, h, 0.0);
-        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR),
-                         Math.Sin(thetaR)*cosPhi,
-                         Math.Sin(thetaR)*sinPhi);
+     
 
         // 1) NωB × (NωB × rSR/G)
         Vex term1_R = Vex.Cross( omegaB,
