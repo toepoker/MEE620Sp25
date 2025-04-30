@@ -175,15 +175,14 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
 
 
-             
-        //torque
-        double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
-        double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
+//torque
+double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
+double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
-        // 1) Zero out A and B so we start fresh
-        for(int i = 0; i < 8; i++){
-         for(int j = 0; j < 8; j++){
-        sys.SetA(i, j, 0.0);
+// 1) Zero out A and B so we start fresh
+for(int i = 0; i < 8; i++){
+ for(int j = 0; j < 8; j++){
+    sys.SetA(i, j, 0.0);
             }
              sys.SetB(i, 0.0);
             }
@@ -263,7 +262,7 @@ sys.SolveGauss();
 
 // 5) Unpack the solution back into ff[0..7]
 for(int i = 0; i < 8; i++){
-    ff[i] = Bmat[i];
+    ff[i] = sys.Sol[i];
     SetDebugVal(i, ff[i]);
 }
 
