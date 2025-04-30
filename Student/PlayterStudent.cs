@@ -55,14 +55,22 @@
      //------------------------------------------------------------------------
      private void StudentInit()
      {
-         sys = new LinSysEq(8);
-         Amat = new double[8,8];  // an 8 by 8 array of doubles
-         Bmat = new double[8];    // an 8 by 1 array of doubles
+           sys   = new LinSysEq(8);
+    Amat  = new double[8,8];
+    Bmat  = new double[8];
 
-           // Set phi and precompute trigonometric values once:
-         phi = Math.PI / 4;   // example: ϕ = 45 degrees, adjust as necessary
-        sinPhi = Math.Sin(phi);
-        cosPhi = Math.Cos(phi);
+    // --- Initialize ALL the Playter parameters! ---
+    mA       = 0.107;             // arm mass ratio
+    rho      = 2.21;              // radius of gyration
+    gammaY   = 0.091;             // IGy/IGx
+    gammaZ   = 1.05;              // IGz/IGx
+    h        = 1.56;              // nondimensional shoulder height
+    L        = 1.65;              // nondimensional arm length
+    k        = 10.0;              // torsional spring stiffness (test)
+    c        =  1.0;              // torsional damping  (test)
+    phi      = Math.PI/4;         // swing‐plane angle
+    sinPhi   = Math.Sin(phi);
+    cosPhi   = Math.Cos(phi);
  
      }
  
