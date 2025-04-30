@@ -121,8 +121,7 @@
 
        
         Vex bX = new Vex(1,0,0), bY = new Vex(0,1,0), bZ = new Vex(0,0,1);
-        Vex sZ = new Vex(0, -sinPhi, cosPhi);  // ŝz
-
+       
 
     
         // hinge‐axis unit in B‐frame:
