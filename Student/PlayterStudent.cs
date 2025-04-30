@@ -121,8 +121,16 @@
 
        
         Vex bX = new Vex(1,0,0), bY = new Vex(0,1,0), bZ = new Vex(0,0,1);
-       
-
+       // Left‐arm partials:
+        Vex vFL_wx = Vex.Cross(bX,  rFL_G);   // ∂vFL/∂ωx
+        Vex vFL_wy = Vex.Cross(bY,  rFL_G);   // ∂vFL/∂ωy
+        Vex vFL_wz = Vex.Cross(bZ,  rFL_G);   // ∂vFL/∂ωz
+        Vex vFL_wL = Vex.Cross(sZ,  rFL_SL);  // ∂vFL/∂ωFL
+        // Right‐arm partials:
+        Vex vFR_wx = Vex.Cross(bX,  rFR_G);   // ∂vFR/∂ωx
+        Vex vFR_wy = Vex.Cross(bY,  rFR_G);   // ∂vFR/∂ωy
+        Vex vFR_wz = Vex.Cross(bZ,  rFR_G);   // ∂vFR/∂ωz
+        Vex vFR_wR = Vex.Cross(sZ,  rFR_SR);  // ∂vFR/∂ωFR
     
         // hinge‐axis unit in B‐frame:
         Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
@@ -194,22 +202,14 @@
 Vex rFL_G  = rSL_G + rFL_SL;  // if you prefer, else compute directly
 // rFL_SL must already be L * [cos(θL), sin(θL)·cosΦ, sin(θL)·sinΦ]
 
-// Left‐arm partials:
-Vex vFL_wx = Vex.Cross(bX,  rFL_G);   // ∂vFL/∂ωx
-Vex vFL_wy = Vex.Cross(bY,  rFL_G);   // ∂vFL/∂ωy
-Vex vFL_wz = Vex.Cross(bZ,  rFL_G);   // ∂vFL/∂ωz
-Vex vFL_wL = Vex.Cross(sZ,  rFL_SL);  // ∂vFL/∂ωFL
+
 
 //RIGHT ARM
 // Shoulder‐to‐arm mass vectors (in B‐frame)
 Vex rFR_G  = rSR_G + rFR_SR;  // similarly computed
 // rFR_SR must be –L * [cos(θR), sin(θR)·cosΦ, sin(θR)·sinΦ]
 
-// Right‐arm partials:
-Vex vFR_wx = Vex.Cross(bX,  rFR_G);   // ∂vFR/∂ωx
-Vex vFR_wy = Vex.Cross(bY,  rFR_G);   // ∂vFR/∂ωy
-Vex vFR_wz = Vex.Cross(bZ,  rFR_G);   // ∂vFR/∂ωz
-Vex vFR_wR = Vex.Cross(sZ,  rFR_SR);  // ∂vFR/∂ωFR
+
 
              
         //torque
