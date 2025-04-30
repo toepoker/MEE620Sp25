@@ -187,13 +187,6 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
 double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
-// 1) Zero out A and B so we start fresh
-for(int i = 0; i < 8; i++){
- for(int j = 0; j < 8; j++){
-    sys.SetA(i, j, 0.0);
-            }
-             sys.SetB(i, 0.0);
-            }
 
 // 2) Fill A (inertia/mass matrix)
 
@@ -203,15 +196,13 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
                               new Vex(rho2*omegaX,
                                       rho2*gammaY*omegaY,
                                       rho2*gammaZ*omegaZ) );
+
 sys.SetA(0, 0,   rho2*ff[0]            ); // I_Gx * ω̇x
 sys.SetA(1, 1,   rho2 * gammaY *ff[1]   );// I_Gy * ω̇y 
 sys.SetA(2, 2,   rho2 * gammaZ *ff[2]  );// I_Gz * ω̇z
 sys.SetB(0, -omegaCrossH.x);  // Q_x = −(ω×H)_x
 sys.SetB(1, -omegaCrossH.y);  // Q_y = −(ω×H)_y
 sys.SetB(2, -omegaCrossH.z);  // Q_z = −(ω×H)_z
-
-
-
 
 // -- Left hinge inertia (row 3) --
 double mArm = mA;
@@ -236,19 +227,11 @@ sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
 double mTotal = 1.0 + 2.0*mA;
-
 sys.SetA(5, 5,   vG_B.x * mTotal     ); // m_total * v̇x
 sys.SetA(6, 6,   vG_B.y * mTotal    ); // m_total * v̇y
 sys.SetA(7, 7,   vG_B.z * mTotal    ); // m_total * v̇z
 
 // 3) Fill B (generalized forces)
-
-// -- Body‐spin RHS (rows 0–2) --
-sys.SetB(0, -AngVelCrossAngMo.x);  // Q_x = -(ω×H)_x
-sys.SetB(1, -AngVelCrossAngMo.y);  // Q_y
-sys.SetB(2, -AngVelCrossAngMo.z);  // Q_z
-
-// -- Shoulder torques + transport terms (rows 3–4) --
 
 // Left‐arm P’s:
 double P_Ly = Vex.Dot( Vex.Cross(bY,   rFL_G), sZ );    // row ω̇y
@@ -259,6 +242,10 @@ double P_Ry = Vex.Dot( Vex.Cross(bY,   rFR_G), sZ );    // row ω̇y
 double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
 double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
 
+// -- Body‐spin RHS (rows 0–2) --
+sys.SetB(0, -AngVelCrossAngMo.x);  // Q_x = -(ω×H)_x
+sys.SetB(1, -AngVelCrossAngMo.y);  // Q_y
+sys.SetB(2, -AngVelCrossAngMo.z);  // Q_z
 sys.SetB(3,  Q_L + TtildeL + P_LL*TtildeL);        // Q_L = spring/damper + transport projection
 sys.SetB(4, Q_R + TtildeR + P_RR*TtildeR);        // Q_R
 
@@ -266,6 +253,12 @@ sys.SetB(4, Q_R + TtildeR + P_RR*TtildeR);        // Q_R
 sys.SetB(5, 0.0);  // Q_vx
 sys.SetB(6, 0.0);  // Q_vy
 sys.SetB(7, 0.0);  // Q_vz
+
+
+// -- Shoulder torques + transport terms (rows 3–4) --
+
+
+
 
 // 4) Solve the 8×8 system
 sys.SolveGauss();
