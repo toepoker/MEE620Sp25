@@ -119,98 +119,59 @@
         );
         Vex vG_B = vx * vG_vx + vy * vG_vy + vz * vG_vz;
 
-       
-        Vex bX = new Vex(1,0,0), bY = new Vex(0,1,0), bZ = new Vex(0,0,1);
+       // 1) Unit basis vectors
+Vex bX = new Vex(1, 0, 0);
+Vex bY = new Vex(0, 1, 0);
+Vex bZ = new Vex(0, 0, 1);
 
-             // shoulder & arm position vectors:
-        Vex rSL_G   = new Vex( 1.0, h, 0.0 );
-        Vex rFL_SL  = L * new Vex(Math.Cos(thetaL), Math.Sin(thetaL)*cosPhi, Math.Sin(thetaL)*sinPhi);
-           // shoulder & arm position vectors for right arm
-        Vex rSR_G  = new Vex(-1.0, h, 0.0);
-        Vex rFR_SR = -L * new Vex(Math.Cos(thetaR),
-                         Math.Sin(thetaR)*cosPhi,
-                         Math.Sin(thetaR)*sinPhi);
-       // Left‐arm partials:
-        Vex vFL_wx = Vex.Cross(bX,  rFL_G);   // ∂vFL/∂ωx
-        Vex vFL_wy = Vex.Cross(bY,  rFL_G);   // ∂vFL/∂ωy
-        Vex vFL_wz = Vex.Cross(bZ,  rFL_G);   // ∂vFL/∂ωz
-        Vex vFL_wL = Vex.Cross(sZ,  rFL_SL);  // ∂vFL/∂ωFL
-        // Right‐arm partials:
-        Vex vFR_wx = Vex.Cross(bX,  rFR_G);   // ∂vFR/∂ωx
-        Vex vFR_wy = Vex.Cross(bY,  rFR_G);   // ∂vFR/∂ωy
-        Vex vFR_wz = Vex.Cross(bZ,  rFR_G);   // ∂vFR/∂ωz
-        Vex vFR_wR = Vex.Cross(sZ,  rFR_SR);  // ∂vFR/∂ωFR
-    
-        // hinge‐axis unit in B‐frame:
-        Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
+// 2) Hinge‐axis unit in B‐frame
+Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
 
-        // body and hinge angular speeds:
-        Vex omegaB    = new Vex(omegaX, omegaY, omegaZ);
-        Vex omegaFL_vec = sZ * omegaFL;
+// 3) Shoulder & arm position vectors (B‐frame)
+Vex rSL_G   = new Vex( 1.0, h, 0.0 );
+Vex rSR_G   = new Vex(-1.0, h, 0.0 );
+Vex rFL_SL  = L * new Vex(Math.Cos(thetaL),
+                         Math.Sin(thetaL)*cosPhi,
+                         Math.Sin(thetaL)*sinPhi);
+Vex rFR_SR  = -L * new Vex(Math.Cos(thetaR),
+                          Math.Sin(thetaR)*cosPhi,
+                          Math.Sin(thetaR)*sinPhi);
 
-   
+// 4) Full arm mass locations (B‐frame)
+Vex rFL_G = rSL_G + rFL_SL;
+Vex rFR_G = rSR_G + rFR_SR;
 
-        // 1) NωB × (NωB × rSL/G)
-        Vex term1 = Vex.Cross( omegaB,
-                Vex.Cross(omegaB, rSL_G) );
+// 5) Body and hinge angular speeds
+Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
+Vex omegaFL_vec = sZ * omegaFL;
+Vex omegaFR_vec = sZ * omegaFR;
 
-        // 2) (NωB × BωFL) × rFL/SL
-        Vex term2 = Vex.Cross(
-                Vex.Cross(omegaB, omegaFL_vec),
-                rFL_SL );
+// 6) Partial velocities (Eq. 27)
+//  Left arm:
+Vex vFL_wx = Vex.Cross(bX, rFL_G);
+Vex vFL_wy = Vex.Cross(bY, rFL_G);
+Vex vFL_wz = Vex.Cross(bZ, rFL_G);
+Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
+//  Right arm:
+Vex vFR_wx = Vex.Cross(bX, rFR_G);
+Vex vFR_wy = Vex.Cross(bY, rFR_G);
+Vex vFR_wz = Vex.Cross(bZ, rFR_G);
+Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
 
-        // 3) NωFL × (NωFL × rFL/SL)
-        Vex term3 = Vex.Cross( omegaFL_vec,
-                Vex.Cross(omegaFL_vec, rFL_SL) );
+// 7) Left‐arm transport/Coriolis terms
+Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
+Vex term2   = Vex.Cross(Vex.Cross(omegaB, omegaFL_vec), rFL_SL);
+Vex term3   = Vex.Cross(omegaFL_vec, Vex.Cross(omegaFL_vec, rFL_SL));
+Vex transportSum   = term1 + term2 + term3;
+double Q_L = Vex.Dot(transportSum, vFL_wL);
 
-        // Sum them
-        Vex transportSum = term1 + term2 + term3;
-        // Project onto the hinge‐partial velocity vFL_wL to get the scalar generalized force Q_L
-        double Q_L = Vex.Dot( transportSum, vFL_wL );
+// 8) Right‐arm transport/Coriolis terms
+Vex term1_R = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSR_G));
+Vex term2_R = Vex.Cross(Vex.Cross(omegaB, omegaFR_vec), rFR_SR);
+Vex term3_R = Vex.Cross(omegaFR_vec, Vex.Cross(omegaFR_vec, rFR_SR));
+Vex transportSum_R = term1_R + term2_R + term3_R;
+double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
-        // --- Right‐arm transport/Coriolis terms -------------------------------
-
-        // hinge‐axis unit (same sZ)
-        Vex omegaFR_vec = sZ * omegaFR;
-
-     
-
-        // 1) NωB × (NωB × rSR/G)
-        Vex term1_R = Vex.Cross( omegaB,
-                 Vex.Cross(omegaB, rSR_G) );
-
-        // 2) (NωB × BωFR) × rFR/SR
-        Vex term2_R = Vex.Cross(
-                 Vex.Cross(omegaB, omegaFR_vec),
-                 rFR_SR );
-
-        // 3) NωFR × (NωFR × rFR/SR)
-        Vex term3_R = Vex.Cross( omegaFR_vec,
-                 Vex.Cross(omegaFR_vec, rFR_SR) );
-
-        // Sum them
-        Vex transportSum_R = term1_R + term2_R + term3_R;
-        // (Later) project onto the right‐hinge partial velocity vFR_wR:
-         double Q_R = Vex.Dot( transportSum_R, vFR_wR );
-
-// (Later) project onto the right‐hinge partial velocity vFR_wR:
-// double Q_R = Vex.Dot( transportSum_R, vFR_wR );
-
-
-// Project onto the hinge‐partial velocity vFL_wL to get the scalar generalized force Q_L
-//double Q_L = Vex.Dot( transportSum, vFL_wL );
-
-//LEFT ARM
-// Shoulder‐to‐arm mass vectors (in B‐frame)
-Vex rFL_G  = rSL_G + rFL_SL;  // if you prefer, else compute directly
-// rFL_SL must already be L * [cos(θL), sin(θL)·cosΦ, sin(θL)·sinΦ]
-
-
-
-//RIGHT ARM
-// Shoulder‐to‐arm mass vectors (in B‐frame)
-Vex rFR_G  = rSR_G + rFR_SR;  // similarly computed
-// rFR_SR must be –L * [cos(θR), sin(θR)·cosΦ, sin(θR)·sinΦ]
 
 
 
