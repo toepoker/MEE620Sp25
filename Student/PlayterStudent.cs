@@ -211,47 +211,7 @@ Vex vFR_wy = Vex.Cross(bY,  rFR_G);   // ∂vFR/∂ωy
 Vex vFR_wz = Vex.Cross(bZ,  rFR_G);   // ∂vFR/∂ωz
 Vex vFR_wR = Vex.Cross(sZ,  rFR_SR);  // ∂vFR/∂ωFR
 
-        
-
-        // 5) Dump into debug slots so you can watch the vector
-       // SetDebugVal(5, aFL.x);
-       // SetDebugVal(6, aFL.y);
-       // SetDebugVal(7, aFL.z);
-
-        // 6) If you want to actually set ff for testing, you can do:
-        // ff[?] = aFL.x;  // but typically ff[3]–ff[7] reserved for speeds & CG
-
-        // 1) Translational partials (same CG terms)
-        Vex aFR = vx * vG_vx
-        + vy * vG_vy
-        + vz * vG_vz;
-
-        // 2) Body‐spin partials for right arm
-        aFR += omegaX * vFR_wx
-            + omegaY * vFR_wy
-            + omegaZ * vFR_wz;
-
-        // 3) Hinge partial for right arm
-        aFR += omegaFR * vFR_wR;
-
-        // 4) Transport/coriolis terms for right arm
-        Vex omegaBR = new Vex(omegaX, omegaY, omegaZ);
-
-        // (a) NωB × (NωB × rSR/G)
-        Vex termA = Vex.Cross(omegaBR, Vex.Cross(omegaBR, rSR_G));
-
-        // (b) (NωB × BωFR) × rFR/SR
-        Vex omegaB_BwFR = Vex.Cross(omegaBR, sZ * omegaFR);
-        Vex termB       = Vex.Cross(omegaB_BwFR, rFR_SR);
-
-        // (c) NωFR × (NωFR × rFR/SR)
-        Vex omegaFR_vec = sZ * omegaFR;
-        Vex termC       = Vex.Cross(omegaFR_vec, Vex.Cross(omegaFR_vec, rFR_SR));
-
-        // Sum them
-        aFR += termA + termB + termC;
-        
-        
+             
         //torque
         double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
         double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
