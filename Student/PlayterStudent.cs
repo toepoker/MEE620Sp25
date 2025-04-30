@@ -263,14 +263,6 @@ sys.SetB(7, 0.0);  // Q_vz
 // 4) Solve the 8×8 system
 sys.SolveGauss();
 
-ff[0]  = sys.Sol(0);   // dωx/dt
-ff[1]  = sys.Sol(1);   // dωy/dt
-ff[2]  = sys.Sol(2);   // dωx/dt
-ff[3]  = sys.Sol(3);   // dωy/dt
-ff[4]  = sys.Sol(4);   // dωx/dt
-ff[5]  = sys.Sol(5);   // dωy/dt
-ff[6]  = sys.Sol(6);   // dωx/dt
-ff[7]  = sys.Sol(7);   // dωy/dt
 
 
 
