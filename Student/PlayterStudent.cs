@@ -198,9 +198,15 @@ for(int i = 0; i < 8; i++){
 // 2) Fill A (inertia/mass matrix)
 
 // -- Body‐spin inertia (rows 0–2) --
-sys.SetA(0, 0,   rho2            ); // I_Gx * ω̇x
-sys.SetA(1, 1,   rho2 * gammaY   ); // I_Gy * ω̇y
-sys.SetA(2, 2,   rho2 * gammaZ   ); // I_Gz * ω̇z
+sys.SetA(0, 0,   rho2*ff[0]            ); // I_Gx * ω̇x
+sys.SetA(0, 1,   rho2*(gammaZ-gammaY)      );
+sys.SetA(0, 2,   rho2*(gammaZ-gammaY)       );
+sys.SetA(1, 1,   rho2 * gammaY *ff[1]   );// I_Gy * ω̇y
+sys.SetA(1, 0,   rho2 * (1-gammaZ)   );
+sys.SetA(1, 2,   rho2 * (1-gammaZ)   ); 
+sys.SetA(2, 2,   rho2 * gammaZ *ff[2]  );// I_Gz * ω̇z
+sys.SetA(2, 0,   rho2 * (gammaY-1)  );
+sys.SetA(2, 1,   rho2 * (gammaY-1)  ); 
 
 
 
