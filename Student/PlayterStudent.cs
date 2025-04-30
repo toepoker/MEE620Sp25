@@ -271,24 +271,24 @@ sys.SetA(1, 1,   rho2 * gammaY   ); // I_Gy * ω̇y
 sys.SetA(2, 2,   rho2 * gammaZ   ); // I_Gz * ω̇z
 
 // -- Left hinge inertia (row 3) --
-sys.SetA(3, 0, vFL_wx             ); /
-sys.SetA(3, 1, vFL_wy             ); /
-sys.SetA(3, 2, vFL_wz             ); /
-sys.SetA(3, 3, vFL_wL             ); /
-sys.SetA(3, 4,   0          ); /
-sys.SetA(3, 5,  vG_vx            ); /
-sys.SetA(3, 6,  vG_vy            ); /
-sys.SetA(3, 7,  vG_vz            ); /
+sys.SetA(3, 0, vFL_wx             ); 
+sys.SetA(3, 1, vFL_wy             ); 
+sys.SetA(3, 2, vFL_wz             ); 
+sys.SetA(3, 3, vFL_wL             ); 
+sys.SetA(3, 4,   0          ); 
+sys.SetA(3, 5,  vG_vx            ); 
+sys.SetA(3, 6,  vG_vy            ); 
+sys.SetA(3, 7,  vG_vz            ); 
 
 // -- Right hinge inertia (row 4) --
-sys.SetA(4, 0,  vFR_wx            ); /
-sys.SetA(4, 1,  vFR_wy            ); /
-sys.SetA(4, 2,  vFR_wz            ); /
-sys.SetA(4, 3,  0            ); /
-sys.SetA(4, 4,  vFR_wR            ); /
-sys.SetA(4, 5,  vG_vx            ); /
-sys.SetA(4, 6,  vG_vy            ); /
-sys.SetA(4, 7,  vG_vz            ); /
+sys.SetA(4, 0,  vFR_wx            ); 
+sys.SetA(4, 1,  vFR_wy            ); 
+sys.SetA(4, 2,  vFR_wz            ); 
+sys.SetA(4, 3,  0            ); 
+sys.SetA(4, 4,  vFR_wR            ); 
+sys.SetA(4, 5,  vG_vx            ); 
+sys.SetA(4, 6,  vG_vy            ); 
+sys.SetA(4, 7,  vG_vz            ); 
 
 // -- CG (rows 5–7) --
 sys.SetA(5, 5,   vG_vx      ); // m_total * v̇x
