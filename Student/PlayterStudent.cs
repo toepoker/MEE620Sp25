@@ -125,7 +125,7 @@
             2*q0*q1   + 2*q2*q3,
             q0*q0 - q1*q1 - q2*q2 + q3*q3
         );
-        Vex vG_B = vG_vx + vG_vy + vG_vz;
+        Vex vG_B = vG_vx * vx + vG_vy * vy + vG_vz * vz;
 
        // 1) Unit basis vectors
 Vex bX = new Vex(1, 0, 0);
