@@ -268,7 +268,7 @@ sys.SolveGauss();
 
     
   
-ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
+
        
 
       //  ff[3] = vFL_wL.x
