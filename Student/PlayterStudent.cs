@@ -206,24 +206,24 @@ sys.SetB(2, -omegaCrossH.z);  // Q_z = −(ω×H)_z
 
 // -- Left hinge inertia (row 3) --
 double mArm = mA;
-sys.SetA(3, 0,  mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
-sys.SetA(3, 1,  mArm * Vex.Dot(vFL_wy, vFL_wL));   // coupling ωy → ω̇FL
-sys.SetA(3, 2,  mArm * Vex.Dot(vFL_wz, vFL_wL));   // coupling ωz → ω̇FL
-sys.SetA(3, 3,  mArm * Vex.Dot(vFL_wL, vFL_wL));   // hinge inertia term
+sys.SetA(3, 0,  -mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
+sys.SetA(3, 1,  -mArm * Vex.Dot(vFL_wy, vFL_wL));   // coupling ωy → ω̇FL
+sys.SetA(3, 2,  -mArm * Vex.Dot(vFL_wz, vFL_wL));   // coupling ωz → ω̇FL
+sys.SetA(3, 3,  -mArm * Vex.Dot(vFL_wL, vFL_wL));   // hinge inertia term
 sys.SetA(3, 4,  0.0);
-sys.SetA(3, 5,  mArm * Vex.Dot(vG_vx,  vFL_wL));   // coupling vx → ω̇FL
-sys.SetA(3, 6,  mArm * Vex.Dot(vG_vy,  vFL_wL));   // coupling vy → ω̇FL
-sys.SetA(3, 7,  mArm * Vex.Dot(vG_vz,  vFL_wL));   // coupling vz → ω̇FL
+sys.SetA(3, 5,  -mArm * Vex.Dot(vG_vx,  vFL_wL));   // coupling vx → ω̇FL
+sys.SetA(3, 6,  -mArm * Vex.Dot(vG_vy,  vFL_wL));   // coupling vy → ω̇FL
+sys.SetA(3, 7,  -mArm * Vex.Dot(vG_vz,  vFL_wL));   // coupling vz → ω̇FL
 
 // row 4: ω̇FR equation
-sys.SetA(4, 0,  mArm * Vex.Dot(vFR_wx, vFR_wR));
-sys.SetA(4, 1,  mArm * Vex.Dot(vFR_wy, vFR_wR));
-sys.SetA(4, 2,  mArm * Vex.Dot(vFR_wz, vFR_wR));
+sys.SetA(4, 0,  -mArm * Vex.Dot(vFR_wx, vFR_wR));
+sys.SetA(4, 1,  -mArm * Vex.Dot(vFR_wy, vFR_wR));
+sys.SetA(4, 2,  -mArm * Vex.Dot(vFR_wz, vFR_wR));
 sys.SetA(4, 3,  0.0);
-sys.SetA(4, 4,  mArm * Vex.Dot(vFR_wR, vFR_wR));
-sys.SetA(4, 5,  mArm * Vex.Dot(vG_vx,  vFR_wR));
-sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
-sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
+sys.SetA(4, 4,  -mArm * Vex.Dot(vFR_wR, vFR_wR));
+sys.SetA(4, 5,  -mArm * Vex.Dot(vG_vx,  vFR_wR));
+sys.SetA(4, 6,  -mArm * Vex.Dot(vG_vy,  vFR_wR));
+sys.SetA(4, 7,  -mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
 double mTotal = 1.0 + 2.0*mA;
