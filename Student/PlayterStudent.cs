@@ -246,8 +246,8 @@ double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero agai
 sys.SetB(0, -AngVelCrossAngMo.x);  // Q_x = -(ω×H)_x
 sys.SetB(1, -AngVelCrossAngMo.y);  // Q_y
 sys.SetB(2, -AngVelCrossAngMo.z);  // Q_z
-sys.SetB(3,  -Q_L + TtildeL + P_LL*TtildeL);        // Q_L = spring/damper + transport projection
-sys.SetB(4, -Q_R + TtildeR + P_RR*TtildeR);        // Q_R
+sys.SetB(3,  -Q_L + TtildeL );        // Q_L = spring/damper + transport projection
+sys.SetB(4, -Q_R + TtildeR );        // Q_R
 
 // -- No external CG force (rows 5–7) --
 sys.SetB(5, 0.0);  // Q_vx
