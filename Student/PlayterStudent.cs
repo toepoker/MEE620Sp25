@@ -263,6 +263,15 @@ sys.SetB(7, 0.0);  // Q_vz
 // 4) Solve the 8×8 system
 sys.SolveGauss();
 
+ff[0]= sys.Sol(0);
+ff[1]= sys.Sol(1);
+ff[2]= sys.Sol(2);
+ff[3]= sys.Sol(3);
+ff[4]= sys.Sol(4);
+ff[5]= sys.Sol(5);
+ff[6]= sys.Sol(6);
+ff[7]= sys.Sol(7);
+
 
 
 
