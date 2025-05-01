@@ -283,9 +283,9 @@ sys.SolveGauss();
         ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
         ff[12] = omegaFL;   // θ̇L = ωFL
         ff[13] = omegaFR;   // θ̇R = ωFR
-        ff[14] = 0;   // ẋG = vx
-        ff[15] = 0;   // ẏG = vy
-        ff[16] = 0;   // żG = vz
+        ff[14] = vx;   // ẋG = vx
+        ff[15] = vy;   // ẏG = vy
+        ff[16] = vz;   // żG = vz
 
         SetDebugVal(0,  ff[0]);  // ff[0] = ω̇x
         SetDebugVal(1,  ff[1]);  // ff[1] = ω̇y
