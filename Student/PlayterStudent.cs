@@ -105,9 +105,9 @@
          Vex AngMo = new Vex(rho2*omegaX, rho2*gammaY*omegaY, rho2*gammaZ*omegaZ);
          Vex AngVelCrossAngMo = Vex.Cross(AngVel, AngMo);
          
-         ff[0] = -AngVelCrossAngMo.x/rho2;
-         ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
-         ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
+         //ff[0] = -AngVelCrossAngMo.x/rho2;
+         //ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
+         //ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
 
          
         Vex vG_vx = new Vex(
