@@ -311,7 +311,7 @@ ff[7]= sys.Sol(7);
         SetDebugVal(12, sys.Sol(7)); // ff[12] = θ̇L
         SetDebugVal(13, ff[13]); // ff[13] = θ̇R
         SetDebugVal(14, ff[14]); // ff[14] = ẋG
-        SetDebugVal(15, ff[15]); // ff[15] = ẏG
+        SetDebugVal(15, ff[16]); // ff[15] = ẏG
         SetDebugVal(16, ff[16]); // ff[16] = żG
 
 
