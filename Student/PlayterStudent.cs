@@ -159,8 +159,14 @@ Vex rFR_G = rSR_G + rFR_SR;
 
 // 5) Body and hinge angular speeds
 Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
+//Vex omegaFL_vec = sZ * omegaFL;
+//Vex omegaFR_vec = sZ * omegaFR;
+
+//test
 Vex omegaFL_vec = sZ * omegaFL;
 Vex omegaFR_vec = sZ * omegaFR;
+
+
 
 // 6) Partial velocities (Eq. 27)
 //  Left arm:
@@ -192,8 +198,8 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
 
 //torque
-double TtildeL = -2 * mA * L * L * (k * thetaL + c * omegaFL);
-double TtildeR = -2 * mA * L * L * (k * thetaR + c * omegaFR);
+double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
+double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
 
 // 2) Fill A (inertia/mass matrix)
