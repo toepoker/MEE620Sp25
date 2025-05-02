@@ -128,9 +128,17 @@
         Vex vG_B = vG_vx * vx + vG_vy * vy + vG_vz * vz;
 
        // 1) Unit basis vectors
-Vex bX = new Vex(1, 0, 0);
-Vex bY = new Vex(0, 1, 0);
-Vex bZ = new Vex(0, 0, 1);
+Vex bX = new Vex(q0*q0 + q1*q1 - q2*q2 - q3*q3,
+                 2*(q1*q2 + q0*q3),
+                 2*(q1*q3 - q0*q2));
+
+Vex bY = new Vex(2*(q1*q2 - q0*q3),
+                 q0*q0 - q1*q1 + q2*q2 - q3*q3,
+                 2*(q2*q3 + q0*q1));
+
+Vex bZ = new Vex(2*(q1*q3 + q0*q2),
+                 2*(q2*q3 - q0*q1),
+                 q0*q0 - q1*q1 - q2*q2 + q3*q3);
 
 // 2) Hinge‐axis unit in B‐frame
 Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
