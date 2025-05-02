@@ -251,10 +251,7 @@ double P_Ry = Vex.Dot( Vex.Cross(bY,   rFR_G), sZ );    // row ω̇y
 double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
 double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
 
-// -- Body‐spin RHS (rows 0–2) --
-sys.SetB(0, -AngVelCrossAngMo.x);  // Q_x = -(ω×H)_x
-sys.SetB(1, -AngVelCrossAngMo.y);  // Q_y
-sys.SetB(2, -AngVelCrossAngMo.z);  // Q_z
+
 sys.SetB(3,  -Q_L + TtildeL );        // Q_L = spring/damper + transport projection
 sys.SetB(4, -Q_R + TtildeR );        // Q_R
 
