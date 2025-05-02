@@ -66,8 +66,8 @@
     gammaZ   = 1.05;              // IGz/IGx
     h        = 1.56;              // nondimensional shoulder height
     L        = 1.65;              // nondimensional arm length
-    k        = 10.0;              // torsional spring stiffness (test)
-    c        =  1.0;              // torsional damping  (test)
+    k        = 6;              // torsional spring stiffness (test)
+    c        =  .25;              // torsional damping  (test)
     phi      = Math.PI/4;         // swing‐plane angle
     sinPhi   = Math.Sin(phi);
     cosPhi   = Math.Cos(phi);
@@ -313,11 +313,17 @@ ff[7]= sys.Sol(7);
 
         SetDebugVal(0,  ff[0]);  // ff[0] = ω̇x
         SetDebugVal(1,  ff[1]);  // ff[1] = ω̇y
-        SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
-        SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
-        SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
-        SetDebugVal(5,  ff[5]);  // ff[0] = ω̇x
-        SetDebugVal(6,  ff[6]);  // ff[1] = ω̇y
+        SetDebugVal(2, thetaL);       // Expected: starts at 0, swings up, dampens back down
+        SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
+        SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
+        SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
+        SetDebugVal(6, TtildeL + Q_L);// Total net driving torque on the arm
+
+        //SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
+      //  SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
+       // SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
+      //  SetDebugVal(5,  ff[5]);  // ff[0] = ω̇x
+       // SetDebugVal(6,  ff[6]);  // ff[1] = ω̇y
         SetDebugVal(7,  ff[7]);  // ff[2] = ω̇z
         SetDebugVal(8,  ff[8]);  // ff[3] = ω̇FL
         SetDebugVal(9,  ff[9]);  // ff[4] = ω̇FR
