@@ -250,16 +250,16 @@ double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero agai
 
 
 // Compute torque vector from each shoulder torque about CG
-Vex torqueFromLeft  = Vex.Cross(rFL_SL, sZ * (-TtildeL));
-Vex torqueFromRight = Vex.Cross(rFR_SR, sZ * (-TtildeR));
+Vex torqueFromLeft  = Vex.Cross(rFL_G, sZ * (-TtildeL));
+Vex torqueFromRight = Vex.Cross(rFR_G, sZ * (-TtildeR));
 
-// Sum torques
+
 Vex netShoulderTorque = torqueFromLeft + torqueFromRight;
 
-// Add to angular momentum term
 sys.SetB(0, -omegaCrossH.x + netShoulderTorque.x);
 sys.SetB(1, -omegaCrossH.y + netShoulderTorque.y);
 sys.SetB(2, -omegaCrossH.z + netShoulderTorque.z);
+
 
 
 
