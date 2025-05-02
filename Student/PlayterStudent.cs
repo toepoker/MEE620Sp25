@@ -208,9 +208,9 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
 sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
 sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
-sys.SetB(0, -omegaCrossH.x- Vex.Dot(bX, sZ) * TtildeL - Vex.Dot(bX, sZ) * TtildeR);  // Q_x = −(ω×H)_x
-sys.SetB(1, -omegaCrossH.y- Vex.Dot(bY, sZ) * TtildeL - Vex.Dot(bY, sZ) * TtildeR);  // Q_y = −(ω×H)_y
-sys.SetB(2, -omegaCrossH.z- Vex.Dot(bZ, sZ) * TtildeL - Vex.Dot(bZ, sZ) * TtildeR);  // Q_z = −(ω×H)_z
+sys.SetB(0, -omegaCrossH.x - Vex.Dot(bX, sZ) * TtildeL - Vex.Dot(bX, sZ) * TtildeR);  // Q_x = −(ω×H)_x
+sys.SetB(1, -omegaCrossH.y - Vex.Dot(bY, sZ) * TtildeL - Vex.Dot(bY, sZ) * TtildeR);  // Q_y = −(ω×H)_y
+sys.SetB(2, -omegaCrossH.z - Vex.Dot(bZ, sZ) * TtildeL - Vex.Dot(bZ, sZ) * TtildeR);  // Q_z = −(ω×H)_z
 
 
 // -- Left hinge inertia (row 3) --
