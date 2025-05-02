@@ -249,10 +249,16 @@ double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero agai
 
 
 
+Vex shoulderTorqueVec = sZ * TtildeL + sZ * TtildeR;
+Vex fullBodyTorque = -Vex.Cross(rFL_SL, sZ * TtildeL) - Vex.Cross(rFR_SR, sZ * TtildeR);
+sys.SetB(0, -omegaCrossH.x + fullBodyTorque.x);
+sys.SetB(1, -omegaCrossH.y + fullBodyTorque.y);
+sys.SetB(2, -omegaCrossH.z + fullBodyTorque.z);
 
-sys.SetB(0, -omegaCrossH.x - Vex.Dot(bX, sZ) * TtildeL - Vex.Dot(bX, sZ) * TtildeR);  // Q_x = −(ω×H)_x
-sys.SetB(1, -omegaCrossH.y - Vex.Dot(bY, sZ) * TtildeL - Vex.Dot(bY, sZ) * TtildeR);  // Q_y = −(ω×H)_y
-sys.SetB(2, -omegaCrossH.z - Vex.Dot(bZ, sZ) * TtildeL - Vex.Dot(bZ, sZ) * TtildeR);  // Q_z = −(ω×H)_z
+
+//sys.SetB(0, -omegaCrossH.x - Vex.Dot(bX, sZ) * TtildeL - Vex.Dot(bX, sZ) * TtildeR);  // Q_x = −(ω×H)_x
+//sys.SetB(1, -omegaCrossH.y - Vex.Dot(bY, sZ) * TtildeL - Vex.Dot(bY, sZ) * TtildeR);  // Q_y = −(ω×H)_y
+//sys.SetB(2, -omegaCrossH.z - Vex.Dot(bZ, sZ) * TtildeL - Vex.Dot(bZ, sZ) * TtildeR);  // Q_z = −(ω×H)_z
 sys.SetB(3,  -Q_L + TtildeL );        // Q_L = spring/damper + transport projection
 sys.SetB(4, -Q_R + TtildeR );        // Q_R
 // -- No external CG force (rows 5–7) --
