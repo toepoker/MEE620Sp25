@@ -68,7 +68,7 @@
     L        = 1.65;              // nondimensional arm length
     k        = 6;              // torsional spring stiffness (test)
     c        =  .25;              // torsional damping  (test)
-    phi      = 0;         // swing‐plane angle
+    phi      = 90;         // swing‐plane angle
     sinPhi   = Math.Sin(phi);
     cosPhi   = Math.Cos(phi);
  
