@@ -316,18 +316,19 @@ ff[7]= sys.Sol(7);
         SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
         SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
         SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
-        SetDebugVal(5,  sys.Sol(0));  // ff[5] = v̇x
-        SetDebugVal(6, sys.Sol(1));  // ff[6] = v̇y
-        SetDebugVal(7,  sys.Sol(2));  // ff[7] = v̇z
-        SetDebugVal(8,  sys.Sol(3));  // ff[8] = q̇0
-        SetDebugVal(9,  sys.Sol(4));  // ff[9] = q̇1
-        SetDebugVal(10, sys.Sol(5)); // ff[10] = q̇2
-        SetDebugVal(11, sys.Sol(6)); // ff[11] = q̇3
-        SetDebugVal(12, sys.Sol(7)); // ff[12] = θ̇L
-        SetDebugVal(13, ff[13]); // ff[13] = θ̇R
-        SetDebugVal(14, ff[14]); // ff[14] = ẋG
-        SetDebugVal(15, ff[16]); // ff[15] = ẏG
-        SetDebugVal(16, ff[16]); // ff[16] = żG
+        SetDebugVal(5,  ff[5]);  // ff[0] = ω̇x
+        SetDebugVal(6,  ff[6]);  // ff[1] = ω̇y
+        SetDebugVal(7,  ff[7]);  // ff[2] = ω̇z
+        SetDebugVal(8,  ff[8]);  // ff[3] = ω̇FL
+        SetDebugVal(9,  ff[9]);  // ff[4] = ω̇FR
+        SetDebugVal(10,  ff[10]);  // ff[0] = ω̇x
+        SetDebugVal(11,  ff[11]);  // ff[1] = ω̇y
+        SetDebugVal(12,  ff[12]);  // ff[2] = ω̇z
+        SetDebugVal(13,  ff[13]);  // ff[3] = ω̇FL
+        SetDebugVal(14,  ff[14]);  // ff[4] = ω̇FR
+        SetDebugVal(15,  ff[15]);  // ff[0] = ω̇x
+        SetDebugVal(16,  ff[16]);  // ff[1] = ω̇y
+        
 
 
 
