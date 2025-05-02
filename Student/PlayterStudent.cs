@@ -141,7 +141,7 @@ Vex bZ = new Vex(2*(q1*q3 + q0*q2),
                  q0*q0 - q1*q1 - q2*q2 + q3*q3);
 
 // 2) Hinge‐axis unit in B‐frame
-Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
+Vex sZ = new Vex(0.0, cosPhi,sinPhi);
 
 // 3) Shoulder & arm position vectors (B‐frame)
 Vex rSL_G   = new Vex( 1.0, h, 0.0 );
@@ -288,11 +288,6 @@ ff[6]= sys.Sol(6);
 ff[7]= sys.Sol(7);
 
 
-
-
-    
-  
-
        
 
       //  ff[3] = vFL_wL.x
@@ -318,14 +313,17 @@ ff[7]= sys.Sol(7);
         SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
         SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
         SetDebugVal(6, TtildeL + Q_L);// Total net driving torque on the arm
+        SetDebugVal(7, Vex.Dot(vFL_wL, sZ));  // Should be near 1.0 (it's the partial angular velocity projection)
+        SetDebugVal(8, Vex.Dot(Vex.Cross(sZ, rFL_SL), sZ));  // Should also be near 1.0 (for PLL)
+
 
         //SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
       //  SetDebugVal(3,  ff[3]);  // ff[3] = ω̇FL
        // SetDebugVal(4,  ff[4]);  // ff[4] = ω̇FR
       //  SetDebugVal(5,  ff[5]);  // ff[0] = ω̇x
        // SetDebugVal(6,  ff[6]);  // ff[1] = ω̇y
-        SetDebugVal(7,  ff[7]);  // ff[2] = ω̇z
-        SetDebugVal(8,  ff[8]);  // ff[3] = ω̇FL
+       // SetDebugVal(7,  ff[7]);  // ff[2] = ω̇z
+        //SetDebugVal(8,  ff[8]);  // ff[3] = ω̇FL
         SetDebugVal(9,  ff[9]);  // ff[4] = ω̇FR
         SetDebugVal(10,  ff[10]);  // ff[0] = ω̇x
         SetDebugVal(11,  ff[11]);  // ff[1] = ω̇y
