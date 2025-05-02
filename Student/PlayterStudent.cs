@@ -262,6 +262,11 @@ sys.SetB(5, 0.0);  // Q_vx
 sys.SetB(6, 0.0);  // Q_vy
 sys.SetB(7, 0.0);  // Q_vz
 
+//adding opposite torque on the body
+sys.SetB(0, sys.GetB(0) - Vex.Dot(bX, sZ) * TtildeL - Vex.Dot(bX, sZ) * TtildeR); // ω̇x row
+sys.SetB(1, sys.GetB(1) - Vex.Dot(bY, sZ) * TtildeL - Vex.Dot(bY, sZ) * TtildeR); // ω̇y row
+sys.SetB(2, sys.GetB(2) - Vex.Dot(bZ, sZ) * TtildeL - Vex.Dot(bZ, sZ) * TtildeR);
+
 
 
 
