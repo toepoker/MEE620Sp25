@@ -163,8 +163,9 @@ Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
 //Vex omegaFR_vec = sZ * omegaFR;
 
 //test
-Vex omegaFL_vec = sZ * omegaFL;
-Vex omegaFR_vec = sZ * omegaFR;
+Vex omegaFL_vec = omegaB + sZ * omegaFL;
+Vex omegaFR_vec = omegaB + sZ * omegaFR;
+
 
 
 
