@@ -193,7 +193,7 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
 //torque
 double TtildeL = -2 * mA * L * L * (k * thetaL + c * omegaFL);
-double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
+double TtildeR = -2 * mA * L * L * (k * thetaR + c * omegaFR);
 
 
 // 2) Fill A (inertia/mass matrix)
