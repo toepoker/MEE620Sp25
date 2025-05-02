@@ -192,7 +192,7 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
 
 //torque
-double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
+double TtildeL = -2 * mA * L * L * (k * thetaL + c * omegaFL);
 double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
 
