@@ -68,7 +68,7 @@
     L        = 1.65;              // nondimensional arm length
     k        = 6;              // torsional spring stiffness (test)
     c        =  .25;              // torsional damping  (test)
-    phi      = 90;         // swing‐plane angle
+    phi      = 0;         // swing‐plane angle
     sinPhi   = Math.Sin(phi);
     cosPhi   = Math.Cos(phi);
  
@@ -141,7 +141,7 @@ Vex bZ = new Vex(2*(q1*q3 + q0*q2),
                  q0*q0 - q1*q1 - q2*q2 + q3*q3);
 
 // 2) Hinge‐axis unit in B‐frame
-Vex sZ = new Vex(0.0, cosPhi,sinPhi);
+Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
 
 // 3) Shoulder & arm position vectors (B‐frame)
 Vex rSL_G   = new Vex( 1.0, h, 0.0 );
