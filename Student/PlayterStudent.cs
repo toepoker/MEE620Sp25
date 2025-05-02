@@ -142,16 +142,27 @@ Vex bZ = new Vex(2*(q1*q3 + q0*q2),
 
 // 2) Hinge‐axis unit in B‐frame
 Vex sZ = new Vex(0.0, -sinPhi, cosPhi);
+Vex rSL_G = bX + h * bY;
+Vex rSR_G = -bX + h * bY;
+
+Vex rFL_SL = L * (Math.Cos(thetaL) * bX +
+                  Math.Sin(thetaL) * cosPhi * bY +
+                  Math.Sin(thetaL) * sinPhi * bZ);
+
+Vex rFR_SR = -L * (Math.Cos(thetaR) * bX +
+                   Math.Sin(thetaR) * cosPhi * bY +
+                   Math.Sin(thetaR) * sinPhi * bZ);
+
 
 // 3) Shoulder & arm position vectors (B‐frame)
-Vex rSL_G   = new Vex( 1.0, h, 0.0 );
-Vex rSR_G   = new Vex(-1.0, h, 0.0 );
-Vex rFL_SL  = L * new Vex(Math.Cos(thetaL),
-                         Math.Sin(thetaL)*cosPhi,
-                         Math.Sin(thetaL)*sinPhi);
-Vex rFR_SR  = -L * new Vex(Math.Cos(thetaR),
-                          Math.Sin(thetaR)*cosPhi,
-                          Math.Sin(thetaR)*sinPhi);
+//Vex rSL_G   = new Vex( 1.0, h, 0.0 );
+//Vex rSR_G   = new Vex(-1.0, h, 0.0 );
+//Vex rFL_SL  = L * new Vex(Math.Cos(thetaL),
+//                         Math.Sin(thetaL)*cosPhi,
+ //                        Math.Sin(thetaL)*sinPhi);
+//Vex rFR_SR  = -L * new Vex(Math.Cos(thetaR),
+  //                        Math.Sin(thetaR)*cosPhi,
+    //                      Math.Sin(thetaR)*sinPhi);
 
 // 4) Full arm mass locations (B‐frame)
 Vex rFL_G = rSL_G + rFL_SL;
