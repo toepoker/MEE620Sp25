@@ -197,9 +197,9 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
                                       rho2*gammaY*omegaY,
                                       rho2*gammaZ*omegaZ) );
 
-sys.SetA(0, 0,   (rho2) + mA * Vex.Dot(vFL_wx,vFL_wx) + mA * Vex.Dot(vFR_wx,vFR_wx)           ); // I_Gx * ω̇x
-sys.SetA(1, 1,   (rho2 * gammaY) + mA * Vex.Dot(vFL_wy,vFL_wy) + mA * Vex.Dot(vFR_wy,vFR_wy)   );// I_Gy * ω̇y 
-sys.SetA(2, 2,   (rho2 * gammaZ) + mA * Vex.Dot(vFL_wz,vFL_wz) + mA * Vex.Dot(vFR_wz,vFR_wz)  );// I_Gz * ω̇z
+sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
+sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
+sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
 sys.SetB(0, -omegaCrossH.x);  // Q_x = −(ω×H)_x
 sys.SetB(1, -omegaCrossH.y);  // Q_y = −(ω×H)_y
 sys.SetB(2, -omegaCrossH.z);  // Q_z = −(ω×H)_z
