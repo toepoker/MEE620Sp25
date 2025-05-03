@@ -125,21 +125,17 @@ Vex bZ = new Vex(2*(q1*q3 + q0*q2),
                  2*(q2*q3 - q0*q1),
                  q0*q0 - q1*q1 - q2*q2 + q3*q3);
 
-Vex vG_vx = new Vex(
-            (q0*q0 + q1*q1 - q2*q2 - q3*q3)*bX
+Vex vG_vx = (q0*q0 + q1*q1 - q2*q2 - q3*q3)*bX
             +(-2*q0*q3   + 2*q1*q2)*bY
-            +(2*q0*q2   + 2*q1*q3)*bZ
-        );
-Vex vG_vy = new Vex(
-            (2*q0*q3   + 2*q1*q2)*bX
+            +(2*q0*q2   + 2*q1*q3)*bZ;
+
+Vex vG_vy = (2*q0*q3   + 2*q1*q2)*bX
             +(q0*q0 - q1*q1 + q2*q2 - q3*q3)*bY
-            +(-2*q0*q1   + 2*q2*q3)*bZ
-        );
-Vex vG_vz = new Vex(
-           (-2*q0*q2   + 2*q1*q3)*bX
+            +(-2*q0*q1   + 2*q2*q3)*bZ;
+            
+Vex vG_vz = (-2*q0*q2   + 2*q1*q3)*bX
            +(2*q0*q1   + 2*q2*q3)*bY
-           +(q0*q0 - q1*q1 - q2*q2 + q3*q3)*bZ
-        );
+           +(q0*q0 - q1*q1 - q2*q2 + q3*q3)*bZ;
 
 Vex vG_B = vG_vx * vx + vG_vy * vy + vG_vz * vz;
 
