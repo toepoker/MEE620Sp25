@@ -140,7 +140,7 @@ Vex vG_vz = (-2*q0*q2   + 2*q1*q3)*bX
 Vex vG_B = (vG_vx * vx + vG_vy * vy + vG_vz * vz;)
 
 // 2) Hinge‐axis unit in B‐frame
-Vex sZ = new -sinPhi*bY, cosPhi*bZ   ;
+Vex sZ = -sinPhi*bY + cosPhi*bZ;
 
 Vex rFL_SL = L * (Math.Cos(thetaL) * bX +
                   Math.Sin(thetaL) * cosPhi * bY +
