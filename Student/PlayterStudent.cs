@@ -218,8 +218,8 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
 //test
 double restTheta = -Math.PI / 2;
-double TtildeLR = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
-double TtildeLR = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
+double TtildeL = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
+double TtildeR = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
 
 
 
