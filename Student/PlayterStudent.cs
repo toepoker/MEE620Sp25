@@ -173,9 +173,9 @@ Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
 // Omega B>F (sZ)
 Vex sZ = -sinPhi*bY + cosPhi*bZ;
 // Omega N>F_L
-Vex omegaFL_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFL*sZ
+Vex omegaFL_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFL*sZ;
 // Omega N>F_R
-Vex omegaFR_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFR*sZ
+Vex omegaFR_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFR*sZ;
 
 //Vex omegaFL_vec = sZ * omegaFL;
 //Vex omegaFR_vec = sZ * omegaFR;
