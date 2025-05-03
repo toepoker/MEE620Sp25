@@ -153,7 +153,7 @@ Vex rFR_SR = -L * (Math.Cos(thetaR) * bX +
 
 
 Vex rSL_G   = bX + h * bY;
-Vex rSR_G   = bY - h * bX ;
+Vex rSR_G   = h * bY -  bX ;
 // 3) Shoulder & arm position vectors (B‐frame)
 //Vex rSL_G   = new Vex( 1.0, h, 0.0 );
 //Vex rSR_G   = new Vex(-1.0, h, 0.0 );
