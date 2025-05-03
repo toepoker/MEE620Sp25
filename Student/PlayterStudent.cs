@@ -137,7 +137,7 @@ Vex vG_vz = (-2*q0*q2   + 2*q1*q3)*bX
            +(2*q0*q1   + 2*q2*q3)*bY
            +(q0*q0 - q1*q1 - q2*q2 + q3*q3)*bZ;
 
-Vex vG_B = (vG_vx * vx + vG_vy * vy + vG_vz * vz;)
+Vex vG_B = (vG_vx * vx + vG_vy * vy + vG_vz * vz);
 
 // 2) Hinge‐axis unit in B‐frame
 Vex sZ = -sinPhi*bY + cosPhi*bZ;
