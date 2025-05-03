@@ -141,7 +141,7 @@ Vex bZ = new Vex(2*(q1*q3 + q0*q2),
                  q0*q0 - q1*q1 - q2*q2 + q3*q3);
 
 // 2) Hinge‐axis unit in B‐frame
-Vex sZ = new Vex(0.0, -sinPhi*by, cosPhi*bZ);
+Vex sZ = new Vex(0.0, -sinPhi*bY, cosPhi*bZ);
 
 Vex rFL_SL = L * (Math.Cos(thetaL) * bX +
                   Math.Sin(thetaL) * cosPhi * bY +
