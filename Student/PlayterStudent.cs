@@ -139,8 +139,7 @@ Vex vG_vz = (-2*q0*q2   + 2*q1*q3)*bX
 
 Vex vG_B = (vG_vx * vx + vG_vy * vy + vG_vz * vz);
 
-// 2) Hinge‐axis unit in B‐frame
-Vex sZ = -sinPhi*bY + cosPhi*bZ;
+
 
 Vex rFL_SL = L * (Math.Cos(thetaL) * bX +
                   Math.Sin(thetaL) * cosPhi * bY +
@@ -169,15 +168,19 @@ Vex rFL_G = rSL_G + rFL_SL;
 Vex rFR_G = rSR_G + rFR_SR;
 
 // 5) Body and hinge angular speeds
+// Omega N>B
 Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
+// Omega B>F (sZ)
+Vex sZ = -sinPhi*bY + cosPhi*bZ;
+// Omega N>F_L
+Vex omegaFL_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFL*sZ
+// Omega N>F_R
+Vex omegaFR_N = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFR*sZ
+
 //Vex omegaFL_vec = sZ * omegaFL;
 //Vex omegaFR_vec = sZ * omegaFR;
-
-//test
-Vex omegaFL_vec = omegaB + sZ * omegaFL;
-Vex omegaFR_vec = omegaB + sZ * omegaFR;
-
-
+//Vex omegaFL_vec = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFL*sZ
+//Vex omegaFR_vec = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFR*sZ
 
 
 // 6) Partial velocities (Eq. 27)
@@ -194,15 +197,15 @@ Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
 
 // 7) Left‐arm transport/Coriolis terms
 Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
-Vex term2   = Vex.Cross(Vex.Cross(omegaB, omegaFL_vec), rFL_SL);
-Vex term3   = Vex.Cross(omegaFL_vec, Vex.Cross(omegaFL_vec, rFL_SL));
+Vex term2   = Vex.Cross(Vex.Cross(omegaB, omegaFL_N), rFL_SL);
+Vex term3   = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
 Vex transportSum   = term1 + term2 + term3;
 double Q_L = Vex.Dot(transportSum, vFL_wL);
 
 // 8) Right‐arm transport/Coriolis terms
 Vex term1_R = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSR_G));
-Vex term2_R = Vex.Cross(Vex.Cross(omegaB, omegaFR_vec), rFR_SR);
-Vex term3_R = Vex.Cross(omegaFR_vec, Vex.Cross(omegaFR_vec, rFR_SR));
+Vex term2_R = Vex.Cross(Vex.Cross(omegaB, omegaFR_N), rFR_SR);
+Vex term3_R = Vex.Cross(omegaFR_N, Vex.Cross(omegaFR_N, rFR_SR));
 Vex transportSum_R = term1_R + term2_R + term3_R;
 double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
