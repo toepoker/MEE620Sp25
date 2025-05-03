@@ -171,7 +171,7 @@ Vex rFR_G = rSR_G + rFR_SR;
 // Omega N>B
 Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
 // Omega B>F (sZ)
-Vex sZ = -sinPhi*bY + cosPhi*bZ;
+Vex sZ = -sinPhi + cosPhi;
 // Omega N>F_L
 Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
 // Omega N>F_R
