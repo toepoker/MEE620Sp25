@@ -238,7 +238,8 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
                                       rho2*gammaZ*omegaZ) );
 
 
-//test
+
+double mTotal = 1.0 + 2.0*mA;
 // -----------------------------
 // Rigid Body Inertia Terms
 // -----------------------------
@@ -292,6 +293,61 @@ double A37 = mA * vFL_wL.z;
 
 
 
+double A40 = A04;
+double A41 = A14;
+double A42 = A24;      
+
+double A43 = A34;     
+double A44 =  0;      
+
+double A45 = mA * vFR_wR.x;
+double A46 = mA * vFR_wR.y;
+double A47 = mA * vFR_wR.z;
+
+
+
+double A50 = A05;
+double A51 = A15;
+double A52 = A25;      
+
+double A53 = A35;     
+double A54 = A45;      
+
+double A55 = mtotal;
+double A56 = 0;
+double A57 = 0;
+
+
+
+double A60 = A06;
+double A61 = A16;
+double A62 = A26;      
+
+double A63 = A36;     
+double A64 = A46;      
+
+double A65 = 0;
+double A66 = mtotal;
+double A67 = 0;
+
+
+
+double A70 = A07;
+double A71 = A17;
+double A72 = A27;      
+
+double A73 = A37;     
+double A74 = A47;      
+
+double A75 = 0;
+double A76 = 0;
+double A77 = mtotal;
+
+
+
+
+
+
 
 
 
@@ -302,7 +358,7 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A33); 
+SetDebugVal(0, A55); 
 SetDebugVal(1, A34);  
 SetDebugVal(2, A35);    
 SetDebugVal(3, A36);  
