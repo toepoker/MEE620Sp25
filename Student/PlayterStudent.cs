@@ -283,7 +283,7 @@ SetDebugVal(3, A03);
 SetDebugVal(4, A04);  
 SetDebugVal(5, A05);   
 SetDebugVal(6, A06);  
-SetDebugVal(7, A07);  
+SetDebugVal(7, A06);  
  
 
 
