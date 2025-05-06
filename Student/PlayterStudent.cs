@@ -216,7 +216,7 @@ Vex vFR_wx = Vex.Cross(bX, rFR_G);
 Vex vFR_wy = Vex.Cross(bY, rFR_G);
 Vex vFR_wz = Vex.Cross(bZ, rFR_G);
 //Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
-Vex vFL_wL = Vex.Cross(-sinPhi*bY + cosPhi*bZ, rFR_SR);
+Vex vFL_wR = Vex.Cross(-sinPhi*bY + cosPhi*bZ, rFR_SR);
 
 // 7) Left‐arm transport/Coriolis terms
 Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
