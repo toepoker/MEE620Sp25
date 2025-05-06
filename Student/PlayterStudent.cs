@@ -235,7 +235,8 @@ double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
 double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
-//test
+
+
 //double restTheta = -Math.PI / 2;
 //double TtildeL = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
 //double TtildeR = -mA * L * L * (k * (thetaR - restTheta) + c * omegaFR);
@@ -251,16 +252,85 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
                                       rho2*gammaY*omegaY,
                                       rho2*gammaZ*omegaZ) );
 
-sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
-sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
-sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
+//test
+double xL = rFL_G.x, yL = rFL_G.y, zL = rFL_G.z;
+double xR = rFR_G.x, yR = rFR_G.y, zR = rFR_G.z;
+// -----------------------------
+// Rigid Body Inertia Terms
+// -----------------------------
+sys.SetA(0, 0, rho2);                 // I_Gx * ω̇x
+sys.SetA(1, 1, rho2 * gammaY);        // I_Gy * ω̇y
+sys.SetA(2, 2, rho2 * gammaZ);        // I_Gz * ω̇z
 
-sys.SetA(0, 4,   .1 )           ; // I_Gx * ω̇x
-sys.SetA(1, 4,   .1 )   ;// I_Gy * ω̇y 
+// -----------------------------
+// Arm Point Mass Contributions (Orbital Inertia)
+// -----------------------------
+double xL = rFL_G.x, yL = rFL_G.y, zL = rFL_G.z;
+double xR = rFR_G.x, yR = rFR_G.y, zR = rFR_G.z;
+
+// Left Arm
+sys.SetA(0, 0, sys.GetA(0, 0) + mA * (yL * yL + zL * zL));
+sys.SetA(0, 1, -mA * xL * yL);
+sys.SetA(0, 2, -mA * xL * zL);
+
+sys.SetA(1, 0, -mA * yL * xL);
+sys.SetA(1, 1, sys.GetA(1, 1) + mA * (xL * xL + zL * zL));
+sys.SetA(1, 2, -mA * yL * zL);
+
+sys.SetA(2, 0, -mA * zL * xL);
+sys.SetA(2, 1, -mA * zL * yL);
+sys.SetA(2, 2, sys.GetA(2, 2) + mA * (xL * xL + yL * yL));
+
+// Right Arm
+sys.SetA(0, 0, sys.GetA(0, 0) + mA * (yR * yR + zR * zR));
+sys.SetA(0, 1, sys.GetA(0, 1) - mA * xR * yR);
+sys.SetA(0, 2, sys.GetA(0, 2) - mA * xR * zR);
+
+sys.SetA(1, 0, sys.GetA(1, 0) - mA * yR * xR);
+sys.SetA(1, 1, sys.GetA(1, 1) + mA * (xR * xR + zR * zR));
+sys.SetA(1, 2, sys.GetA(1, 2) - mA * yR * zR);
+
+sys.SetA(2, 0, sys.GetA(2, 0) - mA * zR * xR);
+sys.SetA(2, 1, sys.GetA(2, 1) - mA * zR * yR);
+sys.SetA(2, 2, sys.GetA(2, 2) + mA * (xR * xR + yR * yR));
+
+// -----------------------------
+// Coupling Terms: Arm Angular Acceleration Effects
+// -----------------------------
+Vex dH_FL_dthetaLdot = Vex.Cross(rFL_G, Vex.Cross(sZ, rFL_SL));
+Vex dH_FR_dthetaRdot = Vex.Cross(rFR_G, Vex.Cross(sZ, rFR_SR));
+
+sys.SetA(0, 3, mA * dH_FL_dthetaLdot.x);
+sys.SetA(1, 3, mA * dH_FL_dthetaLdot.y);
+sys.SetA(2, 3, mA * dH_FL_dthetaLdot.z);
+
+sys.SetA(0, 4, mA * dH_FR_dthetaRdot.x);
+sys.SetA(1, 4, mA * dH_FR_dthetaRdot.y);
+sys.SetA(2, 4, mA * dH_FR_dthetaRdot.z);
+
+// -----------------------------
+// Arm Hinge Rotational Inertia (diagonal terms)
+// -----------------------------
+sys.SetA(3, 3, mA * L * L); // Left arm
+sys.SetA(4, 4, mA * L * L); // Right arm
+
+//end test
+
+//sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
+//sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
+//sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
+
+
+
+
+
+sys.SetA(0, 4,   0 ); // I_Gx * ω̇x
+sys.SetA(1, 4,   0 );// I_Gy * ω̇y 
 sys.SetA(2, 4,   0 );
 
 // -- Left hinge inertia (row 3) --
 double mArm = mA;
+
 sys.SetA(3, 0,  mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
 sys.SetA(3, 1,  mArm * Vex.Dot(vFL_wy, vFL_wL));   // coupling ωy → ω̇FL
 sys.SetA(3, 2,  mArm * Vex.Dot(vFL_wz, vFL_wL));   // coupling ωz → ω̇FL
