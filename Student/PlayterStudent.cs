@@ -259,12 +259,16 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 // -----------------------------
 
 double A00 = rho2 + mA * Vex.Dot(vFL_wx , vFL_wx) + mA * Vex.Dot(vFR_wx , vFR_wx) ;
-double A01 = rho2 * gammaY;
-double A02 = rho2 * gammaZ;
+double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFL_wy , vFL_wy) ;
+double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFL_wz , vFL_wz);
 
 sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
-sys.SetA(1, 1, A01);        // I_Gy * ω̇y
-sys.SetA(2, 2, A02);        // I_Gz * ω̇z
+sys.SetA(1, 1, A11);        // I_Gy * ω̇y
+sys.SetA(2, 2, A22);        // I_Gz * ω̇z
+
+SetDebugVal(0,  A00);  // ff[0] = ω̇x
+SetDebugVal(1,  A11);  // ff[1] = ω̇y
+SetDebugVal(2, A22);       // Expected: starts at 0, swings up, dampens back down
 
 
 
@@ -367,9 +371,7 @@ ff[7]= sys.Sol(7);
         ff[15] = 0;   // ẏG = vy
         ff[16] = 0;   // żG = vz
 
-        SetDebugVal(0,  A00);  // ff[0] = ω̇x
-        SetDebugVal(1,  A01);  // ff[1] = ω̇y
-        SetDebugVal(2, A02);       // Expected: starts at 0, swings up, dampens back down
+       
         SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
         SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
         SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
