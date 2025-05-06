@@ -165,9 +165,6 @@ Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
 // Omega N>F_R
 Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFR*sZ;
 
-//Vex AngVel = new Vex(omegaX, omegaY,omegaZ);
-//Vex AngMo = new Vex(rho2*omegaX, rho2*gammaY*omegaY, rho2*gammaZ*omegaZ);
-//Vex AngVelCrossAngMo = Vex.Cross(AngVel, AngMo);
 
 //test
 // Body's angular momentum
