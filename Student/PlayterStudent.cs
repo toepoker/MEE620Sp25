@@ -255,6 +255,10 @@ double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
 
 //tests
 
+Print("vFL_wx = ", vFL_wx);
+Print("vFR_wx = ", vFR_wx);
+Print("vFR_wR = ", vFR_wR);
+
 double T1 = mA * Vex.Dot(vFL_wx, vFR_wR) -mA * Vex.Dot(vFL_wx, vFL_wL) ;
 double T2 = mA * Vex.Dot(vFL_wx, vFR_wR) -mA * Vex.Dot(vFR_wx, vFL_wL) ;
 double T3 = mA * Vex.Dot(vFL_wx, vFR_wR) + mA * Vex.Dot(vFL_wx, vFL_wL) ;
