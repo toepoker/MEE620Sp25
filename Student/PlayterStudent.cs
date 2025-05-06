@@ -160,6 +160,7 @@ Vex rFR_G = rSR_G + rFR_SR;
 Vex omegaB      = new Vex(omegaX, omegaY, omegaZ);
 // Omega B>F (sZ)
 Vex sZ = (cosPhi*bZ - sinPhi*bY);
+Vex sZn = -1 * sZ;
 //Vex sZ = new Vex(0, -sinPhi , cosPhi);
 // Omega N>F_L
 Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
@@ -189,14 +190,14 @@ Vex vFL_wx = Vex.Cross(bX, rFL_G);
 Vex vFL_wy = Vex.Cross(bY, rFL_G);
 Vex vFL_wz = Vex.Cross(bZ, rFL_G);
 //Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
-Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
+Vex vFL_wL = Vex.Cross(sZn, rFL_SL);
 
 //  Right arm:
 Vex vFR_wx = Vex.Cross(bX, rFR_G);
 Vex vFR_wy = Vex.Cross(bY, rFR_G);
 Vex vFR_wz = Vex.Cross(bZ, rFR_G);
 //Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
-Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
+Vex vFR_wR = Vex.Cross(sZn, rFR_SR);
 
 // 7) Left‐arm transport/Coriolis terms
 Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
