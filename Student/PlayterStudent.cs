@@ -279,6 +279,18 @@ double A26 = mA * (vFL_wz.y + vFR_wz.y);
 double A27 = mA * (vFL_wz.z + vFR_wz.z);
 
 
+double A30 = A03;
+double A31 = A13;
+double A32 = A23;      
+
+double A33 =  mA * Vex.Dot(vFL_wL, vFL_wL);     
+double A34 =  0;      
+
+double A35 = mA * vFL_wL.x;
+double A36 = mA * vFL_wL.y;
+double A37 = mA * vFL_wL.z;
+
+
 
 
 
@@ -290,11 +302,11 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A22); 
-SetDebugVal(1, A23);  
-SetDebugVal(2, A24);    
-SetDebugVal(3, A25);  
-SetDebugVal(4, A26);  
+SetDebugVal(0, A33); 
+SetDebugVal(1, A34);  
+SetDebugVal(2, A35);    
+SetDebugVal(3, A36);  
+SetDebugVal(4, A37);  
 SetDebugVal(5, A27);   
 SetDebugVal(6, A17);  
 SetDebugVal(7, A07);  
