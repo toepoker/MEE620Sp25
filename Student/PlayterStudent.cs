@@ -255,6 +255,10 @@ sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
 sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
 sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
 
+sys.SetA(0, 4,   .1 )           ; // I_Gx * ω̇x
+sys.SetA(1, 4,   .1 )   ;// I_Gy * ω̇y 
+sys.SetA(2, 4,   0 );
+
 // -- Left hinge inertia (row 3) --
 double mArm = mA;
 sys.SetA(3, 0,  mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
