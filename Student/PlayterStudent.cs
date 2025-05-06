@@ -258,12 +258,12 @@ double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
 
 
 
-double T1 = vFL_wL.x
-double T2 = vFL_wL.y
-double T3 = vFL_wL.z
-double T4 = vFR_wR.x
-double T5 = vFR_wR.y
-double T6 = vFR_wR.z
+double T1 = vFL_wL.x;
+double T2 = vFL_wL.y;
+double T3 = vFL_wL.z;
+double T4 = vFR_wR.x;
+double T5 = vFR_wR.y;
+double T6 = vFR_wR.z;
 
 double A05 = mA * (vFL_wx.x + vFR_wx.x);
 double A06 = mA * (vFL_wx.y + vFR_wx.y);
