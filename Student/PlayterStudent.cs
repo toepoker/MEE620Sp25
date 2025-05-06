@@ -259,8 +259,8 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 // -----------------------------
 
 double A00 = rho2 + mA * Vex.Dot(vFL_wx , vFL_wx) + mA * Vex.Dot(vFR_wx , vFR_wx) ;
-double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFL_wy , vFL_wy) ;
-double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFL_wz , vFL_wz);
+double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
+double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFR_wz , vFR_wz);
 
 sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
