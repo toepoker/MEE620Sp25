@@ -255,10 +255,10 @@ double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
 
 //tests
 
-double T1 = mA * Vex.Dot(vFL_wx + vFR_wx , vFL_wL);
-double T2 = mA * Vex.Dot(vFL_wx - vFR_wx , vFL_wL);
-double T3 = mA * Vex.Dot(vFL_wx + vFR_wx , vFR_wR);
-double T4 = mA * Vex.Dot(vFL_wx - vFR_wx , vFR_wR);
+double T1 = mA * Vex.Dot(vFL_wx, vFL_wL) -mA * Vex.Dot(vFL_wx, vFR_wR) ;
+double T2 = mA * Vex.Dot(vFL_wx, vFL_wL) -mA * Vex.Dot(vFR_wx, vFR_wR) ;
+double T3 = mA * Vex.Dot(vFL_wx, vFL_wL) + mA * Vex.Dot(vFL_wx, vFR_wR) ;
+double T4 = mA * Vex.Dot(vFL_wx, vFL_wL) + mA * Vex.Dot(vFR_wx, vFR_wR) ;
 
 double A05 = mA * (vFL_wx.x + vFR_wx.x);
 double A06 = mA * (vFL_wx.y + vFR_wx.y);
