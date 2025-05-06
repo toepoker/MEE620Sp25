@@ -268,7 +268,7 @@ double A17 = mA * (vFL_wy.z + vFR_wy.z);
 
 
 double A20 = A02;
-double A21 = A12
+double A21 = A12;
 double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFR_wz , vFR_wz);       
 
 double A23 =  mA * Vex.Dot(vFL_wz, vFL_wL);     
