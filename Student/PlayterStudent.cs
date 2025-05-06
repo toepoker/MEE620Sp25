@@ -255,8 +255,20 @@ double A06 = mA * (vFL_wx.y + vFR_wx.y);
 double A07 = mA * (vFL_wx.z + vFR_wx.z);
 
 
-
+double A10 = A01
 double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
+double A12 = mA * Vex.Dot(vFL_wy, vFL_wz) + mA * Vex.Dot(vFR_wy, vFR_wz);       
+
+double A13 =  mA * Vex.Dot(vFL_wy, vFL_wL);     
+double A14 =  mA * Vex.Dot(vFR_wy, vFR_wR);      
+
+double A15 = mA * (vFL_wy.x + vFR_wy.x);
+double A16 = mA * (vFL_wy.y + vFR_wy.y);
+double A17 = mA * (vFL_wy.z + vFR_wy.z);
+
+
+
+
 double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFR_wz , vFR_wz);
 
 
@@ -265,13 +277,13 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A00); 
-SetDebugVal(1, A01);  
-SetDebugVal(2, A02);    
-SetDebugVal(3, A03);  
-SetDebugVal(4, A04);  
-SetDebugVal(5, A05);   
-SetDebugVal(6, A06);  
+SetDebugVal(0, A11); 
+SetDebugVal(1, A12);  
+SetDebugVal(2, A13);    
+SetDebugVal(3, A14);  
+SetDebugVal(4, A15);  
+SetDebugVal(5, A16);   
+SetDebugVal(6, A17);  
 SetDebugVal(7, A07);  
  
 
