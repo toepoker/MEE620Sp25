@@ -261,68 +261,11 @@ sys.SetA(0, 0, rho2);                 // I_Gx * ω̇x
 sys.SetA(1, 1, rho2 * gammaY);        // I_Gy * ω̇y
 sys.SetA(2, 2, rho2 * gammaZ);        // I_Gz * ω̇z
 
-//test
-// -----------------------------
-// Precompute composite inertia terms
-// -----------------------------
 
-// Left arm position vector
-double xL = rFL_G.x, yL = rFL_G.y, zL = rFL_G.z;
 
-// Right arm position vector
-double xR = rFR_G.x, yR = rFR_G.y, zR = rFR_G.z;
-
-// Total composite inertia terms
-double A00 = rho2 + mA * (yL * yL + zL * zL + yR * yR + zR * zR);
-double A01 =       - mA * (xL * yL + xR * yR);
-double A02 =       - mA * (xL * zL + xR * zR);
-
-double A10 = A01;  // symmetric
-double A11 = rho2 * gammaY + mA * (xL * xL + zL * zL + xR * xR + zR * zR);
-double A12 =       - mA * (yL * zL + yR * zR);
-
-double A20 = A02;  // symmetric
-double A21 = A12;  // symmetric
-double A22 = rho2 * gammaZ + mA * (xL * xL + yL * yL + xR * xR + yR * yR);
-
-// -----------------------------
-// Coupling terms from arm angular acceleration
-// -----------------------------
-Vex dH_FL_dthetaLdot = Vex.Cross(rFL_G, Vex.Cross(sZ, rFL_SL));
-Vex dH_FR_dthetaRdot = Vex.Cross(rFR_G, Vex.Cross(sZ, rFR_SR));
-
-// -----------------------------
-// Set A matrix
-// -----------------------------
-sys.SetA(0, 0, A00);
-sys.SetA(0, 1, A01);
-sys.SetA(0, 2, A02);
-sys.SetA(0, 3, mA * dH_FL_dthetaLdot.x);
-sys.SetA(0, 4, mA * dH_FR_dthetaRdot.x);
-
-sys.SetA(1, 0, A10);
-sys.SetA(1, 1, A11);
-sys.SetA(1, 2, A12);
-sys.SetA(1, 3, mA * dH_FL_dthetaLdot.y);
-sys.SetA(1, 4, mA * dH_FR_dthetaRdot.y);
-
-sys.SetA(2, 0, A20);
-sys.SetA(2, 1, A21);
-sys.SetA(2, 2, A22);
-sys.SetA(2, 3, mA * dH_FL_dthetaLdot.z);
-sys.SetA(2, 4, mA * dH_FR_dthetaRdot.z);
-
-// -----------------------------
-// Arm hinge inertia (no coupling terms needed here)
-// -----------------------------
-sys.SetA(3, 3, mA * L * L); // θL
-sys.SetA(4, 4, mA * L * L); // θR
-
-//end test
-
-//sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
-//sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
-//sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
+sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
+sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
+sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
 
 //sys.SetA(0, 4,   0 ); // I_Gx * ω̇x
 //sys.SetA(1, 4,   0 );// I_Gy * ω̇y 
