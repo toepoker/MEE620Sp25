@@ -151,16 +151,6 @@ Vex rFR_SR = -L * (Math.Cos(thetaR) * bX +
 Vex rSL_G   = bX + (h * bY);
 Vex rSR_G   = (h * bY) -  bX ;
 
-// 3) Shoulder & arm position vectors (B‐frame)
-//Vex rSL_G   = new Vex( 1.0, h, 0.0 );
-//Vex rSR_G   = new Vex(-1.0, h, 0.0 );
-//Vex rFL_SL  = L * new Vex(Math.Cos(thetaL),
-//                         Math.Sin(thetaL)*cosPhi,
- //                        Math.Sin(thetaL)*sinPhi);
-//Vex rFR_SR  = -L * new Vex(Math.Cos(thetaR),
-  //                        Math.Sin(thetaR)*cosPhi,
-    //                      Math.Sin(thetaR)*sinPhi);
-
 // 4) Full arm mass locations (B‐frame)
 Vex rFL_G = rSL_G + rFL_SL;
 Vex rFR_G = rSR_G + rFR_SR;
@@ -195,28 +185,20 @@ Vex H_total = H_body + H_L + H_R;
 Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
 
 
-
-//Vex omegaFL_vec = sZ * omegaFL;
-//Vex omegaFR_vec = sZ * omegaFR;
-//Vex omegaFL_vec = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFL*sZ
-//Vex omegaFR_vec = omegaX*bX + omegaY*bY * + omegaZ*bZ + omegaFR*sZ
-
-
 // 6) Partial velocities (Eq. 27)
 //  Left arm:
 Vex vFL_wx = Vex.Cross(bX, rFL_G);
 Vex vFL_wy = Vex.Cross(bY, rFL_G);
 Vex vFL_wz = Vex.Cross(bZ, rFL_G);
 //Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
-Vex vFL_wL = Vex.Cross(-sinPhi*bY + cosPhi*bZ, rFL_SL);
-
+Vex vFL_wL = Vex.Cross(-sinPhi * bY + cosPhi * bZ, rFL_SL);
 
 //  Right arm:
 Vex vFR_wx = Vex.Cross(bX, rFR_G);
 Vex vFR_wy = Vex.Cross(bY, rFR_G);
 Vex vFR_wz = Vex.Cross(bZ, rFR_G);
 //Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
-Vex vFR_wR = Vex.Cross(-sinPhi*bY + cosPhi*bZ, rFR_SR);
+Vex vFR_wR = Vex.Cross(-sinPhi * bY + cosPhi * bZ, rFR_SR);
 
 // 7) Left‐arm transport/Coriolis terms
 Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
