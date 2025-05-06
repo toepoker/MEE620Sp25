@@ -255,13 +255,15 @@ double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
 
 //tests
 
-GD.Print("vFL_wx: ", vFL_wx.x, ", ", vFL_wx.y, ", ", vFL_wx.z);
 
 
-double T1 = mA * Vex.Dot(vFL_wx, vFR_wR) -mA * Vex.Dot(vFL_wx, vFL_wL) ;
-double T2 = mA * Vex.Dot(vFL_wx, vFR_wR) -mA * Vex.Dot(vFR_wx, vFL_wL) ;
-double T3 = mA * Vex.Dot(vFL_wx, vFR_wR) + mA * Vex.Dot(vFL_wx, vFL_wL) ;
-double T4 = mA * Vex.Dot(vFL_wx, vFR_wR) + mA * Vex.Dot(vFR_wx, vFL_wL) ;
+
+double T1 = vFL_wL.x
+double T2 = vFL_wL.y
+double T3 = vFL_wL.z
+double T4 = vFR_wR.x
+double T5 = vFR_wR.y
+double T6 = vFR_wR.z
 
 double A05 = mA * (vFL_wx.x + vFR_wx.x);
 double A06 = mA * (vFL_wx.y + vFR_wx.y);
@@ -376,8 +378,8 @@ SetDebugVal(2, T1);
 SetDebugVal(3, T2);  
 SetDebugVal(4, T3);  
 SetDebugVal(5, T4);   
-SetDebugVal(6, A17);  
-SetDebugVal(7, A07);  
+SetDebugVal(6, T5);  
+SetDebugVal(7, T6);  
  
 
 
