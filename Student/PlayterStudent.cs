@@ -374,8 +374,8 @@ sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
 SetDebugVal(0, A03); 
 SetDebugVal(1, A04);  
-SetDebugVal(2, T1);    
-SetDebugVal(3, T2);  
+SetDebugVal(2, A13);    
+SetDebugVal(3, A14);  
 SetDebugVal(4, T3);  
 SetDebugVal(5, T4);   
 SetDebugVal(6, T5);  
