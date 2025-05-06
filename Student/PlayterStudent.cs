@@ -360,11 +360,11 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A55); 
-SetDebugVal(1, A34);  
-SetDebugVal(2, A35);    
-SetDebugVal(3, A36);  
-SetDebugVal(4, A37);  
+SetDebugVal(0, A03); 
+SetDebugVal(1, vFL_wL);  
+SetDebugVal(2, vFL_wx);    
+SetDebugVal(3, vFR_wR);  
+SetDebugVal(4, vFR_wx);  
 SetDebugVal(5, A27);   
 SetDebugVal(6, A17);  
 SetDebugVal(7, A07);  
