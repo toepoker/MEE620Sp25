@@ -290,12 +290,12 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A23); 
-SetDebugVal(1, A24);  
-SetDebugVal(2, A25);    
-SetDebugVal(3, A26);  
-SetDebugVal(4, A27);  
-SetDebugVal(5, A16);   
+SetDebugVal(0, A22); 
+SetDebugVal(1, A23);  
+SetDebugVal(2, A24);    
+SetDebugVal(3, A25);  
+SetDebugVal(4, A26);  
+SetDebugVal(5, A27);   
 SetDebugVal(6, A17);  
 SetDebugVal(7, A07);  
  
