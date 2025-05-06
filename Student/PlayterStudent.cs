@@ -258,17 +258,33 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 // Rigid Body Inertia Terms
 // -----------------------------
 
-double A00 = rho2 + mA * Vex.Dot(vFL_wx , vFL_wx) + mA * Vex.Dot(vFR_wx , vFR_wx) ;
+double A00 = rho2 + mA * Dot(vFL_wx, vFL_wx) + mA * Dot(vFR_wx, vFR_wx);
+double A01 =          mA * Dot(vFL_wx, vFL_wy) + mA * Dot(vFR_wx, vFR_wy);
+double A02 =          mA * Dot(vFL_wx, vFL_wz) + mA * Dot(vFR_wx, vFR_wz);
+double A03 =          mA * Dot(vFL_wx, vFL_wL);
+double A04 =          mA * Dot(vFR_wx, vFR_wR);
+double A05 = mA * Dot(vFL_wx, vFL_wwL); // If ωL is generalized speed 5
+double A06 = mA * Dot(vFR_wx, vFR_wwR); // If ωR is generalized speed 6
+
+
 double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
 double A22 = rho2 * gammaZ + mA * Vex.Dot(vFL_wz , vFL_wz) + mA * Vex.Dot(vFR_wz , vFR_wz);
+
+
 
 sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0,  A00);  // ff[0] = ω̇x
-SetDebugVal(1,  A11);  // ff[1] = ω̇y
-SetDebugVal(2, A22);       // Expected: starts at 0, swings up, dampens back down
+SetDebugVal(0, A00); 
+SetDebugVal(1, A01);  
+SetDebugVal(2, A02);    
+SetDebugVal(3, A03);  
+SetDebugVal(4, A04);  
+SetDebugVal(5, A05);   
+SetDebugVal(6, A06);  
+SetDebugVal(7, A07);  
+ 
 
 
 
@@ -372,12 +388,12 @@ ff[7]= sys.Sol(7);
         ff[16] = 0;   // żG = vz
 
        
-        SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
-        SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
-        SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
-        SetDebugVal(6, TtildeL + Q_L);// Total net driving torque on the arm
-        SetDebugVal(7, Vex.Dot(vFL_wL, sZ));  // Should be near 1.0 (it's the partial angular velocity projection)
-        SetDebugVal(8, Vex.Dot(Vex.Cross(sZ, rFL_SL), sZ));  // Should also be near 1.0 (for PLL)
+        //SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
+       // SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
+        //SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
+       // SetDebugVal(6, TtildeL + Q_L);// Total net driving torque on the arm
+       // SetDebugVal(7, Vex.Dot(vFL_wL, sZ));  // Should be near 1.0 (it's the partial angular velocity projection)
+       // SetDebugVal(8, Vex.Dot(Vex.Cross(sZ, rFL_SL), sZ));  // Should also be near 1.0 (for PLL)
 
 
         //SetDebugVal(2,  ff[2]);  // ff[2] = ω̇z
