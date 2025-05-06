@@ -252,9 +252,8 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
                                       rho2*gammaY*omegaY,
                                       rho2*gammaZ*omegaZ) );
 
+
 //test
-double xL = rFL_G.x, yL = rFL_G.y, zL = rFL_G.z;
-double xR = rFR_G.x, yR = rFR_G.y, zR = rFR_G.z;
 // -----------------------------
 // Rigid Body Inertia Terms
 // -----------------------------
