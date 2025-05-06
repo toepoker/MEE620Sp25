@@ -246,7 +246,7 @@ double mTotal = 1.0 + 2.0*mA;
 // Rigid Body Inertia Terms
 // -----------------------------
 
-double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx);
+double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx) ;
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
 
@@ -258,8 +258,8 @@ double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
 
 
 
-double T1 = vFL_wL.x;
-double T2 = vFL_wL.y;
+double T1 = mA * Vex.Dot(vFL_wx, vFR_wR); 
+double T2 = mA * Vex.Dot(vFR_wx, vFL_wL); 
 double T3 = vFL_wL.z;
 double T4 = vFR_wR.x;
 double T5 = vFR_wR.y;
@@ -376,8 +376,8 @@ SetDebugVal(0, A03);
 SetDebugVal(1, A04);  
 SetDebugVal(2, A13);    
 SetDebugVal(3, A14);  
-SetDebugVal(4, T3);  
-SetDebugVal(5, T4);   
+SetDebugVal(4, T1);  
+SetDebugVal(5, T2);   
 SetDebugVal(6, T5);  
 SetDebugVal(7, T6);  
  
