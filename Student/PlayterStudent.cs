@@ -366,9 +366,9 @@ ff[7]= sys.Sol(7);
         SetDebugVal(9,  omegaX);  // ff[4] = ω̇FR
         SetDebugVal(10,  omegaY);  // ff[0] = ω̇x
         SetDebugVal(11,  omegaZ);  // ff[1] = ω̇y
-        SetDebugVal(12,  H_L);  // ff[2] = ω̇z
-        SetDebugVal(13,  H_R);  // ff[3] = ω̇FL
-        SetDebugVal(14,  H_body);  // ff[4] = ω̇FR
+        SetDebugVal(12,  H_L.x);  // ff[2] = ω̇z
+        SetDebugVal(13,  H_R.x);  // ff[3] = ω̇FL
+        SetDebugVal(14,  H_body.x);  // ff[4] = ω̇FR
         SetDebugVal(15,  ff[15]);  // ff[0] = ω̇x
         SetDebugVal(16,  ff[16]);  // ff[1] = ω̇y
         
