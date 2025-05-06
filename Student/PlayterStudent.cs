@@ -99,15 +99,13 @@
          yG      = xx[15];
          zG      = xx[16];
  
-         double rho2 = rho*rho; 
+double rho2 = rho*rho; 
  
-         Vex AngVel = new Vex(omegaX, omegaY,omegaZ);
-         Vex AngMo = new Vex(rho2*omegaX, rho2*gammaY*omegaY, rho2*gammaZ*omegaZ);
-         Vex AngVelCrossAngMo = Vex.Cross(AngVel, AngMo);
-         
-         //ff[0] = -AngVelCrossAngMo.x/rho2;
-         //ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
-         //ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
+
+                  
+//ff[0] = -AngVelCrossAngMo.x/rho2;
+//ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
+//ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
 
          
        
@@ -176,6 +174,10 @@ Vex sZ = new Vex(0, -sinPhi , cosPhi);
 Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
 // Omega N>F_R
 Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFR*sZ;
+
+Vex AngVel = new Vex(omegaX, omegaY,omegaZ);
+Vex AngMo = new Vex(rho2*omegaX, rho2*gammaY*omegaY, rho2*gammaZ*omegaZ);
+Vex AngVelCrossAngMo = Vex.Cross(AngVel, AngMo);
 
 //Vex omegaFL_vec = sZ * omegaFL;
 //Vex omegaFR_vec = sZ * omegaFR;
