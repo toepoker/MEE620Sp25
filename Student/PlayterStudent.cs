@@ -258,9 +258,9 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 // Rigid Body Inertia Terms
 // -----------------------------
 
-A00 = rho2;
-A01 = rho2 * gammaY;
-A02 = rho2 * gammaZ;
+double A00 = rho2;
+double A01 = rho2 * gammaY;
+double A02 = rho2 * gammaZ;
 
 sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A01);        // I_Gy * ω̇y
