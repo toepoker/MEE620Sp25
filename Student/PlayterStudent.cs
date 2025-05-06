@@ -189,14 +189,14 @@ Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
 Vex vFL_wx = Vex.Cross(bX, rFL_G);
 Vex vFL_wy = Vex.Cross(bY, rFL_G);
 Vex vFL_wz = Vex.Cross(bZ, rFL_G);
-Vex vFL_wL = Vex.Cross(sZ, rFL_G);
+Vex vFL_wL = Vex.Cross(sZ, rFL_SL);
 //Vex vFL_wL = Vex.Cross(sZn, rFL_SL);
 
 //  Right arm:
 Vex vFR_wx = Vex.Cross(bX, rFR_G);
 Vex vFR_wy = Vex.Cross(bY, rFR_G);
 Vex vFR_wz = Vex.Cross(bZ, rFR_G);
-Vex vFR_wR = Vex.Cross(sZ, rFR_G);
+Vex vFR_wR = Vex.Cross(sZ, rFR_SR);
 //Vex vFR_wR = Vex.Cross(sZn, rFR_SR);
 
 // 7) Left‐arm transport/Coriolis terms
