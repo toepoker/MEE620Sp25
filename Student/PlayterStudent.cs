@@ -255,7 +255,7 @@ double A06 = mA * (vFL_wx.y + vFR_wx.y);
 double A07 = mA * (vFL_wx.z + vFR_wx.z);
 
 
-double A10 = A01
+double A10 = A01;
 double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
 double A12 = mA * Vex.Dot(vFL_wy, vFL_wz) + mA * Vex.Dot(vFR_wy, vFR_wz);       
 
