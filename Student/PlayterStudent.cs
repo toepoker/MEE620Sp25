@@ -258,13 +258,13 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 // Rigid Body Inertia Terms
 // -----------------------------
 
-double A00 = rho2 + mA * Dot(vFL_wx, vFL_wx) + mA * Dot(vFR_wx, vFR_wx);
-double A01 =          mA * Dot(vFL_wx, vFL_wy) + mA * Dot(vFR_wx, vFR_wy);
-double A02 =          mA * Dot(vFL_wx, vFL_wz) + mA * Dot(vFR_wx, vFR_wz);
-double A03 =          mA * Dot(vFL_wx, vFL_wL);
-double A04 =          mA * Dot(vFR_wx, vFR_wR);
-double A05 = mA * Dot(vFL_wx, vFL_wwL); // If ωL is generalized speed 5
-double A06 = mA * Dot(vFR_wx, vFR_wwR); // If ωR is generalized speed 6
+double A00 = rho2 + mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx);
+double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
+double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
+double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL);
+double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR);
+double A05 = mA * Vex.Dot(vFL_wx, vFL_wwL); // If ωL is generalized speed 5
+double A06 = mA * Vex.Dot(vFR_wx, vFR_wwR); // If ωR is generalized speed 6
 
 
 double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
