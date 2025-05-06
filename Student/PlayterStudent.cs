@@ -324,13 +324,9 @@ sys.SetA(4, 4, mA * L * L); // θR
 //sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
 //sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
 
-
-
-
-
-sys.SetA(0, 4,   0 ); // I_Gx * ω̇x
-sys.SetA(1, 4,   0 );// I_Gy * ω̇y 
-sys.SetA(2, 4,   0 );
+//sys.SetA(0, 4,   0 ); // I_Gx * ω̇x
+//sys.SetA(1, 4,   0 );// I_Gy * ω̇y 
+//sys.SetA(2, 4,   0 );
 
 // -- Left hinge inertia (row 3) --
 double mArm = mA;
@@ -423,9 +419,9 @@ ff[7]= sys.Sol(7);
         ff[15] = 0;   // ẏG = vy
         ff[16] = 0;   // żG = vz
 
-        SetDebugVal(0,  ff[0]);  // ff[0] = ω̇x
-        SetDebugVal(1,  ff[1]);  // ff[1] = ω̇y
-        SetDebugVal(2, thetaL);       // Expected: starts at 0, swings up, dampens back down
+        SetDebugVal(0,  A00);  // ff[0] = ω̇x
+        SetDebugVal(1,  A01);  // ff[1] = ω̇y
+        SetDebugVal(2, A02);       // Expected: starts at 0, swings up, dampens back down
         SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
         SetDebugVal(4, TtildeL);      // Should be negative when thetaL is positive (restoring)
         SetDebugVal(5, Q_L);          // Transport/Coriolis term, usually smaller than TtildeL
