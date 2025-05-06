@@ -240,6 +240,8 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 
 
 double mTotal = 1.0 + 2.0*mA;
+
+
 // -----------------------------
 // Rigid Body Inertia Terms
 // -----------------------------
@@ -313,7 +315,7 @@ double A52 = A25;
 double A53 = A35;     
 double A54 = A45;      
 
-double A55 = mtotal;
+double A55 = mTotal;
 double A56 = 0;
 double A57 = 0;
 
@@ -327,7 +329,7 @@ double A63 = A36;
 double A64 = A46;      
 
 double A65 = 0;
-double A66 = mtotal;
+double A66 = mTotal;
 double A67 = 0;
 
 
@@ -341,7 +343,7 @@ double A74 = A47;
 
 double A75 = 0;
 double A76 = 0;
-double A77 = mtotal;
+double A77 = mTotal;
 
 
 
