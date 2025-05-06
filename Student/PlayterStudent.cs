@@ -403,7 +403,6 @@ sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
 sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
 
 // -- CG (rows 5–7) --
-double mTotal = 1.0 + 2.0*mA;
 sys.SetA(5, 5,    mTotal     ); // m_total * v̇x
 sys.SetA(6, 6,    mTotal    ); // m_total * v̇y
 sys.SetA(7, 7,    mTotal    ); // m_total * v̇z
