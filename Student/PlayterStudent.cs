@@ -245,10 +245,14 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx);
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
-double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL) + mA * Vex.Dot(vFL_wx, vFR_wR); 
-double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR)  + mA * Vex.Dot(vFR_wx, vFR_wR); 
-double A05 = mA * Vex.Dot(vFL_wx, vFL_wL); // If ωL is generalized speed 5
-double A06 = mA * Vex.Dot(vFR_wx, vFR_wR); // If ωR is generalized speed 6
+
+double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
+double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
+
+double A05 = mA * (vFL_wx.x + vFR_wx.x);
+double A06 = mA * (vFL_wx.y + vFR_wx.y);
+double A07 = mA * (vFL_wx.z + vFR_wx.z);
+
 
 
 double A11 = rho2 * gammaY + mA * Vex.Dot(vFL_wy , vFL_wy) + mA * Vex.Dot(vFR_wy , vFR_wy) ;
@@ -267,7 +271,7 @@ SetDebugVal(3, A03);
 SetDebugVal(4, A04);  
 SetDebugVal(5, A05);   
 SetDebugVal(6, A06);  
-SetDebugVal(7, A06);  
+SetDebugVal(7, A07);  
  
 
 
