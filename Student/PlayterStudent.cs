@@ -245,8 +245,8 @@ Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
 double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx);
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
-double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL) + mA * Vex.Dot(vFL_wx, vFR_wR); 
-double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR) + mA * Vex.Dot(vFR_wx, vFR_wR); 
+double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
+double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
 double A05 = mA * Vex.Dot(vFL_wx, vFL_wL); // If ωL is generalized speed 5
 double A06 = mA * Vex.Dot(vFR_wx, vFR_wR); // If ωR is generalized speed 6
 
