@@ -247,8 +247,8 @@ double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
 
-double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
-double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
+double A03 =          mA * Vex.Dot(vFL_wx + vFR_wx, vFL_wL); 
+double A04 =          mA * Vex.Dot(vFL_wx + vFR_wx, vFR_wR); 
 
 double A05 = mA * (vFL_wx.x + vFR_wx.x);
 double A06 = mA * (vFL_wx.y + vFR_wx.y);
@@ -277,8 +277,8 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A11); 
-SetDebugVal(1, A12);  
+SetDebugVal(0, A03); 
+SetDebugVal(1, A04);  
 SetDebugVal(2, A13);    
 SetDebugVal(3, A14);  
 SetDebugVal(4, A15);  
