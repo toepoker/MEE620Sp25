@@ -71,6 +71,11 @@
     phi      = 0;         // swing‐plane angle
     sinPhi   = Math.Sin(phi);
     cosPhi   = Math.Cos(phi);
+    omegaX  = 1;
+    omegaY  = 0;
+    omegaZ  = 0;
+    omegaFL = 0;
+    omegaFR = 0;
  
      }
  
@@ -566,7 +571,7 @@ SetDebugVal(7, term2s);
 SetDebugVal(8, term3s); 
 SetDebugVal(9, term1Rs); 
 SetDebugVal(10, term2Rs);  
-SetDebugVal(11, term3Rs); 
+SetDebugVal(11, omegaFR); 
 SetDebugVal(12, omegaX); 
 SetDebugVal(13, omegaY); 
 SetDebugVal(14, omegaZ);  
