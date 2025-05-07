@@ -456,9 +456,9 @@ double B1 = -omegaCrossH.y;
 double B2 = -omegaCrossH.z;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
-double B5 = 0.0;
-double B6 = 0.0;
-double B7 = 0.0;
+double B5 = vx;
+double B6 = vy;
+double B7 = vz;
 
 sys.SetB(0, B0);
 sys.SetB(1, B1);
