@@ -108,11 +108,6 @@ double rho2 = rho*rho;
 
 //test
 
-  omegaX  = 1;
-    omegaY  = 0;
-    omegaZ  = 0;
-    omegaFL = 0;
-    omegaFR = 0;
                   
 
 
@@ -180,8 +175,8 @@ Vex sZ = cosPhi * bZ - sinPhi * bY;
 //Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 //test
-Vex omegaBFL = omegaFL*bZ;
-Vex omegaBFR = omegaFR*bZ;
+Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
+Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
 Vex omegaFL_N = omegaB + omegaBFL;
