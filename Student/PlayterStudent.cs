@@ -501,12 +501,12 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, term1); 
-SetDebugVal(1, term2);  
-SetDebugVal(2, term3);    
-SetDebugVal(3, term1_R);  
-SetDebugVal(4, term2_R);  
-SetDebugVal(5, term3_R);   
+SetDebugVal(0, transportSum.x); 
+SetDebugVal(1, transportSum.y);  
+SetDebugVal(2, transportSum.z);    
+SetDebugVal(3, transportSum_R.x);  
+SetDebugVal(4, transportSum_R.y);  
+SetDebugVal(5, transportSum_R.z);   
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
 
