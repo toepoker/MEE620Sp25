@@ -529,8 +529,8 @@ SetDebugVal(9, transportSum_R.x);
 SetDebugVal(10, transportSum_R.y);
 SetDebugVal(11, transportSum_R.z);
    
-SetDebugVal(6, thetaR);  
-SetDebugVal(7, 0);
+//SetDebugVal(6, thetaR);  
+//SetDebugVal(7, 0);
 
        
         //SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
