@@ -237,6 +237,7 @@ Vex term2 = Vex.Cross(omegaB_cross_omegaFL, rFL_SL);
 
 
 Vex omegaFL_N = omegaB + omegaFL * sZ;
+Vex omegaFR_N = omegaB + omegaFR * sZ;
 
 Vex term3 = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
 
