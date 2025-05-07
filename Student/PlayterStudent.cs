@@ -163,9 +163,9 @@ Vex sZ = new Vex(0, -sinPhi, cosPhi);
 Vex sZn = -1 * sZ;
 //Vex sZ = new Vex(0, -sinPhi , cosPhi);
 // Omega N>F_L
-Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
+Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*bZ;
 // Omega N>F_R
-Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ - omegaFR*sZ;
+Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFR*bZ;
 
 
 //test
