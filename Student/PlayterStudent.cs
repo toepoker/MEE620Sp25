@@ -222,10 +222,6 @@ double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
 
 
-//double restTheta = -Math.PI / 2;
-//double TtildeL = -mA * L * L * (k * (thetaL - restTheta) + c * omegaFL);
-//double TtildeR = -mA * L * L * (k * (thetaR - restTheta) + c * omegaFR);
-
 
 
 // 2) Fill A (inertia/mass matrix)
@@ -505,12 +501,12 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, omegaX); 
-SetDebugVal(1, omegaY);  
-SetDebugVal(2, omegaZ);    
-SetDebugVal(3, omegaFL);  
-SetDebugVal(4, omegaFR);  
-SetDebugVal(5, thetaL);   
+SetDebugVal(0, term1); 
+SetDebugVal(1, term2);  
+SetDebugVal(2, term3);    
+SetDebugVal(3, term1_R);  
+SetDebugVal(4, term2_R);  
+SetDebugVal(5, term3_R);   
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
 
