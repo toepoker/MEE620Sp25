@@ -169,7 +169,7 @@ Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
 Vex omegaFL_N = omegaB + omegaBFL;
-Vex omegaFR_N = omegaB - omegaBFR;
+Vex omegaFR_N = omegaB + omegaBFR;
 
 
 //test
@@ -437,7 +437,7 @@ sys.SetA(7, 7, A77);
 // Body angular momentum
 Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * bZ;
 Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * bZ;
-Vex H_total = H_body + H_L + H_R;
+Vex H_total = H_body;
 Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 
 
@@ -464,9 +464,9 @@ double B1 = -omegaCrossH.y + deltaB1_FL + deltaB1_FR;
 double B2 = -omegaCrossH.z + deltaB2_FL + deltaB2_FR;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
-double B5 = vx;
-double B6 = vy;
-double B7 = vz;
+double B5 = 0;
+double B6 = 0;
+double B7 = 0;
 
 sys.SetB(0, B0);
 sys.SetB(1, B1);
