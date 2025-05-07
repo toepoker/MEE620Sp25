@@ -168,8 +168,8 @@ Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
 Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
-Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
-Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
+Vex omegaFL_N = omegaB + omegaBFL;
+Vex omegaFR_N = omegaB + omegaBFR;
 
 
 //test
