@@ -168,8 +168,8 @@ Vex omegaBFL = (cosPhi*bZ - sinPhi*bY);
 Vex omegaBFR = (cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
-Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
-Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
+//Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
+//Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
 
 
 //test
@@ -585,12 +585,7 @@ SetDebugVal(11, transportSum_R.z);
    //     SetDebugVal(9,  omegaX);  // ff[4] = ω̇FR
      //   SetDebugVal(10,  omegaY);  // ff[0] = ω̇x
        // SetDebugVal(11,  omegaZ);  // ff[1] = ω̇y
-        SetDebugVal(12,  H_L.x);  // ff[2] = ω̇z
-        SetDebugVal(13,  H_R.x);  // ff[3] = ω̇FL
-        SetDebugVal(14,  H_body.x);  // ff[4] = ω̇FR
-        SetDebugVal(15,  ff[15]);  // ff[0] = ω̇x
-        SetDebugVal(16,  ff[16]);  // ff[1] = ω̇y
-        
+    
 
 
 
