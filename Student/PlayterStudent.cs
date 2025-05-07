@@ -158,6 +158,8 @@ Vex rFR_G = rSR_G + rFR_SR;
 
 // 5) Body and hinge angular speeds
 // Omega N>B
+//Vex omegaB = (omegaX*bX + omegaY*bY + omegaZ*bZ);
+//test
 Vex omegaB = (omegaX*bX + omegaY*bY + omegaZ*bZ);
 // Omega B>F (sZ)
 Vex sZ = cosPhi * bZ - sinPhi * bY;
@@ -165,8 +167,11 @@ Vex sZ = cosPhi * bZ - sinPhi * bY;
 //Vex sZ = new Vex(0, -sinPhi , cosPhi);
 
 // Omega B>F_L
-Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
-Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
+
+//Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
+//Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
+
+//test
 Vex omegaBFLT = omegaFL*bZ;
 Vex omegaBFRT = omegaFR*bZ;
 
@@ -562,6 +567,11 @@ SetDebugVal(8, term3s);
 SetDebugVal(9, term1Rs); 
 SetDebugVal(10, term2Rs);  
 SetDebugVal(11, term3Rs); 
+SetDebugVal(12, omegaX); 
+SetDebugVal(13, omegaY); 
+SetDebugVal(14, omegaZ);  
+SetDebugVal(15, omegaFL); 
+SetDebugVal(15, omegaFR); 
 
    
 //SetDebugVal(6, thetaR);  
