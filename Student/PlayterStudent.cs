@@ -160,7 +160,7 @@ Vex rFR_G = rSR_G + rFR_SR;
 //Vex omegaB = (omegaX*bX + omegaY*bY + omegaZ*bZ);
 // Omega B>F (sZ)
 //Vex sZ = cosPhi * bZ - sinPhi * bY;
-Vex sZn = -1 * sZ;
+//Vex sZn = -1 * sZ;
 //Vex sZ = new Vex(0, -sinPhi , cosPhi);
 
 // Omega B>F_L
@@ -177,11 +177,11 @@ Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
 Vex H_body = new Vex(rho2 * omegaX, rho2 * gammaY * omegaY, rho2 * gammaZ * omegaZ);
 
 // Arms' contributions
-Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) +
-          mA * L * L * omegaFL * sZ;
+//Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) +
+ //         mA * L * L * omegaFL * sZ;
 
-Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) +
-          mA * L * L * omegaFR * sZ;
+//Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) +
+//          mA * L * L * omegaFR * sZ;
 
 // Total angular momentum
 Vex H_total = H_body + H_L + H_R;
