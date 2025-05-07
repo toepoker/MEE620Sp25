@@ -548,9 +548,9 @@ SetDebugVal(11, transportSum_R.z);
        // SetDebugVal(6,  ff[6]);  // ff[1] = ω̇y
        // SetDebugVal(7,  ff[7]);  // ff[2] = ω̇z
         //SetDebugVal(8,  ff[8]);  // ff[3] = ω̇FL
-        SetDebugVal(9,  omegaX);  // ff[4] = ω̇FR
-        SetDebugVal(10,  omegaY);  // ff[0] = ω̇x
-        SetDebugVal(11,  omegaZ);  // ff[1] = ω̇y
+   //     SetDebugVal(9,  omegaX);  // ff[4] = ω̇FR
+     //   SetDebugVal(10,  omegaY);  // ff[0] = ω̇x
+       // SetDebugVal(11,  omegaZ);  // ff[1] = ω̇y
         SetDebugVal(12,  H_L.x);  // ff[2] = ω̇z
         SetDebugVal(13,  H_R.x);  // ff[3] = ω̇FL
         SetDebugVal(14,  H_body.x);  // ff[4] = ω̇FR
