@@ -568,6 +568,10 @@ SetDebugVal(8, omegaBFR.z);
 SetDebugVal(9, omegaBFRT.x); 
 SetDebugVal(10, omegaBFRT.y); 
 SetDebugVal(11, omegaBFRT.z);
+SetDebugVal(12, sinPhi);  
+SetDebugVal(13, cosPhi); 
+SetDebugVal(14, phi); 
+SetDebugVal(15, omegaBFRT.z);
    
 //SetDebugVal(6, thetaR);  
 //SetDebugVal(7, 0);
