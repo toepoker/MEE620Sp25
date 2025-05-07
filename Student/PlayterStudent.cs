@@ -103,9 +103,7 @@ double rho2 = rho*rho;
  
 
                   
-//ff[0] = -AngVelCrossAngMo.x/rho2;
-//ff[1] = -AngVelCrossAngMo.y/(rho2*gammaY);
-//ff[2] = -AngVelCrossAngMo.z/(rho2*gammaZ);
+
 
          
        
@@ -459,9 +457,9 @@ double Q_L = mA * Vex.Dot(vFL_wL, new Vex(-1.0991, -1.9241, 0.6414));
 double Q_R = mA * Vex.Dot(vFR_wR, new Vex(-0.0289, -0.4825, -0.0717));
 
 // Full B vector
-double B0 = -omegaCrossH.x + deltaB0_FL + deltaB0_FR;
-double B1 = -omegaCrossH.y + deltaB1_FL + deltaB1_FR;
-double B2 = -omegaCrossH.z + deltaB2_FL + deltaB2_FR;
+double B0 = -omegaCrossH.x - deltaB0_FL - deltaB0_FR;
+double B1 = -omegaCrossH.y - deltaB1_FL - deltaB1_FR;
+double B2 = -omegaCrossH.z - deltaB2_FL - deltaB2_FR;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
 double B5 = 0;
