@@ -541,19 +541,19 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, A00); 
-SetDebugVal(1, A01);  
-SetDebugVal(2, A02);  
-SetDebugVal(3, A03); 
-SetDebugVal(4, A04);  
-SetDebugVal(5, A05); 
-SetDebugVal(6, A06); 
-SetDebugVal(7, A07);  
-SetDebugVal(8, A01); 
-SetDebugVal(9, A00); 
-SetDebugVal(10, A01);  
-SetDebugVal(11, A02); 
-SetDebugVal(12, A00); 
+SetDebugVal(0, A11); 
+SetDebugVal(1, A12);  
+SetDebugVal(2, A13);  
+SetDebugVal(3, A14); 
+SetDebugVal(4, A15);  
+SetDebugVal(5, A16); 
+SetDebugVal(6, A17); 
+SetDebugVal(7, A22);  
+SetDebugVal(8, A23); 
+SetDebugVal(9, A24); 
+SetDebugVal(10, A25);  
+SetDebugVal(11, A26); 
+SetDebugVal(12, A26); 
 SetDebugVal(13, A01);  
 SetDebugVal(14, A02);  
 
