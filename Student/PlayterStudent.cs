@@ -229,8 +229,7 @@ double term3Rs  = Vex.Dot(vFR_wR, term3_R);
 Vex transportSum_R = term1_R + term2_R + term3_R;
 //double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
-double Q_L = mA * Vex.Dot(vFL_wL, new Vex(-1.0991, -1.9241, 0.6414));
-double Q_R = mA * Vex.Dot(vFR_wR, new Vex(-0.0289, -0.4825, -0.0717));
+
 
 
 
@@ -441,10 +440,25 @@ Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR
 Vex H_total = H_body + H_L + H_R;
 Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 
+
+// Project quadratic terms into ωx, ωy, ωz directions
+Vex aFL_quad = new Vex(-1.0991, -1.9241, 0.6414);  // from your professor
+Vex aFR_quad = new Vex(-0.0289, -0.4825, -0.0717); // from your professor
+
+// Left arm contributions
+double deltaB0_FL = mA * Vex.Dot(aFL_quad, vFL_wx);
+double deltaB1_FL = mA * Vex.Dot(aFL_quad, vFL_wy);
+double deltaB2_FL = mA * Vex.Dot(aFL_quad, vFL_wz);
+
+// Right arm contributions
+double deltaB0_FR = mA * Vex.Dot(aFR_quad, vFR_wx);
+double deltaB1_FR = mA * Vex.Dot(aFR_quad, vFR_wy);
+double deltaB2_FR = mA * Vex.Dot(aFR_quad, vFR_wz);
+
 // Full B vector
-double B0 = -omegaCrossH.x;
-double B1 = -omegaCrossH.y;
-double B2 = -omegaCrossH.z;
+double B0 = -omegaCrossH.x + deltaB0_FL + deltaB0_FR;
+double B1 = -omegaCrossH.y + deltaB1_FL + deltaB1_FR;
+double B2 = -omegaCrossH.z + deltaB2_FL + deltaB2_FR;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
 double B5 = vx;
