@@ -312,7 +312,7 @@ double A41 = A14;
 double A42 = A24;      
 
 double A43 = A34;     
-double A44 =  0;      
+double A44 =  mA * Vex.Dot(vFR_wR, vFR_wR);;      
 
 double A45 = mA * vFR_wR.x;
 double A46 = mA * vFR_wR.y;
