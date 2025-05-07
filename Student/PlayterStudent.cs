@@ -444,14 +444,7 @@ Double B7= 0 ;
 
 
     
-SetDebugVal(0, A23); 
-SetDebugVal(1, A24);  
-SetDebugVal(2, A33);    
-SetDebugVal(3, A34);  
-SetDebugVal(4, T1);  
-SetDebugVal(5, T2);   
-SetDebugVal(6, T3);  
-SetDebugVal(7, T4);  
+  
  
 
 
@@ -489,21 +482,27 @@ ff[7]= sys.Sol(7);
 
        
 
-      //  ff[3] = vFL_wL.x
-       // ff[4] = vFL_wR.x
-     //   ff[5] = vG_vx.x
-       // ff[6] = vG_vy.y
-        //ff[7] = vG_vz.z
+  
 
-        ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
-        ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
-        ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
-        ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
-        ff[12] = omegaFL;   // θ̇L = ωFL
-        ff[13] = omegaFR;   // θ̇R = ωFR
-        ff[14] = 0;   // ẋG = vx
-        ff[15] = 0;   // ẏG = vy
-        ff[16] = 0;   // żG = vz
+ff[8] = .5*(-q1*omegaX - q2*omegaY - q3*omegaZ);
+ff[9] = .5*(q0*omegaX - q3*omegaY + q2*omegaZ);
+ff[10] = .5*(q3*omegaX + q0*omegaY - q1*omegaZ);
+ff[11] = .5*(-q2*omegaX + q1*omegaY + q0*omegaZ);
+ff[12] = omegaFL;   // θ̇L = ωFL
+ff[13] = omegaFR;   // θ̇R = ωFR
+ff[14] = vx;   // ẋG = vx
+ff[15] = vy;   // ẏG = vy
+ff[16] = vz;   // żG = vz
+
+
+SetDebugVal(0, omegaX); 
+SetDebugVal(1, omegaY);  
+SetDebugVal(2, omegaZ);    
+SetDebugVal(3, omegaFL);  
+SetDebugVal(4, omegaFR);  
+SetDebugVal(5, vx);   
+SetDebugVal(6, vy);  
+SetDebugVal(7, vz);
 
        
         //SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
