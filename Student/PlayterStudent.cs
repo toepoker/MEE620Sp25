@@ -250,8 +250,17 @@ double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
 
-double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL.x); 
-double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR.x); 
+double vFwx= vFL_wx.x + vFR_wx.x ;
+double vFwx= vFL_wy.y + vFR_wy.y ;
+double vFwx= vFL_wz.z + vFR_wz.z ;
+
+
+
+double A03 =          mA * Vex.Dot(vFwx, vFL_wL); 
+double A04 =          mA * Vex.Dot(vFwx, vFR_wR);
+
+//double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
+//double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
 
 //tests
 
