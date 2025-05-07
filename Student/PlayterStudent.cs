@@ -544,23 +544,30 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, transportSum.x); 
-SetDebugVal(1, transportSum.y);  
-SetDebugVal(2, transportSum.z);  
-SetDebugVal(3, transportSum_R.x); 
-SetDebugVal(4, transportSum_R.y);  
-SetDebugVal(5, transportSum_R.z); 
-SetDebugVal(6, term1s); 
-SetDebugVal(7, term2s);  
-SetDebugVal(8, term3s); 
-SetDebugVal(9, term1Rs); 
-SetDebugVal(10, term2Rs);  
-SetDebugVal(11, term3Rs); 
-SetDebugVal(12, omegaBFL); 
-SetDebugVal(13, omegaBFLT);  
-SetDebugVal(14, omegaBFR);  
-SetDebugVal(14, omegaBFRT); 
-
+//SetDebugVal(0, transportSum.x); 
+//SetDebugVal(1, transportSum.y);  
+//SetDebugVal(2, transportSum.z);  
+//SetDebugVal(3, transportSum_R.x); 
+//SetDebugVal(4, transportSum_R.y);  
+//SetDebugVal(5, transportSum_R.z); 
+//SetDebugVal(6, term1s); 
+//SetDebugVal(7, term2s);  
+//SetDebugVal(8, term3s); 
+//SetDebugVal(9, term1Rs); 
+//SetDebugVal(10, term2Rs);  
+//SetDebugVal(11, term3Rs); 
+SetDebugVal(0, omegaBFL.x); 
+SetDebugVal(1, omegaBFL.y);  
+SetDebugVal(2, omegaBFL.z);  
+SetDebugVal(3, omegaBFLT.x); 
+SetDebugVal(4, omegaBFLT.y); 
+SetDebugVal(5, omegaBFLT.z);  
+SetDebugVal(6, omegaBFR.x); 
+SetDebugVal(7, omegaBFR.y);  
+SetDebugVal(8, omegaBFR.z);  
+SetDebugVal(9, omegaBFRT.x); 
+SetDebugVal(10, omegaBFRT.y); 
+SetDebugVal(11, omegaBFRT.z);
    
 //SetDebugVal(6, thetaR);  
 //SetDebugVal(7, 0);
