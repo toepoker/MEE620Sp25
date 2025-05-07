@@ -168,8 +168,8 @@ Vex omegaBFL = (cosPhi*bZ - sinPhi*bY);
 Vex omegaBFR = (cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
-Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
-Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
+//Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
+//Vex omegaFR_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFR*bZ;
 
 
 //test
@@ -234,8 +234,8 @@ Vex omegaB_cross_omegaFL = Vex.Cross(omegaB, omegaFL_B);
 // Final term2
 Vex term2 = Vex.Cross(omegaB_cross_omegaFL, rFL_SL);
 
-Vex sZ = cosPhi * bZ - sinPhi * bY;
-Vex omegaB = new Vex(omegaX, omegaY, omegaZ);
+
+
 Vex omegaFL_N = omegaB + omegaFL * sZ;
 
 Vex term3 = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
