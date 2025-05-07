@@ -500,9 +500,9 @@ SetDebugVal(1, omegaY);
 SetDebugVal(2, omegaZ);    
 SetDebugVal(3, omegaFL);  
 SetDebugVal(4, omegaFR);  
-SetDebugVal(5, vx);   
-SetDebugVal(6, vy);  
-SetDebugVal(7, vz);
+SetDebugVal(5, 0);   
+SetDebugVal(6, 0);  
+SetDebugVal(7, 0);
 
        
         //SetDebugVal(3, omegaFL);      // Expected: oscillates around 0, damps over time
