@@ -455,6 +455,9 @@ double deltaB0_FR = mA * Vex.Dot(aFR_quad, vFR_wx);
 double deltaB1_FR = mA * Vex.Dot(aFR_quad, vFR_wy);
 double deltaB2_FR = mA * Vex.Dot(aFR_quad, vFR_wz);
 
+double Q_L = mA * Vex.Dot(vFL_wL, new Vex(-1.0991, -1.9241, 0.6414));
+double Q_R = mA * Vex.Dot(vFR_wR, new Vex(-0.0289, -0.4825, -0.0717));
+
 // Full B vector
 double B0 = -omegaCrossH.x + deltaB0_FL + deltaB0_FR;
 double B1 = -omegaCrossH.y + deltaB1_FL + deltaB1_FR;
