@@ -157,7 +157,7 @@ Vex rFR_G = rSR_G + rFR_SR;
 
 // 5) Body and hinge angular speeds
 // Omega N>B
-Vex omegaB      = omegaX*bX + omegaY*bY + omegaZ*bZ;
+Vex omegaB  new Vex(omegaX, omegaY, omegaZ);
 // Omega B>F (sZ)
 Vex sZ = new Vex(0, -sinPhi, cosPhi);
 Vex sZn = -1 * sZ;
