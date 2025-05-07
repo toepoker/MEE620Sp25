@@ -501,12 +501,12 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, Q_L.x); 
-SetDebugVal(1, Q_L.y);  
-SetDebugVal(2, Q_L.z);   
-SetDebugVal(3, Q_R.x); 
-SetDebugVal(4, Q_R.y);  
-SetDebugVal(5, Q_R.z);   
+SetDebugVal(0, term1); 
+SetDebugVal(1, term2);  
+SetDebugVal(2, term3);   
+SetDebugVal(3, term1_R); 
+SetDebugVal(4, term2_R);  
+SetDebugVal(5, term3_R);   
    
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
