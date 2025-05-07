@@ -359,21 +359,91 @@ double A75 = 0;
 double A76 = 0;
 double A77 = mTotal;
 
+sys.SetA(0, 0, A00);      
+sys.SetA(0, 1, A01); 
+sys.SetA(0, 2, A02); 
+sys.SetA(0, 3, A03); 
+sys.SetA(0, 4, A04); 
+sys.SetA(0, 5, A05); 
+sys.SetA(0, 6, A06); 
+sys.SetA(0, 7, A07);  
+
+sys.SetA(1, 0, A10); 
+sys.SetA(1, 1, A11); 
+sys.SetA(1, 2, A12); 
+sys.SetA(1, 3, A13); 
+sys.SetA(1, 4, A14); 
+sys.SetA(1, 5, A15); 
+sys.SetA(1, 6, A16); 
+sys.SetA(1, 7, A17); 
+
+sys.SetA(2, 0, A20); 
+sys.SetA(2, 1, A21); 
+sys.SetA(2, 2, A22); 
+sys.SetA(2, 3, A23); 
+sys.SetA(2, 4, A24); 
+sys.SetA(2, 5, A25); 
+sys.SetA(2, 6, A26); 
+sys.SetA(2, 7, A27); 
+
+sys.SetA(3, 0, A30); 
+sys.SetA(3, 1, A31); 
+sys.SetA(3, 2, A32); 
+sys.SetA(3, 3, A33); 
+sys.SetA(3, 4, A34); 
+sys.SetA(3, 5, A35); 
+sys.SetA(3, 6, A36); 
+sys.SetA(3, 7, A37); 
+
+sys.SetA(4, 0, A40); 
+sys.SetA(4, 1, A41); 
+sys.SetA(4, 2, A42); 
+sys.SetA(4, 3, A43); 
+sys.SetA(4, 4, A44); 
+sys.SetA(4, 5, A45); 
+sys.SetA(4, 6, A46); 
+sys.SetA(4, 7, A47);
+
+sys.SetA(5, 0, A50); 
+sys.SetA(5, 1, A51); 
+sys.SetA(5, 2, A52); 
+sys.SetA(5, 3, A53); 
+sys.SetA(5, 4, A54); 
+sys.SetA(5, 5, A55); 
+sys.SetA(5, 6, A56); 
+sys.SetA(5, 7, A57); 
+
+sys.SetA(6, 0, A60); 
+sys.SetA(6, 1, A61); 
+sys.SetA(6, 2, A62); 
+sys.SetA(6, 3, A63); 
+sys.SetA(6, 4, A64); 
+sys.SetA(6, 5, A65); 
+sys.SetA(6, 6, A66); 
+sys.SetA(6, 7, A67); 
+
+sys.SetA(7, 0, A70); 
+sys.SetA(7, 1, A71); 
+sys.SetA(7, 2, A72); 
+sys.SetA(7, 3, A73); 
+sys.SetA(7, 4, A74); 
+sys.SetA(7, 5, A75); 
+sys.SetA(7, 6, A76); 
+sys.SetA(7, 7, A77); 
+
+
+Double B0= -omegaCrossH.x ;
+Double B1= -omegaCrossH.y ;
+Double B2= -omegaCrossH.z ;
+Double B3= -Q_L + TtildeL ;
+Double B4= -Q_R + TtildeR ;
+Double B5= 0 ;
+Double B6= 0 ;
+Double B7= 0 ;
 
 
 
-
-
-
-
-
-
-
-
-sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
-sys.SetA(1, 1, A11);        // I_Gy * ω̇y
-sys.SetA(2, 2, A22);        // I_Gz * ω̇z
-
+    
 SetDebugVal(0, A23); 
 SetDebugVal(1, A24);  
 SetDebugVal(2, A33);    
@@ -386,41 +456,6 @@ SetDebugVal(7, T4);
 
 
 
-sys.SetA(0, 0,   (rho2) )           ; // I_Gx * ω̇x
-sys.SetA(1, 1,   (rho2 * gammaY) )   ;// I_Gy * ω̇y 
-sys.SetA(2, 2,   (rho2 * gammaZ) );// I_Gz * ω̇z
-
-//sys.SetA(0, 4,   0 ); // I_Gx * ω̇x
-//sys.SetA(1, 4,   0 );// I_Gy * ω̇y 
-//sys.SetA(2, 4,   0 );
-
-// -- Left hinge inertia (row 3) --
-double mArm = mA;
-
-sys.SetA(3, 0,  mArm * Vex.Dot(vFL_wx, vFL_wL));   // coupling ωx → ω̇FL
-sys.SetA(3, 1,  mArm * Vex.Dot(vFL_wy, vFL_wL));   // coupling ωy → ω̇FL
-sys.SetA(3, 2,  mArm * Vex.Dot(vFL_wz, vFL_wL));   // coupling ωz → ω̇FL
-sys.SetA(3, 3,  mArm * Vex.Dot(vFL_wL, vFL_wL));   // hinge inertia term
-sys.SetA(3, 4,  0.0);
-sys.SetA(3, 5,  mArm * Vex.Dot(vG_vx,  vFL_wL));   // coupling vx → ω̇FL
-sys.SetA(3, 6,  mArm * Vex.Dot(vG_vy,  vFL_wL));   // coupling vy → ω̇FL
-sys.SetA(3, 7,  mArm * Vex.Dot(vG_vz,  vFL_wL));   // coupling vz → ω̇FL
-
-// row 4: ω̇FR equation
-sys.SetA(4, 0,  mArm * Vex.Dot(vFR_wx, vFR_wR));
-sys.SetA(4, 1,  mArm * Vex.Dot(vFR_wy, vFR_wR));
-sys.SetA(4, 2,  mArm * Vex.Dot(vFR_wz, vFR_wR));
-sys.SetA(4, 3,  0.0);
-sys.SetA(4, 4,  mArm * Vex.Dot(vFR_wR, vFR_wR));
-sys.SetA(4, 5,  mArm * Vex.Dot(vG_vx,  vFR_wR));
-sys.SetA(4, 6,  mArm * Vex.Dot(vG_vy,  vFR_wR));
-sys.SetA(4, 7,  mArm * Vex.Dot(vG_vz,  vFR_wR));
-
-// -- CG (rows 5–7) --
-sys.SetA(5, 5,    mTotal     ); // m_total * v̇x
-sys.SetA(6, 6,    mTotal    ); // m_total * v̇y
-sys.SetA(7, 7,    mTotal    ); // m_total * v̇z
-
 // 3) Fill B (generalized forces)
 
 // Left‐arm P’s:
@@ -431,20 +466,6 @@ double P_LL = Vex.Dot( Vex.Cross(sZ,   rFL_SL),sZ );    // row ω̇FL (will be z
 double P_Ry = Vex.Dot( Vex.Cross(bY,   rFR_G), sZ );    // row ω̇y
 double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
 double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
-
-
-
-
-sys.SetB(0, -omegaCrossH.x );  // Q_x = −(ω×H)_x
-sys.SetB(1, -omegaCrossH.y );  // Q_y = −(ω×H)_y
-sys.SetB(2, -omegaCrossH.z );  // Q_z = −(ω×H)_z
-sys.SetB(3,  -Q_L + TtildeL );        // Q_L = spring/damper + transport projection
-sys.SetB(4, -Q_R + TtildeR );        // Q_R
-// -- No external CG force (rows 5–7) --
-sys.SetB(5, 0.0);  // Q_vx
-sys.SetB(6, 0.0);  // Q_vy
-sys.SetB(7, 0.0);  // Q_vz
-
 
 
 
