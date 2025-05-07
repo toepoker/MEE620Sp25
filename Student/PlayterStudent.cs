@@ -109,7 +109,11 @@ double rho2 = rho*rho;
 //test
 
  
-
+omegaX  = 1;
+    omegaY  = 0;
+    omegaZ  = 0;
+    omegaFL = 0;
+    omegaFR = 0;
                   
 
 
