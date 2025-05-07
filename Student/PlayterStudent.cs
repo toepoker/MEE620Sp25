@@ -100,6 +100,9 @@
          zG      = xx[16];
  
 double rho2 = rho*rho; 
+
+//test
+
  
 
                   
@@ -164,10 +167,12 @@ Vex sZ = cosPhi * bZ - sinPhi * bY;
 // Omega B>F_L
 Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
 Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
+Vex omegaBFLT = omegaFL*bZ;
+Vex omegaBFRT = omegaFR*bZ;
 
 // Omega B>F_R
 Vex omegaFL_N = omegaB + omegaBFL;
-Vex omegaFR_N = omegaB - omegaBFR;
+Vex omegaFR_N = omegaB + omegaBFR;
 
 
 //test
@@ -551,9 +556,10 @@ SetDebugVal(8, term3s);
 SetDebugVal(9, term1Rs); 
 SetDebugVal(10, term2Rs);  
 SetDebugVal(11, term3Rs); 
-SetDebugVal(12, A66); 
-SetDebugVal(13, A67);  
-SetDebugVal(14, A77);  
+SetDebugVal(12, omegaBFL); 
+SetDebugVal(13, omegaBFLT);  
+SetDebugVal(14, omegaBFR);  
+SetDebugVal(14, omegaBFRT); 
 
    
 //SetDebugVal(6, thetaR);  
