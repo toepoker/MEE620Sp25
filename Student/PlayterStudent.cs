@@ -374,10 +374,10 @@ sys.SetA(0, 0, A00);                 // I_Gx * ω̇x
 sys.SetA(1, 1, A11);        // I_Gy * ω̇y
 sys.SetA(2, 2, A22);        // I_Gz * ω̇z
 
-SetDebugVal(0, A03); 
-SetDebugVal(1, A04);  
-SetDebugVal(2, A13);    
-SetDebugVal(3, A14);  
+SetDebugVal(0, A23); 
+SetDebugVal(1, A24);  
+SetDebugVal(2, A33);    
+SetDebugVal(3, A34);  
 SetDebugVal(4, T1);  
 SetDebugVal(5, T2);   
 SetDebugVal(6, T3);  
