@@ -453,7 +453,7 @@ Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 // Full B vector
 double B0 = -omegaCrossH.x;
 double B1 = -omegaCrossH.y;
-double B2 = -omegaCrossH.z;
+double B2 = -omegaCrossH.z -TtildeL -TtildeR;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
 double B5 = vx;
