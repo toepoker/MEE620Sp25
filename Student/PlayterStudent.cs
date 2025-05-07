@@ -516,12 +516,12 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, term1); 
-SetDebugVal(1, term2);  
-SetDebugVal(2, term3);   
-SetDebugVal(3, term1_R); 
-SetDebugVal(4, term2_R);  
-SetDebugVal(5, term3_R);   
+SetDebugVal(0, term1s); 
+SetDebugVal(1, term2s);  
+SetDebugVal(2, term3s);   
+SetDebugVal(3, term1Rs); 
+SetDebugVal(4, term2Rs);  
+SetDebugVal(5, term3Rs);   
    
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
