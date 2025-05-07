@@ -441,6 +441,16 @@ Double B5= 0 ;
 Double B6= 0 ;
 Double B7= 0 ;
 
+sys.SetB(0, B0);
+sys.SetB(1, B1);  
+sys.SetB(2, B2);  
+sys.SetB(3, B3);  
+sys.SetB(4, B4);  
+sys.SetB(5, B5);  
+sys.SetB(6, B6);  
+sys.SetB(7, B7);        
+
+
 
 
     
