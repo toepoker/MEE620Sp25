@@ -445,8 +445,8 @@ sys.SetA(7, 7, A77);
 
 
 // Body angular momentum
-Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * sZ;
-Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * sZ;
+Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * bZ;
+Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * bZ;
 Vex H_total = H_body + H_L + H_R;
 Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 
