@@ -553,6 +553,8 @@ SetDebugVal(8, transportSum.z);
 SetDebugVal(9, transportSum_R.x);
 SetDebugVal(10, transportSum_R.y);
 SetDebugVal(11, transportSum_R.z);
+SetDebugVal(12, thetaL);
+SetDebugVal(13, thetaR);
    
 //SetDebugVal(6, thetaR);  
 //SetDebugVal(7, 0);
