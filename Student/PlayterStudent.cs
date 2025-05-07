@@ -522,6 +522,12 @@ SetDebugVal(2, term3s);
 SetDebugVal(3, term1Rs); 
 SetDebugVal(4, term2Rs);  
 SetDebugVal(5, term3Rs);   
+SetDebugVal(6, transportSum.x);
+SetDebugVal(7, transportSum.y);
+SetDebugVal(8, transportSum.z);
+SetDebugVal(9, transportSum_R.x);
+SetDebugVal(10, transportSum_R.y);
+SetDebugVal(11, transportSum_R.z);
    
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
