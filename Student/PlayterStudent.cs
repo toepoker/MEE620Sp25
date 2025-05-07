@@ -165,7 +165,7 @@ Vex sZn = -1 * sZ;
 // Omega N>F_L
 Vex omegaFL_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFL*sZ;
 // Omega N>F_R
-Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ + omegaFR*sZ;
+Vex omegaFR_N = omegaX*bX + omegaY*bY  + omegaZ*bZ - omegaFR*sZ;
 
 
 //test
