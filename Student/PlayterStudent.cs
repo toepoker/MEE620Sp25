@@ -462,9 +462,9 @@ double Q_L = mA * Vex.Dot(vFL_wL, transportSum);
 double Q_R = mA * Vex.Dot(vFR_wR, transportSum_R);
 
 // Full B vector
-double B0 = -omegaCrossH.x - Vex.Dot(transportSum.x, vFL_wx) - Vex.Dot(transportSum_R.x, vFR_wx);
-double B1 = -omegaCrossH.y - Vex.Dot(transportSum.y, vFL_wx) - Vex.Dot(transportSum_R.y, vFR_wx);
-double B2 = -omegaCrossH.z - Vex.Dot(transportSum.z, vFL_wx) - Vex.Dot(transportSum_R.z, vFR_wx);
+double B0 = -omegaCrossH.x - mA*transportSum.x -mA*transportSum_R.x;
+double B1 = -omegaCrossH.y - mA*transportSum.y -mA*transportSum_R.y;
+double B2 = -omegaCrossH.z - mA*transportSum.z -mA*transportSum_R.z;
 double B3 = -Q_L + TtildeL - Vex.Dot(transportSum, vFL_wL);
 double B4 = -Q_R + TtildeR;- Vex.Dot(transportsum_R, vFR_wR);
 double B5 = 0;
