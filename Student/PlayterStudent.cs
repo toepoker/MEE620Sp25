@@ -444,14 +444,30 @@ sys.SetA(7, 6, A76);
 sys.SetA(7, 7, A77); 
 
 
-Double B0= -omegaCrossH.x ;
-Double B1= -omegaCrossH.y ;
-Double B2= -omegaCrossH.z ;
-Double B3= -Q_L + TtildeL ;
-Double B4= -Q_R + TtildeR ;
-Double B5= vx ;
-Double B6= vy ;
-Double B7= vz ;
+// Body angular momentum
+Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * sZ;
+Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * sZ;
+Vex H_total = H_body + H_L + H_R;
+Vex omegaCrossH = Vex.Cross(omegaB, H_total);
+
+// Full B vector
+double B0 = -omegaCrossH.x;
+double B1 = -omegaCrossH.y;
+double B2 = -omegaCrossH.z;
+double B3 = -Q_L + TtildeL;
+double B4 = -Q_R + TtildeR;
+double B5 = 0.0;
+double B6 = 0.0;
+double B7 = 0.0;
+
+sys.SetB(0, B0);
+sys.SetB(1, B1);
+sys.SetB(2, B2);
+sys.SetB(3, B3);
+sys.SetB(4, B4);
+sys.SetB(5, B5);
+sys.SetB(6, B6);
+sys.SetB(7, B7);
 
 sys.SetB(0, B0);
 sys.SetB(1, B1);  
