@@ -207,6 +207,12 @@ Vex vFR_wR = Vex.Cross(bZ, rFR_SR);
 Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
 Vex term2   = Vex.Cross(Vex.Cross(omegaB, omegaBFL), rFL_SL);
 Vex term3   = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
+
+Vex term1s  = Vex.Dot(term1, vFL_wL);
+Vex term2s  = Vex.Dot(term2, vFL_wL);
+Vex term3s  = Vex.Dot(term3, vFL_wL);
+
+
 Vex transportSum   = term1 + term2 + term3;
 double Q_L = Vex.Dot(transportSum, vFL_wL);
 
@@ -214,6 +220,11 @@ double Q_L = Vex.Dot(transportSum, vFL_wL);
 Vex term1_R = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSR_G));
 Vex term2_R = Vex.Cross(Vex.Cross(omegaB, omegaBFR), rFR_SR);
 Vex term3_R = Vex.Cross(omegaFR_N, Vex.Cross(omegaFR_N, rFR_SR));
+
+Vex term1Rs  = Vex.Dot(term1_R, vFR_wR);
+Vex term2Rs  = Vex.Dot(term2_R, vFR_wR);
+Vex term3Rs  = Vex.Dot(term3_R, vFR_wR);
+
 Vex transportSum_R = term1_R + term2_R + term3_R;
 double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
@@ -505,12 +516,12 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, transportSum.x); 
-SetDebugVal(1, transportSum.y);  
-SetDebugVal(2, transportSum.z);   
-SetDebugVal(3, transportSum_R.x); 
-SetDebugVal(4, transportSum_R.y);  
-SetDebugVal(5, transportSum_R.z);   
+SetDebugVal(0, term1s); 
+SetDebugVal(1, term2s);  
+SetDebugVal(2, term3s);   
+SetDebugVal(3, term1Rs); 
+SetDebugVal(4, term2Rs);  
+SetDebugVal(5, term3Rs);   
    
 SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
