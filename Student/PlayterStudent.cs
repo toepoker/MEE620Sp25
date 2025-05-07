@@ -208,9 +208,9 @@ Vex term1   = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSL_G));
 Vex term2   = Vex.Cross(Vex.Cross(omegaB, omegaBFL), rFL_SL);
 Vex term3   = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
 
-double term1s  = Vex.Dot(term1, vFL_wL);
-double term2s  = Vex.Dot(term2, vFL_wL);
-double term3s  = Vex.Dot(term3, vFL_wL);
+double term1s  = Vex.Dot(vFL_wL, term1);
+double term2s  = Vex.Dot(vFL_wL, term2);
+double term3s  = Vex.Dot(vFL_wL, term3);
 
 
 
@@ -222,9 +222,9 @@ Vex term1_R = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSR_G));
 Vex term2_R = Vex.Cross(Vex.Cross(omegaB, omegaBFR), rFR_SR);
 Vex term3_R = Vex.Cross(omegaFR_N, Vex.Cross(omegaFR_N, rFR_SR));
 
-double term1Rs  = Vex.Dot(term1_R, vFR_wR);
-double term2Rs  = Vex.Dot(term2_R, vFR_wR);
-double term3Rs  = Vex.Dot(term3_R, vFR_wR);
+double term1Rs  = Vex.Dot(vFR_wR, term1_R);
+double term2Rs  = Vex.Dot(vFR_wR, term2_R);
+double term3Rs  = Vex.Dot(vFR_wR, term3_R);
 
 Vex transportSum_R = term1_R + term2_R + term3_R;
 double Q_R = Vex.Dot(transportSum_R, vFR_wR);
@@ -266,18 +266,6 @@ double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz
 
 double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
 double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
-
-//tests
-
-
-
-
-double T1 = mA * Vex.Dot(vFL_wx, vFR_wR); 
-double T2 = mA * Vex.Dot(vFR_wx, vFL_wL); 
-double T3 = vFL_wL.z;
-double T4 = vFR_wR.x;
-double T5 = vFR_wR.y;
-double T6 = vFR_wR.z;
 
 double A05 = mA * (vFL_wx.x + vFR_wx.x);
 double A06 = mA * (vFL_wx.y + vFR_wx.y);
@@ -453,7 +441,7 @@ Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 // Full B vector
 double B0 = -omegaCrossH.x;
 double B1 = -omegaCrossH.y;
-double B2 = -omegaCrossH.z -TtildeL -TtildeR;
+double B2 = -omegaCrossH.z;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
 double B5 = vx;
