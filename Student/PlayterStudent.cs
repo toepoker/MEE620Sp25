@@ -164,8 +164,8 @@ Vex sZ = cosPhi * bZ - sinPhi * bY;
 //Vex sZ = new Vex(0, -sinPhi , cosPhi);
 
 // Omega B>F_L
-Vex omegaBFL = (cosPhi*bZ - sinPhi*bY);
-Vex omegaBFR = (cosPhi*bZ - sinPhi*bY);
+Vex omegaBFL = omegaFL*(cosPhi*bZ - sinPhi*bY);
+Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
 Vex omegaFL_N = omegaX*bX + omegaY*bY + omegaZ*bZ + omegaFL*bZ;
