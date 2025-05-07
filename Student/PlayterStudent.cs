@@ -553,7 +553,7 @@ SetDebugVal(8, A23);
 SetDebugVal(9, A24); 
 SetDebugVal(10, A25);  
 SetDebugVal(11, A26); 
-SetDebugVal(12, A26); 
+SetDebugVal(12, A27); 
 SetDebugVal(13, A01);  
 SetDebugVal(14, A02);  
 
