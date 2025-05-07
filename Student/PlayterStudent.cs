@@ -250,8 +250,8 @@ double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
 double A02 =          mA * Vex.Dot(vFL_wx, vFL_wz) + mA * Vex.Dot(vFR_wx, vFR_wz);
 
-double A03 =          mA * Vex.Dot(vFL_wx, vFL_wL); 
-double A04 =          mA * Vex.Dot(vFR_wx, vFR_wR); 
+double A03 =          mA * Vex.Dot(vFL_wx.x, vFL_wL); 
+double A04 =          mA * Vex.Dot(vFR_wx.x, vFR_wR); 
 
 //tests
 
@@ -378,8 +378,8 @@ SetDebugVal(2, A13);
 SetDebugVal(3, A14);  
 SetDebugVal(4, T1);  
 SetDebugVal(5, T2);   
-SetDebugVal(6, T5);  
-SetDebugVal(7, T6);  
+SetDebugVal(6, T3);  
+SetDebugVal(7, T4);  
  
 
 
