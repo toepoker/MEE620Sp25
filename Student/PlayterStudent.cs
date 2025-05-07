@@ -461,7 +461,7 @@ double Q_R = mA * Vex.Dot(vFR_wR, transportSum_R);
 // Full B vector
 double B0 = -omegaCrossH.x - deltaB0_FL - deltaB0_FR;
 double B1 = -omegaCrossH.y - deltaB1_FL - deltaB1_FR;
-double B2 = -omegaCrossH.z - deltaB2_FL - deltaB2_FR -TtildeL - TtildeR;
+double B2 = -omegaCrossH.z - deltaB2_FL - deltaB2_FR;
 double B3 = -Q_L + TtildeL;
 double B4 = -Q_R + TtildeR;
 double B5 = 0;
