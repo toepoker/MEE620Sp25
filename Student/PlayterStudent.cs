@@ -468,8 +468,11 @@ double Q_R = mA * Vex.Dot(vFR_wR, transportSum_R);
 double B0 = -omegaCrossH.x ;
 double B1 = -omegaCrossH.y ;
 double B2 = -omegaCrossH.z ;
-double B3 = -Q_L + TtildeL - Vex.Dot(transportSum, vFL_wL);
-double B4 = -Q_R + TtildeR - Vex.Dot(transportSum_R, vFR_wR);
+
+//double B3 = -Q_L + TtildeL - Vex.Dot(transportSum, vFL_wL);
+//double B4 = -Q_R + TtildeR - Vex.Dot(transportSum_R, vFR_wR);
+double B3 = -Q_L + TtildeL;
+double B4 = -Q_R + TtildeR;
 double B5 = 0;
 double B6 = 0;
 double B7 = 0;
