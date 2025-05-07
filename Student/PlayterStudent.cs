@@ -500,8 +500,8 @@ SetDebugVal(1, omegaY);
 SetDebugVal(2, omegaZ);    
 SetDebugVal(3, omegaFL);  
 SetDebugVal(4, omegaFR);  
-SetDebugVal(5, 0);   
-SetDebugVal(6, 0);  
+SetDebugVal(5, thetaL);   
+SetDebugVal(6, thetaR);  
 SetDebugVal(7, 0);
 
        
