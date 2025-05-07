@@ -244,10 +244,10 @@ double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
 // -- Body‐spin inertia (EQUATION 1)
 
-Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
-                              new Vex(rho2*omegaX,
-                                      rho2*gammaY*omegaY,
-                                      rho2*gammaZ*omegaZ) );
+//Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
+//                              new Vex(rho2*omegaX,
+ //                                     rho2*gammaY*omegaY,
+  //                                    rho2*gammaZ*omegaZ) );
 
 
 
