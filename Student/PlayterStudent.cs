@@ -167,7 +167,7 @@ Vex omegaBFR = omegaFR*(cosPhi*bZ - sinPhi*bY);
 
 // Omega B>F_R
 Vex omegaFL_N = omegaB + omegaBFL;
-Vex omegaFR_N = omegaB + omegaBFR;
+Vex omegaFR_N = omegaB - omegaBFR;
 
 
 //test
@@ -209,8 +209,6 @@ Vex term3   = Vex.Cross(omegaFL_N, Vex.Cross(omegaFL_N, rFL_SL));
 double term1s  = Vex.Dot(vFL_wL, term1);
 double term2s  = Vex.Dot(vFL_wL, term2);
 double term3s  = Vex.Dot(vFL_wL, term3);
-
-
 
 Vex transportSum   = term1 + term2 + term3;
 //double Q_L = Vex.Dot(transportSum, vFL_wL);
