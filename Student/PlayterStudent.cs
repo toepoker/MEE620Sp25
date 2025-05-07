@@ -184,8 +184,8 @@ Vex H_body = new Vex(rho2 * omegaX, rho2 * gammaY * omegaY, rho2 * gammaZ * omeg
 //          mA * L * L * omegaFR * sZ;
 
 // Total angular momentum
-Vex H_total = H_body + H_L + H_R;
-Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
+//Vex H_total = H_body + H_L + H_R;
+//Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
 
 
 // 6) Partial velocities (Eq. 27)
