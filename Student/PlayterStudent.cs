@@ -541,18 +541,18 @@ ff[15] = 0;   // ẏG = vy
 ff[16] = 0;   // żG = vz
 
 
-SetDebugVal(0, A33); 
-SetDebugVal(1, A34);  
-SetDebugVal(2, A35);  
-SetDebugVal(3, A36); 
-SetDebugVal(4, A37);  
-SetDebugVal(5, A44); 
-SetDebugVal(6, A45); 
-SetDebugVal(7, A46);  
-SetDebugVal(8, A47); 
-SetDebugVal(9, A55); 
-SetDebugVal(10, A56);  
-SetDebugVal(11, A57); 
+SetDebugVal(0, transportSum.x); 
+SetDebugVal(1, transportSum.y);  
+SetDebugVal(2, transportSum.z);  
+SetDebugVal(3, transportSum_R.x); 
+SetDebugVal(4, transportSum_R.y);  
+SetDebugVal(5, transportSum_R.z); 
+SetDebugVal(6, term1s); 
+SetDebugVal(7, term2s);  
+SetDebugVal(8, term3s); 
+SetDebugVal(9, term1Rs); 
+SetDebugVal(10, term2Rs);  
+SetDebugVal(11, term3Rs); 
 SetDebugVal(12, A66); 
 SetDebugVal(13, A67);  
 SetDebugVal(14, A77);  
