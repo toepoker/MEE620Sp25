@@ -215,7 +215,7 @@ double term3s  = Vex.Dot(vFL_wL, term3);
 
 
 Vex transportSum   = term1 + term2 + term3;
-double Q_L = Vex.Dot(transportSum, vFL_wL);
+//double Q_L = Vex.Dot(transportSum, vFL_wL);
 
 // 8) Right‐arm transport/Coriolis terms
 Vex term1_R = Vex.Cross(omegaB, Vex.Cross(omegaB,   rSR_G));
@@ -227,7 +227,10 @@ double term2Rs  = Vex.Dot(vFR_wR, term2_R);
 double term3Rs  = Vex.Dot(vFR_wR, term3_R);
 
 Vex transportSum_R = term1_R + term2_R + term3_R;
-double Q_R = Vex.Dot(transportSum_R, vFR_wR);
+//double Q_R = Vex.Dot(transportSum_R, vFR_wR);
+
+double Q_L = mA * Vex.Dot(vFL_wL, new Vex(-1.0991, -1.9241, 0.6414));
+double Q_R = mA * Vex.Dot(vFR_wR, new Vex(-0.0289, -0.4825, -0.0717));
 
 
 
