@@ -93,8 +93,8 @@
          q1      = xx[9];
          q2      = xx[10];
          q3      = xx[11];
-         thetaL  = .4;
-         thetaR  = 1.4;
+         thetaL  = xx[12];
+         thetaR  = xx[13];
          xG      = xx[14];
          yG      = xx[15];
          zG      = xx[16];
