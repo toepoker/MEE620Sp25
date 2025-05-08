@@ -241,17 +241,6 @@ double term3Rs  = Vex.Dot(vFR_wR, term3_R);
 Vex transportSum_R = term1_R + term2_R + term3_R;
 //double Q_R = Vex.Dot(transportSum_R, vFR_wR);
 
-
-
-
-
-
-
-
-
-
-
-
 // 2) Fill A (inertia/mass matrix)
 
 // -- Body‐spin inertia (EQUATION 1)
@@ -443,8 +432,6 @@ sys.SetA(7, 6, A76);
 sys.SetA(7, 7, A77); 
 
 
-
-
 //torque
 double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
 double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
@@ -493,17 +480,6 @@ sys.SetB(7, B7);
 
  
 
-
-
-
-    
-  
- 
-
-
-
-// 3) Fill B (generalized forces)
-
 // Left‐arm P’s:
 double P_Ly = Vex.Dot( Vex.Cross(bY,   rFL_G), sZ );    // row ω̇y
 double P_Lz = Vex.Dot( Vex.Cross(bZ,   rFL_G), sZ );    // row ω̇z
@@ -514,13 +490,7 @@ double P_Rz = Vex.Dot( Vex.Cross(bZ,   rFR_G), sZ );    // row ω̇z
 double P_RR = Vex.Dot( Vex.Cross(sZ,   rFR_SR),sZ );    // row ω̇FR (zero again)
 
 
-
-
-
-
-
-
-// 4) Solve the 8×8 system
+// Solve the 8×8 system
 sys.SolveGauss();
 
 ff[0]= sys.Sol(0);
