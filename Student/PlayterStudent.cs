@@ -195,6 +195,12 @@ Vex omegaFR_N = omegaB + omegaBFR;
 //Vex H_total = H_body + H_L + H_R;
 //Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
 
+// Body angular momentum
+//Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * bZ;
+//Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * bZ;
+//Vex H_total = H_body;
+//Vex omegaCrossH = Vex.Cross(omegaB, H_total);
+//end test
 
 // 6) Partial velocities (Eq. 27)
 //  Left arm:
@@ -437,11 +443,7 @@ sys.SetA(7, 6, A76);
 sys.SetA(7, 7, A77); 
 
 
-// Body angular momentum
-Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * bZ;
-Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * bZ;
-Vex H_total = H_body;
-//Vex omegaCrossH = Vex.Cross(omegaB, H_total);
+
 
 //torque
 double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
