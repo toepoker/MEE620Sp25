@@ -185,15 +185,12 @@ Vex omegaFR_N = omegaB + omegaBFR;
 
 //test
 // Body's angular momentum
-Vex H_body = new Vex(rho2 * omegaX, rho2 * gammaY * omegaY, rho2 * gammaZ * omegaZ);
-
+//Vex H_body = new Vex(rho2 * omegaX, rho2 * gammaY * omegaY, rho2 * gammaZ * omegaZ);
 // Arms' contributions
 //Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) +
  //         mA * L * L * omegaFL * sZ;
-
 //Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) +
 //          mA * L * L * omegaFR * sZ;
-
 // Total angular momentum
 //Vex H_total = H_body + H_L + H_R;
 //Vex AngVelCrossAngMo = Vex.Cross(omegaB, H_total);
@@ -253,19 +250,18 @@ Vex transportSum_R = term1_R + term2_R + term3_R;
 
 // -- Body‐spin inertia (EQUATION 1)
 
-//Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
-//                              new Vex(rho2*omegaX,
- //                                     rho2*gammaY*omegaY,
-  //                                    rho2*gammaZ*omegaZ) );
+Vex omegaCrossH = Vex.Cross( new Vex(omegaX,omegaY,omegaZ),
+                             new Vex(rho2*omegaX,
+                                    rho2*gammaY*omegaY,
+                                     rho2*gammaZ*omegaZ) );
 
 
 
 double mTotal = 1.0 + 2.0*mA;
 
 
-// -----------------------------
+
 // Rigid Body Inertia Terms
-// -----------------------------
 
 double A00 = rho2 +   mA * Vex.Dot(vFL_wx, vFL_wx) + mA * Vex.Dot(vFR_wx, vFR_wx) ;
 double A01 =          mA * Vex.Dot(vFL_wx, vFL_wy) + mA * Vex.Dot(vFR_wx, vFR_wy);
@@ -445,7 +441,7 @@ sys.SetA(7, 7, A77);
 Vex H_L = mA * Vex.Cross(rFL_G, Vex.Cross(omegaB, rFL_G)) + mA * L * L * omegaFL * bZ;
 Vex H_R = mA * Vex.Cross(rFR_G, Vex.Cross(omegaB, rFR_G)) + mA * L * L * omegaFR * bZ;
 Vex H_total = H_body;
-Vex omegaCrossH = Vex.Cross(omegaB, H_total);
+//Vex omegaCrossH = Vex.Cross(omegaB, H_total);
 
 //torque
 double TtildeL = -mA * L * L * (k * thetaL + c * omegaFL);
@@ -453,8 +449,8 @@ double TtildeR = -mA * L * L * (k * thetaR + c * omegaFR);
 
 
 // Project quadratic terms into ωx, ωy, ωz directions
-Vex aFL_quad = new Vex(-1.0991, -1.9241, 0.6414);  // from your professor
-Vex aFR_quad = new Vex(-0.0289, -0.4825, -0.0717); // from your professor
+Vex aFL_quad = new Vex(-1.0991, -1.9241, 0.6414); 
+Vex aFR_quad = new Vex(-0.0289, -0.4825, -0.0717);
 
 // Left arm contributions
 double deltaB0_FL = mA * Vex.Dot(transportSum, vFL_wx);
